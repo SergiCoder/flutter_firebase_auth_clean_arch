@@ -1,0 +1,67 @@
+{
+  "@@locale": "es",
+  
+  "appTitle": "Aplicación de Autenticación",
+  
+  "loginTitle": "Iniciar Sesión",
+  
+  "registerTitle": "Registrarse",
+  
+  "email": "Correo Electrónico",
+  
+  "password": "Contraseña",
+  
+  "confirmPassword": "Confirmar Contraseña",
+  
+  "forgotPassword": "¿Olvidaste tu Contraseña?",
+  
+  "resetPassword": "Restablecer Contraseña",
+  
+  "loginButton": "Iniciar Sesión",
+  
+  "registerButton": "Registrarse",
+  
+  "logoutButton": "Cerrar Sesión",
+  
+  "dontHaveAccount": "¿No tienes una cuenta?",
+  
+  "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+  
+  "resetPasswordInstructions": "Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.",
+  
+  "sendResetLink": "Enviar Enlace de Restablecimiento",
+  
+  "resetLinkSent": "Enlace de restablecimiento enviado a tu correo electrónico",
+  
+  "invalidEmail": "Por favor, ingresa una dirección de correo electrónico válida",
+  
+  "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
+  
+  "passwordsDontMatch": "Las contraseñas no coinciden",
+  
+  "loginFailed": "Error al iniciar sesión. Por favor, verifica tus credenciales.",
+  
+  "registrationFailed": "Error al registrarse. Por favor, inténtalo de nuevo.",
+  
+  "resetPasswordFailed": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo de nuevo.",
+  
+  "welcomeMessage": "¡Bienvenido de nuevo, {name}!",
+  
+  "profileTitle": "Perfil",
+  
+  "homeTitle": "Inicio",
+  
+  "settingsTitle": "Configuración",
+  
+  "darkMode": "Modo Oscuro",
+  
+  "language": "Idioma",
+  
+  "signInWithGoogle": "Iniciar Sesión con Google",
+  
+  "signInWithApple": "Iniciar Sesión con Apple",
+  
+  "or": "O",
+  
+  "continueAsGuest": "Continuar como Invitado"
+} 

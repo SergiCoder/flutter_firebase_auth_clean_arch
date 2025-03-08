@@ -1,0 +1,169 @@
+{
+  "@@locale": "en",
+  
+  "appTitle": "Authentication App",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
+  "loginTitle": "Login",
+  "@loginTitle": {
+    "description": "Title for the login screen"
+  },
+  
+  "registerTitle": "Register",
+  "@registerTitle": {
+    "description": "Title for the register screen"
+  },
+  
+  "email": "Email",
+  "@email": {
+    "description": "Label for email field"
+  },
+  
+  "password": "Password",
+  "@password": {
+    "description": "Label for password field"
+  },
+  
+  "confirmPassword": "Confirm Password",
+  "@confirmPassword": {
+    "description": "Label for confirm password field"
+  },
+  
+  "forgotPassword": "Forgot Password?",
+  "@forgotPassword": {
+    "description": "Text for forgot password button"
+  },
+  
+  "resetPassword": "Reset Password",
+  "@resetPassword": {
+    "description": "Title for reset password screen"
+  },
+  
+  "loginButton": "Login",
+  "@loginButton": {
+    "description": "Text for login button"
+  },
+  
+  "registerButton": "Register",
+  "@registerButton": {
+    "description": "Text for register button"
+  },
+  
+  "logoutButton": "Logout",
+  "@logoutButton": {
+    "description": "Text for logout button"
+  },
+  
+  "dontHaveAccount": "Don't have an account?",
+  "@dontHaveAccount": {
+    "description": "Text for users who don't have an account"
+  },
+  
+  "alreadyHaveAccount": "Already have an account?",
+  "@alreadyHaveAccount": {
+    "description": "Text for users who already have an account"
+  },
+  
+  "resetPasswordInstructions": "Enter your email and we'll send you instructions to reset your password.",
+  "@resetPasswordInstructions": {
+    "description": "Instructions for password reset"
+  },
+  
+  "sendResetLink": "Send Reset Link",
+  "@sendResetLink": {
+    "description": "Button text to send password reset link"
+  },
+  
+  "resetLinkSent": "Password reset link sent to your email",
+  "@resetLinkSent": {
+    "description": "Message shown after reset link is sent"
+  },
+  
+  "invalidEmail": "Please enter a valid email address",
+  "@invalidEmail": {
+    "description": "Error message for invalid email"
+  },
+  
+  "passwordTooShort": "Password must be at least 6 characters",
+  "@passwordTooShort": {
+    "description": "Error message for short password"
+  },
+  
+  "passwordsDontMatch": "Passwords don't match",
+  "@passwordsDontMatch": {
+    "description": "Error message when passwords don't match"
+  },
+  
+  "loginFailed": "Login failed. Please check your credentials.",
+  "@loginFailed": {
+    "description": "Error message for failed login"
+  },
+  
+  "registrationFailed": "Registration failed. Please try again.",
+  "@registrationFailed": {
+    "description": "Error message for failed registration"
+  },
+  
+  "resetPasswordFailed": "Failed to send reset link. Please try again.",
+  "@resetPasswordFailed": {
+    "description": "Error message for failed password reset"
+  },
+  
+  "welcomeMessage": "Welcome back, {name}!",
+  "@welcomeMessage": {
+    "description": "Welcome message with user's name",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John"
+      }
+    }
+  },
+  
+  "profileTitle": "Profile",
+  "@profileTitle": {
+    "description": "Title for profile screen"
+  },
+  
+  "homeTitle": "Home",
+  "@homeTitle": {
+    "description": "Title for home screen"
+  },
+  
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "Title for settings screen"
+  },
+  
+  "darkMode": "Dark Mode",
+  "@darkMode": {
+    "description": "Label for dark mode setting"
+  },
+  
+  "language": "Language",
+  "@language": {
+    "description": "Label for language setting"
+  },
+  
+  "signInWithGoogle": "Sign in with Google",
+  "@signInWithGoogle": {
+    "description": "Button text for Google sign-in"
+  },
+  
+  "signInWithApple": "Sign in with Apple",
+  "@signInWithApple": {
+    "description": "Button text for Apple sign-in"
+  },
+  
+  "or": "OR",
+  "@or": {
+    "description": "Text for divider between options"
+  },
+  
+  "continueAsGuest": "Continue as Guest",
+  "@continueAsGuest": {
+    "description": "Button text for guest mode"
+  }
+} 
