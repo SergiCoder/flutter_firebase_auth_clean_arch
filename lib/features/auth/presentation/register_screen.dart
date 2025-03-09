@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 
 /// The register screen of the application
 class RegisterScreen extends StatelessWidget {
@@ -7,8 +8,11 @@ class RegisterScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Placeholder(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(AppLocalization.of(context).registerTitle),
+      ),
+      body: const Placeholder(),
     );
   }
 }
