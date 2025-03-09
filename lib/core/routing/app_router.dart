@@ -48,8 +48,7 @@ class AppRouter {
         ),
       ),
       redirect: (context, state) {
-        // If we're at the splash screen, redirect to login or home based on
-        // auth
+        // If we're at the splash screen do nothing
         if (state.matchedLocation == AppRoute.splash.path) {
           return null;
         }
