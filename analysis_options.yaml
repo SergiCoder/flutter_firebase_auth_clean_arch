@@ -7,6 +7,8 @@
 include: package:very_good_analysis/analysis_options.yaml
 
 analyzer:
+  errors:
+    avoid_catches_without_on_clauses: ignore
   # Exclude generated files from analysis to avoid false positives
   exclude:
     # Generated code for JSON serialization, etc.
