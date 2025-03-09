@@ -116,13 +116,13 @@
     "description": "Error message for failed password reset"
   },
   
-  "welcomeMessage": "Welcome back, {name}!",
+  "welcomeMessage": "Welcome, {email}!",
   "@welcomeMessage": {
-    "description": "Welcome message with user's name",
+    "description": "Welcome message with user's email",
     "placeholders": {
-      "name": {
+      "email": {
         "type": "String",
-        "example": "John"
+        "example": "user@example.com"
       }
     }
   },

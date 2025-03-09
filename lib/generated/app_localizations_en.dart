@@ -76,8 +76,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetPasswordFailed => 'Failed to send reset link. Please try again.';
 
   @override
-  String welcomeMessage(String name) {
-    return 'Welcome back, $name!';
+  String welcomeMessage(String email) {
+    return 'Welcome, $email!';
   }
 
   @override

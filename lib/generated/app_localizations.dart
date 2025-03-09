@@ -233,11 +233,11 @@ abstract class AppLocalizations {
   /// **'Failed to send reset link. Please try again.'**
   String get resetPasswordFailed;
 
-  /// Welcome message with user's name
+  /// Welcome message with user's email
   ///
   /// In en, this message translates to:
-  /// **'Welcome back, {name}!'**
-  String welcomeMessage(String name);
+  /// **'Welcome, {email}!'**
+  String welcomeMessage(String email);
 
   /// Title for profile screen
   ///

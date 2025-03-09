@@ -47,7 +47,7 @@
   
   "resetPasswordFailed": "Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.",
   
-  "welcomeMessage": "¡Bienvenido de nuevo, {name}!",
+  "welcomeMessage": "Bienvenido, {email}!",
   
   "profileTitle": "Perfil",
   

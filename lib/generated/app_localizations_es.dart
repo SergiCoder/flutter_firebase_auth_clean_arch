@@ -76,8 +76,8 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resetPasswordFailed => 'Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.';
 
   @override
-  String welcomeMessage(String name) {
-    return '¡Bienvenido de nuevo, $name!';
+  String welcomeMessage(String email) {
+    return 'Bienvenido, $email!';
   }
 
   @override
