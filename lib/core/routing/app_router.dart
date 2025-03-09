@@ -48,6 +48,12 @@ class AppRouter {
         ),
       ),
       redirect: (context, state) {
+        // If we're at the splash screen, redirect to login or home based on
+        // auth
+        if (state.matchedLocation == AppRoute.splash.path) {
+          return null;
+        }
+
         final isAuthenticated = authNotifier.isAuthenticated;
 
         // If the user is not authenticated, they can only access login and
