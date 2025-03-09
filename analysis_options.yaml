@@ -13,6 +13,8 @@ analyzer:
     - "**/*.g.dart"
     # Generated code from freezed package
     - "**/*.freezed.dart"
+    # Generated code from flutter_localizations package
+    - "**/generated/**"
 
 # Formatter configuration controls how the dart format command behaves
 formatter:
