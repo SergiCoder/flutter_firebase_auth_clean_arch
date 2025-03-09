@@ -56,6 +56,11 @@
     "description": "Text for logout button"
   },
   
+  "retryButton": "Retry",
+  "@retryButton": {
+    "description": "Text for retry button"
+  },
+  
   "dontHaveAccount": "Don't have an account?",
   "@dontHaveAccount": {
     "description": "Text for users who don't have an account"

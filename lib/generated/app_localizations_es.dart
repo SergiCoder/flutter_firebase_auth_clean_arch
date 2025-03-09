@@ -7,7 +7,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Aplicación de Autenticación';
+  String get appTitle => 'App de Autenticación';
 
   @override
   String get loginTitle => 'Iniciar Sesión';
@@ -25,7 +25,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get confirmPassword => 'Confirmar Contraseña';
 
   @override
-  String get forgotPassword => '¿Olvidaste tu Contraseña?';
+  String get forgotPassword => '¿Olvidaste tu contraseña?';
 
   @override
   String get resetPassword => 'Restablecer Contraseña';
@@ -40,6 +40,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get logoutButton => 'Cerrar Sesión';
 
   @override
+  String get retryButton => 'Reintentar';
+
+  @override
   String get dontHaveAccount => '¿No tienes una cuenta?';
 
   @override
@@ -52,10 +55,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sendResetLink => 'Enviar Enlace de Restablecimiento';
 
   @override
-  String get resetLinkSent => 'Enlace de restablecimiento enviado a tu correo electrónico';
+  String get resetLinkSent => 'Enlace de restablecimiento enviado a tu correo';
 
   @override
-  String get invalidEmail => 'Por favor, ingresa una dirección de correo electrónico válida';
+  String get invalidEmail => 'Por favor ingresa un correo electrónico válido';
 
   @override
   String get passwordTooShort => 'La contraseña debe tener al menos 6 caracteres';
@@ -64,13 +67,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get passwordsDontMatch => 'Las contraseñas no coinciden';
 
   @override
-  String get loginFailed => 'Error al iniciar sesión. Por favor, verifica tus credenciales.';
+  String get loginFailed => 'Error al iniciar sesión. Por favor verifica tus credenciales.';
 
   @override
-  String get registrationFailed => 'Error al registrarse. Por favor, inténtalo de nuevo.';
+  String get registrationFailed => 'Error al registrarse. Por favor intenta de nuevo.';
 
   @override
-  String get resetPasswordFailed => 'Error al enviar el enlace de restablecimiento. Por favor, inténtalo de nuevo.';
+  String get resetPasswordFailed => 'Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.';
 
   @override
   String welcomeMessage(String name) {
@@ -93,10 +96,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get language => 'Idioma';
 
   @override
-  String get signInWithGoogle => 'Iniciar Sesión con Google';
+  String get signInWithGoogle => 'Iniciar sesión con Google';
 
   @override
-  String get signInWithApple => 'Iniciar Sesión con Apple';
+  String get signInWithApple => 'Iniciar sesión con Apple';
 
   @override
   String get or => 'O';

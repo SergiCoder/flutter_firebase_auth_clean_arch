@@ -1,7 +1,7 @@
 {
   "@@locale": "es",
   
-  "appTitle": "Aplicación de Autenticación",
+  "appTitle": "App de Autenticación",
   
   "loginTitle": "Iniciar Sesión",
   
@@ -13,7 +13,7 @@
   
   "confirmPassword": "Confirmar Contraseña",
   
-  "forgotPassword": "¿Olvidaste tu Contraseña?",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
   
   "resetPassword": "Restablecer Contraseña",
   
@@ -23,6 +23,8 @@
   
   "logoutButton": "Cerrar Sesión",
   
+  "retryButton": "Reintentar",
+  
   "dontHaveAccount": "¿No tienes una cuenta?",
   
   "alreadyHaveAccount": "¿Ya tienes una cuenta?",
@@ -31,19 +33,19 @@
   
   "sendResetLink": "Enviar Enlace de Restablecimiento",
   
-  "resetLinkSent": "Enlace de restablecimiento enviado a tu correo electrónico",
+  "resetLinkSent": "Enlace de restablecimiento enviado a tu correo",
   
-  "invalidEmail": "Por favor, ingresa una dirección de correo electrónico válida",
+  "invalidEmail": "Por favor ingresa un correo electrónico válido",
   
   "passwordTooShort": "La contraseña debe tener al menos 6 caracteres",
   
   "passwordsDontMatch": "Las contraseñas no coinciden",
   
-  "loginFailed": "Error al iniciar sesión. Por favor, verifica tus credenciales.",
+  "loginFailed": "Error al iniciar sesión. Por favor verifica tus credenciales.",
   
-  "registrationFailed": "Error al registrarse. Por favor, inténtalo de nuevo.",
+  "registrationFailed": "Error al registrarse. Por favor intenta de nuevo.",
   
-  "resetPasswordFailed": "Error al enviar el enlace de restablecimiento. Por favor, inténtalo de nuevo.",
+  "resetPasswordFailed": "Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.",
   
   "welcomeMessage": "¡Bienvenido de nuevo, {name}!",
   
@@ -57,9 +59,9 @@
   
   "language": "Idioma",
   
-  "signInWithGoogle": "Iniciar Sesión con Google",
+  "signInWithGoogle": "Iniciar sesión con Google",
   
-  "signInWithApple": "Iniciar Sesión con Apple",
+  "signInWithApple": "Iniciar sesión con Apple",
   
   "or": "O",
   

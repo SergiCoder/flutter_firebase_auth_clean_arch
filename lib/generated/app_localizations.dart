@@ -161,6 +161,12 @@ abstract class AppLocalizations {
   /// **'Logout'**
   String get logoutButton;
 
+  /// Text for retry button
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retryButton;
+
   /// Text for users who don't have an account
   ///
   /// In en, this message translates to:
