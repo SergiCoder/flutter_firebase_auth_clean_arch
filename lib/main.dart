@@ -7,6 +7,7 @@ import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localizat
 import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/theme/app_theme.dart';
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
@@ -57,10 +58,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.theme,
       // Localization setup
       localizationsDelegates: AppLocalization.localizationDelegates,
       supportedLocales: AppLocalization.supportedLocales,
