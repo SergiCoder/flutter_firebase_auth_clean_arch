@@ -117,12 +117,13 @@ class LoginScreen extends HookConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const Spacer(flex: 4),
           Icon(
             Icons.lock_outline,
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          const SizedBox(height: 32),
+          const Spacer(flex: 4),
           if (errorMessage != null) ...[
             Text(
               errorMessage,
@@ -131,7 +132,7 @@ class LoginScreen extends HookConsumerWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
+            const Spacer(),
           ],
           TextFormField(
             controller: emailController,
@@ -157,7 +158,7 @@ class LoginScreen extends HookConsumerWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const Spacer(),
           TextFormField(
             controller: passwordController,
             focusNode: passwordFocusNode,
@@ -187,7 +188,7 @@ class LoginScreen extends HookConsumerWidget {
               return null;
             },
           ),
-          const SizedBox(height: 24),
+          const Spacer(),
           ElevatedButton(
             onPressed: () {
               _submitForm(
@@ -202,13 +203,14 @@ class LoginScreen extends HookConsumerWidget {
             ),
             child: const Text('Login'),
           ),
-          const SizedBox(height: 16),
+          const Spacer(),
           TextButton(
             onPressed: () {
               context.pushRoute(AppRoute.register);
             },
             child: const Text("Don't have an account? Register"),
           ),
+          const Spacer(flex: 2),
         ],
       ),
     );

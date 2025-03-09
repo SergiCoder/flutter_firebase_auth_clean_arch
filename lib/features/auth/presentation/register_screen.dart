@@ -125,130 +125,130 @@ class RegisterScreen extends HookConsumerWidget {
   }) {
     return Form(
       key: formKey,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Icon(
-              Icons.person_add_outlined,
-              size: 80,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(height: 32),
-            if (errorMessage != null) ...[
-              Text(
-                errorMessage,
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.error,
-                ),
-                textAlign: TextAlign.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          const Spacer(flex: 4),
+          Icon(
+            Icons.person_add_outlined,
+            size: 80,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const Spacer(flex: 4),
+          if (errorMessage != null) ...[
+            Text(
+              errorMessage,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.error,
               ),
-              const SizedBox(height: 16),
-            ],
-            TextFormField(
-              controller: emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.email),
-              ),
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              onFieldSubmitted: (_) {
-                // Move focus to password field when Enter is pressed
-                passwordFocusNode.requestFocus();
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your email';
-                }
-                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                    .hasMatch(value)) {
-                  return 'Please enter a valid email';
-                }
-                return null;
-              },
+              textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: passwordController,
-              focusNode: passwordFocusNode,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock),
-              ),
-              obscureText: true,
-              textInputAction: TextInputAction.next,
-              onFieldSubmitted: (_) {
-                // Move focus to confirm password field when Enter is pressed
-                confirmPasswordFocusNode.requestFocus();
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-                }
-                if (value.length < 6) {
-                  return 'Password must be at least 6 characters';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: confirmPasswordController,
-              focusNode: confirmPasswordFocusNode,
-              decoration: const InputDecoration(
-                labelText: 'Confirm Password',
-                border: OutlineInputBorder(),
-                prefixIcon: Icon(Icons.lock_outline),
-              ),
-              obscureText: true,
-              textInputAction: TextInputAction.done,
-              onFieldSubmitted: (_) {
-                // Submit form when Enter is pressed in confirm password field
-                _submitForm(
-                  ref,
-                  formKey,
-                  emailController.text,
-                  passwordController.text,
-                );
-              },
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please confirm your password';
-                }
-                if (value != passwordController.text) {
-                  return 'Passwords do not match';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: () {
-                _submitForm(
-                  ref,
-                  formKey,
-                  emailController.text,
-                  passwordController.text,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16),
-              ),
-              child: const Text('Register'),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: () {
-                context.goRoute(AppRoute.login);
-              },
-              child: const Text('Already have an account? Login'),
-            ),
+            const Spacer(),
           ],
-        ),
+          TextFormField(
+            controller: emailController,
+            decoration: const InputDecoration(
+              labelText: 'Email',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.email),
+            ),
+            keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (_) {
+              // Move focus to password field when Enter is pressed
+              passwordFocusNode.requestFocus();
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                  .hasMatch(value)) {
+                return 'Please enter a valid email';
+              }
+              return null;
+            },
+          ),
+          const Spacer(),
+          TextFormField(
+            controller: passwordController,
+            focusNode: passwordFocusNode,
+            decoration: const InputDecoration(
+              labelText: 'Password',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.lock),
+            ),
+            obscureText: true,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (_) {
+              // Move focus to confirm password field when Enter is pressed
+              confirmPasswordFocusNode.requestFocus();
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              if (value.length < 6) {
+                return 'Password must be at least 6 characters';
+              }
+              return null;
+            },
+          ),
+          const Spacer(),
+          TextFormField(
+            controller: confirmPasswordController,
+            focusNode: confirmPasswordFocusNode,
+            decoration: const InputDecoration(
+              labelText: 'Confirm Password',
+              border: OutlineInputBorder(),
+              prefixIcon: Icon(Icons.lock_outline),
+            ),
+            obscureText: true,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (_) {
+              // Submit form when Enter is pressed in confirm password field
+              _submitForm(
+                ref,
+                formKey,
+                emailController.text,
+                passwordController.text,
+              );
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please confirm your password';
+              }
+              if (value != passwordController.text) {
+                return 'Passwords do not match';
+              }
+              return null;
+            },
+          ),
+          const Spacer(),
+          ElevatedButton(
+            onPressed: () {
+              _submitForm(
+                ref,
+                formKey,
+                emailController.text,
+                passwordController.text,
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+            ),
+            child: const Text('Register'),
+          ),
+          const Spacer(),
+          TextButton(
+            onPressed: () {
+              context.goRoute(AppRoute.login);
+            },
+            child: const Text('Already have an account? Login'),
+          ),
+          const Spacer(flex: 2),
+        ],
       ),
     );
   }
