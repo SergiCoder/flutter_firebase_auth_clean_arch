@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
@@ -89,8 +88,12 @@ class LoginScreen extends HookConsumerWidget {
   }
 
   /// Attempts to sign in with the provided credentials
-  void _submitForm(WidgetRef ref, GlobalKey<FormState> formKey, String email,
-      String password) {
+  void _submitForm(
+    WidgetRef ref,
+    GlobalKey<FormState> formKey,
+    String email,
+    String password,
+  ) {
     if (formKey.currentState?.validate() ?? false) {
       ref.read(loginProvider.notifier).signInWithEmailAndPassword(
             email: email,

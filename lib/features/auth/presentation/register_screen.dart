@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
