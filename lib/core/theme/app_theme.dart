@@ -80,7 +80,6 @@ class AppTheme {
           vertical: 16,
         ),
       ),
-      // Add fade transitions for page navigation
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
