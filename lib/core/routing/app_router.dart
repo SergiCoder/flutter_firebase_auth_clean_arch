@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
@@ -11,12 +11,12 @@ import 'package:go_router/go_router.dart';
 class AppRouter {
   /// Creates a router configuration for the app
   static GoRouter createRouter({
-    required LocaleProvider localeProvider,
-    bool isAuthenticated = false,
+    required AuthRouterNotifier authNotifier,
   }) {
     return GoRouter(
       initialLocation: AppRoute.splash.path,
       debugLogDiagnostics: true,
+      refreshListenable: authNotifier,
       routes: [
         GoRoute(
           path: AppRoute.splash.path,
@@ -48,18 +48,24 @@ class AppRouter {
         ),
       ),
       redirect: (context, state) {
-        // Skip redirect for splash screen
-        if (state.matchedLocation == AppRoute.splash.path) {
-          return null;
+        final isAuthenticated = authNotifier.isAuthenticated;
+
+        // If the user is not authenticated, they can only access login and
+        // register
+        if (!isAuthenticated) {
+          if (state.matchedLocation != AppRoute.login.path &&
+              state.matchedLocation != AppRoute.register.path) {
+            return AppRoute.login.path;
+          }
+        }
+        // If the user is authenticated, they shouldn't access login or register
+        else {
+          if (state.matchedLocation == AppRoute.login.path ||
+              state.matchedLocation == AppRoute.register.path) {
+            return AppRoute.home.path;
+          }
         }
 
-        // Add authentication redirects here if needed
-        // For example, redirect unauthenticated users to login
-        if (!isAuthenticated &&
-            state.matchedLocation != AppRoute.login.path &&
-            state.matchedLocation != AppRoute.register.path) {
-          return AppRoute.login.path;
-        }
         return null;
       },
     );
