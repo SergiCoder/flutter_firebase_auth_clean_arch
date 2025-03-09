@@ -8,6 +8,7 @@ import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provid
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/theme/app_theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
@@ -33,9 +34,11 @@ Future<void> main() async {
   );
 
   runApp(
-    MyApp(
-      localeProvider: localeProvider,
-      router: router,
+    ProviderScope(
+      child: MyApp(
+        localeProvider: localeProvider,
+        router: router,
+      ),
     ),
   );
 }

@@ -74,10 +74,6 @@ class SplashScreen extends HookConsumerWidget {
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          Text(
-            AppLocalization.of(context).appTitle,
-            style: Theme.of(context).textTheme.headlineMedium,
-          ),
           const CircularProgressIndicator(),
         ],
       );
