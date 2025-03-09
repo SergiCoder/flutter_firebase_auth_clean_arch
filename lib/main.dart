@@ -1,7 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/auth/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/firebase/firebase_options.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
@@ -11,10 +13,18 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositori
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
+  // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
 
-  // Initialize dependency injection
+  // Load environment variables
+  await dotenv.load();
+
+  // Initialize Firebase with proper configuration
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  // Initialize dependency injection after Firebase is initialized
   await initServiceLocator();
 
   runApp(const MyApp());

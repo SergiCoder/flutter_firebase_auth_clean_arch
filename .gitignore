@@ -25,3 +25,11 @@ doc/api/
 
 .flutter-plugins
 .flutter-plugins-dependencies
+
+# Environment variables
+.env
+.env.*
+!.env.example
+ios/Runner/GoogleService-Info.plist
+macos/Runner/GoogleService-Info.plist
+firebase.json
