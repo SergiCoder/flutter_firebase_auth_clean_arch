@@ -33,3 +33,5 @@ doc/api/
 ios/Runner/GoogleService-Info.plist
 macos/Runner/GoogleService-Info.plist
 firebase.json
+macos/Podfile.lock
+ios/Podfile.lock
