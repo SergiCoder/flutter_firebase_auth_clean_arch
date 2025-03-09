@@ -35,3 +35,5 @@ macos/Runner/GoogleService-Info.plist
 firebase.json
 macos/Podfile.lock
 ios/Podfile.lock
+ios/Runner.xcodeproj/project.pbxproj
+macos/Runner.xcodeproj/project.pbxproj
