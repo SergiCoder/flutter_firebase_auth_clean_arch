@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
@@ -16,6 +17,7 @@ class LoginScreen extends HookConsumerWidget {
     final loginState = ref.watch(loginProvider);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final passwordFocusNode = useFocusNode();
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     // Handle navigation when state changes to LoginSuccess
@@ -45,6 +47,7 @@ class LoginScreen extends HookConsumerWidget {
           ref,
           emailController,
           passwordController,
+          passwordFocusNode,
           formKey,
         ),
       ),
@@ -57,6 +60,7 @@ class LoginScreen extends HookConsumerWidget {
     WidgetRef ref,
     TextEditingController emailController,
     TextEditingController passwordController,
+    FocusNode passwordFocusNode,
     GlobalKey<FormState> formKey,
   ) {
     if (state is LoginLoading) {
@@ -67,6 +71,7 @@ class LoginScreen extends HookConsumerWidget {
         ref,
         emailController,
         passwordController,
+        passwordFocusNode,
         formKey,
         errorMessage: state.message,
       );
@@ -77,8 +82,20 @@ class LoginScreen extends HookConsumerWidget {
         ref,
         emailController,
         passwordController,
+        passwordFocusNode,
         formKey,
       );
+    }
+  }
+
+  /// Attempts to sign in with the provided credentials
+  void _submitForm(WidgetRef ref, GlobalKey<FormState> formKey, String email,
+      String password) {
+    if (formKey.currentState?.validate() ?? false) {
+      ref.read(loginProvider.notifier).signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
     }
   }
 
@@ -87,6 +104,7 @@ class LoginScreen extends HookConsumerWidget {
     WidgetRef ref,
     TextEditingController emailController,
     TextEditingController passwordController,
+    FocusNode passwordFocusNode,
     GlobalKey<FormState> formKey, {
     String? errorMessage,
   }) {
@@ -120,6 +138,11 @@ class LoginScreen extends HookConsumerWidget {
               prefixIcon: Icon(Icons.email),
             ),
             keyboardType: TextInputType.emailAddress,
+            textInputAction: TextInputAction.next,
+            onFieldSubmitted: (_) {
+              // Move focus to password field when Enter is pressed
+              passwordFocusNode.requestFocus();
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your email';
@@ -134,12 +157,23 @@ class LoginScreen extends HookConsumerWidget {
           const SizedBox(height: 16),
           TextFormField(
             controller: passwordController,
+            focusNode: passwordFocusNode,
             decoration: const InputDecoration(
               labelText: 'Password',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.lock),
             ),
             obscureText: true,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (_) {
+              // Submit form when Enter is pressed in password field
+              _submitForm(
+                ref,
+                formKey,
+                emailController.text,
+                passwordController.text,
+              );
+            },
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Please enter your password';
@@ -153,12 +187,12 @@ class LoginScreen extends HookConsumerWidget {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
-              if (formKey.currentState?.validate() ?? false) {
-                ref.read(loginProvider.notifier).signInWithEmailAndPassword(
-                      email: emailController.text,
-                      password: passwordController.text,
-                    );
-              }
+              _submitForm(
+                ref,
+                formKey,
+                emailController.text,
+                passwordController.text,
+              );
             },
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),

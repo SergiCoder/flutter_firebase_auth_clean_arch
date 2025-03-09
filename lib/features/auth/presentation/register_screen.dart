@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
@@ -17,6 +18,8 @@ class RegisterScreen extends HookConsumerWidget {
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
+    final passwordFocusNode = useFocusNode();
+    final confirmPasswordFocusNode = useFocusNode();
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
     // Handle navigation when state changes to RegisterSuccess
@@ -47,6 +50,8 @@ class RegisterScreen extends HookConsumerWidget {
           emailController,
           passwordController,
           confirmPasswordController,
+          passwordFocusNode,
+          confirmPasswordFocusNode,
           formKey,
         ),
       ),
@@ -60,6 +65,8 @@ class RegisterScreen extends HookConsumerWidget {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
+    FocusNode passwordFocusNode,
+    FocusNode confirmPasswordFocusNode,
     GlobalKey<FormState> formKey,
   ) {
     if (state is RegisterLoading) {
@@ -71,6 +78,8 @@ class RegisterScreen extends HookConsumerWidget {
         emailController,
         passwordController,
         confirmPasswordController,
+        passwordFocusNode,
+        confirmPasswordFocusNode,
         formKey,
         errorMessage: state.message,
       );
@@ -82,8 +91,25 @@ class RegisterScreen extends HookConsumerWidget {
         emailController,
         passwordController,
         confirmPasswordController,
+        passwordFocusNode,
+        confirmPasswordFocusNode,
         formKey,
       );
+    }
+  }
+
+  /// Attempts to register with the provided credentials
+  void _submitForm(
+    WidgetRef ref,
+    GlobalKey<FormState> formKey,
+    String email,
+    String password,
+  ) {
+    if (formKey.currentState?.validate() ?? false) {
+      ref.read(registerProvider.notifier).createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
     }
   }
 
@@ -93,6 +119,8 @@ class RegisterScreen extends HookConsumerWidget {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
+    FocusNode passwordFocusNode,
+    FocusNode confirmPasswordFocusNode,
     GlobalKey<FormState> formKey, {
     String? errorMessage,
   }) {
@@ -127,6 +155,11 @@ class RegisterScreen extends HookConsumerWidget {
                 prefixIcon: Icon(Icons.email),
               ),
               keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (_) {
+                // Move focus to password field when Enter is pressed
+                passwordFocusNode.requestFocus();
+              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your email';
@@ -141,12 +174,18 @@ class RegisterScreen extends HookConsumerWidget {
             const SizedBox(height: 16),
             TextFormField(
               controller: passwordController,
+              focusNode: passwordFocusNode,
               decoration: const InputDecoration(
                 labelText: 'Password',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock),
               ),
               obscureText: true,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (_) {
+                // Move focus to confirm password field when Enter is pressed
+                confirmPasswordFocusNode.requestFocus();
+              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter your password';
@@ -160,12 +199,23 @@ class RegisterScreen extends HookConsumerWidget {
             const SizedBox(height: 16),
             TextFormField(
               controller: confirmPasswordController,
+              focusNode: confirmPasswordFocusNode,
               decoration: const InputDecoration(
                 labelText: 'Confirm Password',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.lock_outline),
               ),
               obscureText: true,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (_) {
+                // Submit form when Enter is pressed in confirm password field
+                _submitForm(
+                  ref,
+                  formKey,
+                  emailController.text,
+                  passwordController.text,
+                );
+              },
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Please confirm your password';
@@ -179,14 +229,12 @@ class RegisterScreen extends HookConsumerWidget {
             const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () {
-                if (formKey.currentState?.validate() ?? false) {
-                  ref
-                      .read(registerProvider.notifier)
-                      .createUserWithEmailAndPassword(
-                        email: emailController.text,
-                        password: passwordController.text,
-                      );
-                }
+                _submitForm(
+                  ref,
+                  formKey,
+                  emailController.text,
+                  passwordController.text,
+                );
               },
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
