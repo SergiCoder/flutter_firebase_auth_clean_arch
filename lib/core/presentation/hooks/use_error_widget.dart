@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/hooks/use_format_error_message.dart';
 
 /// A hook that returns a widget builder for displaying error messages
 /// with a consistent UI across the application.
@@ -15,6 +16,9 @@ Widget useErrorWidget({
   const iconData = Icons.error_outline;
   const iconColor = Colors.red;
 
+  // Format the error message to be more user-friendly
+  final formattedMessage = useFormatErrorMessage(errorMessage);
+
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -27,7 +31,7 @@ Widget useErrorWidget({
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Text(
-          errorMessage,
+          formattedMessage,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.titleMedium,
         ),
