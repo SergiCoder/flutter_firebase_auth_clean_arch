@@ -19,15 +19,12 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final localizations = AppLocalization.of(context);
 
-    // Get localized title
-    final title = localizations.errorPageTitle;
-
     // Use the localized message with the URI
     final message = '${localizations.pageNotFoundMessage}\n\n$uri';
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text(localizations.errorPageTitle),
       ),
       body: Center(
         child: Column(

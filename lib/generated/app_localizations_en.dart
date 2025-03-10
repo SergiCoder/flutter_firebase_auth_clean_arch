@@ -51,13 +51,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get alreadyHaveAccount => 'Already have an account?';
 
   @override
-  String get resetPasswordInstructions => 'Enter your email and we\'ll send you instructions to reset your password.';
+  String get resetPasswordInstructions =>
+      'Enter your email and we\'ll send you instructions to reset your password.';
 
   @override
   String get sendResetLink => 'Send Reset Link';
 
   @override
   String get resetLinkSent => 'Password reset link sent to your email';
+
+  @override
+  String get emptyEmail => 'The email address is empty';
 
   @override
   String get invalidEmail => 'Please enter a valid email address';
@@ -75,7 +79,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get registrationFailed => 'Registration failed. Please try again.';
 
   @override
-  String get resetPasswordFailed => 'Failed to send reset link. Please try again.';
+  String get resetPasswordFailed =>
+      'Failed to send reset link. Please try again.';
 
   @override
   String welcomeMessage(String email) {
@@ -113,7 +118,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorPageTitle => 'Page Not Found';
 
   @override
-  String get pageNotFoundMessage => 'The page you\'re looking for doesn\'t exist';
+  String get pageNotFoundMessage =>
+      'The page you\'re looking for doesn\'t exist';
 
   @override
   String get goBack => 'Go Back';

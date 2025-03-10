@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/hooks/use_email_validator.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
@@ -117,6 +118,11 @@ class RegisterScreen extends HookConsumerWidget {
     GlobalKey<FormState> formKey, {
     String? errorMessage,
   }) {
+    final emailValidator = useEmailValidator(
+      requiredFieldMessage: AppLocalization.of(context).emptyEmail,
+      invalidEmailMessage: AppLocalization.of(context).invalidEmail,
+    );
+
     return Form(
       key: formKey,
       child: Column(
@@ -139,10 +145,10 @@ class RegisterScreen extends HookConsumerWidget {
           ),
           TextFormField(
             controller: emailController,
-            decoration: const InputDecoration(
-              labelText: 'Email',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.email),
+            decoration: InputDecoration(
+              labelText: AppLocalization.of(context).email,
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.email),
             ),
             keyboardType: TextInputType.emailAddress,
             textInputAction: TextInputAction.next,
@@ -150,25 +156,16 @@ class RegisterScreen extends HookConsumerWidget {
               // Move focus to password field when Enter is pressed
               passwordFocusNode.requestFocus();
             },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your email';
-              }
-              if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                  .hasMatch(value)) {
-                return 'Please enter a valid email';
-              }
-              return null;
-            },
+            validator: emailValidator,
           ),
           const Spacer(),
           TextFormField(
             controller: passwordController,
             focusNode: passwordFocusNode,
-            decoration: const InputDecoration(
-              labelText: 'Password',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.lock),
+            decoration: InputDecoration(
+              labelText: AppLocalization.of(context).password,
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.lock),
             ),
             obscureText: true,
             textInputAction: TextInputAction.next,
@@ -178,10 +175,10 @@ class RegisterScreen extends HookConsumerWidget {
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please enter your password';
+                return AppLocalization.of(context).passwordTooShort;
               }
               if (value.length < 6) {
-                return 'Password must be at least 6 characters';
+                return AppLocalization.of(context).passwordTooShort;
               }
               return null;
             },
@@ -190,10 +187,10 @@ class RegisterScreen extends HookConsumerWidget {
           TextFormField(
             controller: confirmPasswordController,
             focusNode: confirmPasswordFocusNode,
-            decoration: const InputDecoration(
-              labelText: 'Confirm Password',
-              border: OutlineInputBorder(),
-              prefixIcon: Icon(Icons.lock_outline),
+            decoration: InputDecoration(
+              labelText: AppLocalization.of(context).confirmPassword,
+              border: const OutlineInputBorder(),
+              prefixIcon: const Icon(Icons.lock_outline),
             ),
             obscureText: true,
             textInputAction: TextInputAction.done,
@@ -208,10 +205,10 @@ class RegisterScreen extends HookConsumerWidget {
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return 'Please confirm your password';
+                return AppLocalization.of(context).passwordTooShort;
               }
               if (value != passwordController.text) {
-                return 'Passwords do not match';
+                return AppLocalization.of(context).passwordsDontMatch;
               }
               return null;
             },
@@ -229,14 +226,14 @@ class RegisterScreen extends HookConsumerWidget {
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 16),
             ),
-            child: const Text('Register'),
+            child: Text(AppLocalization.of(context).registerButton),
           ),
           const Spacer(),
           TextButton(
             onPressed: () {
               context.goRoute(AppRoute.login);
             },
-            child: const Text('Already have an account? Login'),
+            child: Text(AppLocalization.of(context).alreadyHaveAccount),
           ),
           const Spacer(flex: 2),
         ],
