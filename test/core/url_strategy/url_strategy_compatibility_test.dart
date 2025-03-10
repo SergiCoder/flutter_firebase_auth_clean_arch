@@ -1,6 +1,7 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
     as default_strategy;
+import 'package:flutter_test/flutter_test.dart';
+
 import 'mock_web_url_strategy.dart' as mock_web_strategy;
 
 void main() {
