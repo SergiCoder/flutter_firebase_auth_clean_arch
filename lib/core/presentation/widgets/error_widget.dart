@@ -19,7 +19,7 @@ class ErrorDisplayWidget extends HookWidget {
     final formattedMessage = useFormatErrorMessage(errorMessage);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
+      padding: const EdgeInsets.all(24),
       child: Text(
         formattedMessage,
         textAlign: TextAlign.center,
