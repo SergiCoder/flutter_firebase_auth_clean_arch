@@ -12,17 +12,16 @@ import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provid
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/theme/app_theme.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
+    if (dart.library.html) 'package:flutter_firebase_auth_clean_arch/core/url_strategy/web_url_strategy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
 Future<void> main() async {
   // Ensure Flutter is initialized
   WidgetsFlutterBinding.ensureInitialized();
 
   // Use URL path strategy to remove "#" from URLs (web only)
-  if (kIsWeb) {
-    setUrlStrategy(PathUrlStrategy());
-  }
+  usePathUrlStrategy();
 
   // Load environment variables
   await dotenv.load();
