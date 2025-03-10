@@ -80,7 +80,6 @@ class SplashScreen extends HookConsumerWidget {
     } else if (state is SplashError) {
       return ErrorDisplayWidget(
         errorMessage: state.message,
-        onRetry: () => ref.read(splashProvider.notifier).retry(),
       );
     } else {
       // Initial state or Navigate state (before navigation completes)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_state.dart';
@@ -137,12 +138,8 @@ class RegisterScreen extends HookConsumerWidget {
           ),
           const Spacer(flex: 4),
           if (errorMessage != null) ...[
-            Text(
-              errorMessage,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.error,
-              ),
-              textAlign: TextAlign.center,
+            ErrorDisplayWidget(
+              errorMessage: errorMessage,
             ),
             const Spacer(),
           ],

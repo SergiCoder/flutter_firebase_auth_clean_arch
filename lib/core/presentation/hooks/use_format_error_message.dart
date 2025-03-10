@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 /// A hook that formats an error message to be more user-friendly.
 ///
 /// This hook removes common error prefixes like "[firebase_auth/xxx]" and
-/// formats the message to be more readable.
+/// "Exception:", then formats the message to be more readable.
 ///
 /// Example:
 /// ```dart
@@ -14,7 +14,11 @@ String useFormatErrorMessage(String errorMessage) {
     () {
       // Remove common error prefixes like "[firebase_auth/xxx]"
       final prefixPattern = RegExp(r'^\[[\w-]+\/[\w-]+\]\s*');
-      final cleanedMessage = errorMessage.replaceFirst(prefixPattern, '');
+      var cleanedMessage = errorMessage.replaceFirst(prefixPattern, '');
+
+      // Remove "Exception:" prefix if present
+      cleanedMessage =
+          cleanedMessage.replaceFirst(RegExp(r'^Exception:\s*'), '');
 
       // Capitalize the first letter if it doesn't start with a capital letter
       if (cleanedMessage.isNotEmpty &&
