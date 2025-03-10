@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
@@ -13,6 +15,9 @@ class AppRouter {
   static GoRouter createRouter({
     required AuthRouterNotifier authNotifier,
   }) {
+    // Get the auth repository from the service locator
+    final authRepository = serviceLocator<AuthRepository>();
+
     return GoRouter(
       initialLocation: AppRoute.splash.path,
       debugLogDiagnostics: true,
@@ -26,12 +31,16 @@ class AppRouter {
         GoRoute(
           path: AppRoute.login.path,
           name: AppRoute.login.name,
-          builder: (context, state) => const LoginScreen(),
+          builder: (context, state) => LoginScreen(
+            authRepository: authRepository,
+          ),
         ),
         GoRoute(
           path: AppRoute.register.path,
           name: AppRoute.register.name,
-          builder: (context, state) => const RegisterScreen(),
+          builder: (context, state) => RegisterScreen(
+            authRepository: authRepository,
+          ),
         ),
         GoRoute(
           path: AppRoute.home.path,
@@ -48,9 +57,17 @@ class AppRouter {
         ),
       ),
       redirect: (context, state) {
-        // If we're at the splash screen do nothing
-        if (state.matchedLocation == AppRoute.splash.path) {
-          return null;
+        // Always show splash screen until auth state is initialized
+        if (!authNotifier.isInitialized) {
+          return AppRoute.splash.path;
+        }
+
+        // If we're at the splash screen and auth is initialized, redirect based on auth state
+        if (state.matchedLocation == AppRoute.splash.path &&
+            authNotifier.isInitialized) {
+          return authNotifier.isAuthenticated
+              ? AppRoute.home.path
+              : AppRoute.login.path;
         }
 
         final isAuthenticated = authNotifier.isAuthenticated;

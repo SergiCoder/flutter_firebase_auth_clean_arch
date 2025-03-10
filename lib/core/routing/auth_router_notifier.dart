@@ -9,7 +9,7 @@ class AuthRouterNotifier extends ChangeNotifier {
   AuthRouterNotifier({
     required AuthRepository authRepository,
   }) : _authRepository = authRepository {
-    _init();
+    _initializeAuthState();
   }
 
   /// The authentication repository
@@ -18,22 +18,38 @@ class AuthRouterNotifier extends ChangeNotifier {
   /// Whether the user is authenticated
   bool _isAuthenticated = false;
 
+  /// Whether the initial authentication check has completed
+  bool _isInitialized = false;
+
   /// Returns whether the user is authenticated
   bool get isAuthenticated => _isAuthenticated;
+
+  /// Returns whether the initial authentication check has completed
+  bool get isInitialized => _isInitialized;
 
   /// Subscription to auth state changes
   StreamSubscription<bool>? _authSubscription;
 
-  Future<void> _init() async {
-    // Check initial authentication state
-    _isAuthenticated = await _authRepository.isAuthenticated();
-
-    // Listen to authentication state changes
-    _authSubscription =
-        _authRepository.authStateChanges.listen((isAuthenticated) {
-      _isAuthenticated = isAuthenticated;
+  /// Initializes the authentication state
+  Future<void> _initializeAuthState() async {
+    try {
+      // Check initial authentication state
+      _isAuthenticated = await _authRepository.isAuthenticated();
+      _isInitialized = true;
       notifyListeners();
-    });
+
+      // Listen to authentication state changes
+      _authSubscription =
+          _authRepository.authStateChanges.listen((isAuthenticated) {
+        _isAuthenticated = isAuthenticated;
+        notifyListeners();
+      });
+    } catch (e) {
+      // Handle initialization errors
+      _isInitialized = true;
+      _isAuthenticated = false;
+      notifyListeners();
+    }
   }
 
   @override
