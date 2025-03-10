@@ -18,9 +18,6 @@ class SplashNotifier extends StateNotifier<SplashState> {
     state = const SplashLoading();
 
     try {
-      // Simulate a 3-second loading time
-      await Future<void>.delayed(const Duration(seconds: 3));
-
       // Check if the user is already authenticated
       final isAuthenticated = await _authRepository.isAuthenticated();
 
