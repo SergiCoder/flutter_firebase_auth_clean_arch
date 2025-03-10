@@ -91,6 +91,11 @@
     "description": "Error message for invalid email"
   },
   
+  "emptyEmail": "Please enter your email address",
+  "@emptyEmail": {
+    "description": "Error message for empty email field"
+  },
+  
   "passwordTooShort": "Password must be at least 6 characters",
   "@passwordTooShort": {
     "description": "Error message for short password"

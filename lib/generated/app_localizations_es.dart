@@ -51,8 +51,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get alreadyHaveAccount => '¿Ya tienes una cuenta?';
 
   @override
-  String get resetPasswordInstructions =>
-      'Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.';
+  String get resetPasswordInstructions => 'Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.';
 
   @override
   String get sendResetLink => 'Enviar Enlace de Restablecimiento';
@@ -61,29 +60,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get resetLinkSent => 'Enlace de restablecimiento enviado a tu correo';
 
   @override
-  String get emptyEmail => 'El correo electrónico está vacío';
-
-  @override
   String get invalidEmail => 'Por favor ingresa un correo electrónico válido';
 
   @override
-  String get passwordTooShort =>
-      'La contraseña debe tener al menos 6 caracteres';
+  String get emptyEmail => 'Por favor ingresa tu correo electrónico';
+
+  @override
+  String get passwordTooShort => 'La contraseña debe tener al menos 6 caracteres';
 
   @override
   String get passwordsDontMatch => 'Las contraseñas no coinciden';
 
   @override
-  String get loginFailed =>
-      'Error al iniciar sesión. Por favor verifica tus credenciales.';
+  String get loginFailed => 'Error al iniciar sesión. Por favor verifica tus credenciales.';
 
   @override
-  String get registrationFailed =>
-      'Error al registrarse. Por favor intenta de nuevo.';
+  String get registrationFailed => 'Error al registrarse. Por favor intenta de nuevo.';
 
   @override
-  String get resetPasswordFailed =>
-      'Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.';
+  String get resetPasswordFailed => 'Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.';
 
   @override
   String welcomeMessage(String email) {
