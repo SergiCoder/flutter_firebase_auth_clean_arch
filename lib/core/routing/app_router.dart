@@ -72,7 +72,6 @@ class AppRouter {
           // Redirect authenticated users away from auth screens
           if (state.matchedLocation == AppRoute.login.path ||
               state.matchedLocation == AppRoute.register.path) {
-            dev.log('Redirecting to home: User is already authenticated');
             return AppRoute.home.path;
           }
         } else {
@@ -81,8 +80,6 @@ class AppRouter {
           if (state.matchedLocation != AppRoute.login.path &&
               state.matchedLocation != AppRoute.register.path &&
               state.matchedLocation != AppRoute.splash.path) {
-            dev.log('Redirecting to login: User is not authenticated and '
-                'attempted to access ${state.matchedLocation}');
             return AppRoute.login.path;
           }
         }
