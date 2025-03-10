@@ -29,16 +29,18 @@ class ErrorScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: ErrorDisplayWidget(
-        errorMessage: message,
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: ElevatedButton(
-            onPressed: () => context.goRoute(AppRoute.splash),
-            child: Text(localizations.goBack),
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ErrorDisplayWidget(
+              errorMessage: message,
+            ),
+            ElevatedButton(
+              onPressed: () => context.goRoute(AppRoute.home),
+              child: Text(localizations.goBack),
+            ),
+          ],
         ),
       ),
     );
