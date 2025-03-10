@@ -56,7 +56,9 @@ void main() {
 
       // Act
       await repository.signInWithEmailAndPassword(
-          'test@example.com', 'password');
+        'test@example.com',
+        'password',
+      );
 
       // Assert
       verify(
