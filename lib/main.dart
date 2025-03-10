@@ -10,7 +10,6 @@ import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/theme/app_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
   // Ensure Flutter is initialized
@@ -32,38 +31,37 @@ Future<void> main() async {
 
   // Initialize required services
   final localeProvider = serviceLocator<LocaleProvider>();
-  final authNotifier = serviceLocator<AuthRouterNotifier>();
-  final router = AppRouter.createRouter(
-    authNotifier: authNotifier,
-  );
 
   runApp(
     ProviderScope(
       child: MyApp(
         localeProvider: localeProvider,
-        router: router,
       ),
     ),
   );
 }
 
 /// The main application widget
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   /// Creates a new [MyApp] widget
   const MyApp({
     required this.localeProvider,
-    required this.router,
     super.key,
   });
 
   /// The locale provider for handling app localization
   final LocaleProvider localeProvider;
 
-  /// The router for app navigation
-  final GoRouter router;
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // Get the auth router notifier from the provider
+    final authNotifier = ref.watch(authRouterNotifierProvider);
+
+    // Create the router with the auth notifier
+    final router = AppRouter.createRouter(
+      authNotifier: authNotifier,
+    );
+
     return MaterialApp.router(
       theme: AppTheme.theme,
       // Localization setup

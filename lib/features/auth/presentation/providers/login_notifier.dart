@@ -1,15 +1,17 @@
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that manages the state of the login screen
 class LoginNotifier extends StateNotifier<LoginState> {
-  /// Creates a new [LoginNotifier]
-  LoginNotifier() : super(const LoginInitial());
+  /// Creates a new [LoginNotifier] with the provided [authRepository]
+  LoginNotifier({required AuthRepository authRepository})
+      : _authRepository = authRepository,
+        super(const LoginInitial());
 
   /// The authentication repository
-  final _authRepository = serviceLocator<AuthRepository>();
+  final AuthRepository _authRepository;
 
   /// Attempts to sign in a user with the provided email and password
   Future<void> signInWithEmailAndPassword({
@@ -33,6 +35,9 @@ class LoginNotifier extends StateNotifier<LoginState> {
 }
 
 /// Provider for the login screen state
-final loginProvider = StateNotifierProvider<LoginNotifier, LoginState>(
-  (ref) => LoginNotifier(),
+final loginProvider =
+    StateNotifierProvider.autoDispose<LoginNotifier, LoginState>(
+  (ref) => LoginNotifier(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
 );

@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that listens to authentication state changes and refreshes the
 /// router
@@ -58,3 +60,10 @@ class AuthRouterNotifier extends ChangeNotifier {
     super.dispose();
   }
 }
+
+/// Provider for the auth router notifier
+final authRouterNotifierProvider = Provider<AuthRouterNotifier>(
+  (ref) => AuthRouterNotifier(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);
