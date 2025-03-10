@@ -63,29 +63,24 @@ class LoginScreen extends HookConsumerWidget {
     FocusNode passwordFocusNode,
     GlobalKey<FormState> formKey,
   ) {
+    // Show loading indicator when in loading state
     if (state is LoginLoading) {
       return const Center(child: CircularProgressIndicator());
-    } else if (state is LoginError) {
-      return _buildLoginForm(
-        context,
-        ref,
-        emailController,
-        passwordController,
-        passwordFocusNode,
-        formKey,
-        errorMessage: state.message,
-      );
-    } else {
-      // Initial state or Success state (before navigation completes)
-      return _buildLoginForm(
-        context,
-        ref,
-        emailController,
-        passwordController,
-        passwordFocusNode,
-        formKey,
-      );
     }
+
+    // For all other states, show the login form
+    // Pass error message only if in error state
+    final errorMessage = state is LoginError ? state.message : null;
+
+    return _buildLoginForm(
+      context,
+      ref,
+      emailController,
+      passwordController,
+      passwordFocusNode,
+      formKey,
+      errorMessage: errorMessage,
+    );
   }
 
   /// Attempts to sign in with the provided credentials
@@ -124,13 +119,14 @@ class LoginScreen extends HookConsumerWidget {
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          const Spacer(flex: 4),
-          if (errorMessage != null) ...[
-            ErrorDisplayWidget(
-              errorMessage: errorMessage,
-            ),
-            const Spacer(),
-          ],
+          Flexible(
+            flex: 4,
+            child: (errorMessage != null)
+                ? ErrorDisplayWidget(
+                    errorMessage: errorMessage,
+                  )
+                : const SizedBox(),
+          ),
           TextFormField(
             controller: emailController,
             decoration: const InputDecoration(

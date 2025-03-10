@@ -69,33 +69,26 @@ class RegisterScreen extends HookConsumerWidget {
     FocusNode confirmPasswordFocusNode,
     GlobalKey<FormState> formKey,
   ) {
+    // Show loading indicator when in loading state
     if (state is RegisterLoading) {
       return const Center(child: CircularProgressIndicator());
-    } else if (state is RegisterError) {
-      return _buildRegisterForm(
-        context,
-        ref,
-        emailController,
-        passwordController,
-        confirmPasswordController,
-        passwordFocusNode,
-        confirmPasswordFocusNode,
-        formKey,
-        errorMessage: state.message,
-      );
-    } else {
-      // Initial state or Success state (before navigation completes)
-      return _buildRegisterForm(
-        context,
-        ref,
-        emailController,
-        passwordController,
-        confirmPasswordController,
-        passwordFocusNode,
-        confirmPasswordFocusNode,
-        formKey,
-      );
     }
+
+    // For all other states, show the register form
+    // Pass error message only if in error state
+    final errorMessage = state is RegisterError ? state.message : null;
+
+    return _buildRegisterForm(
+      context,
+      ref,
+      emailController,
+      passwordController,
+      confirmPasswordController,
+      passwordFocusNode,
+      confirmPasswordFocusNode,
+      formKey,
+      errorMessage: errorMessage,
+    );
   }
 
   /// Attempts to register with the provided credentials
@@ -136,13 +129,14 @@ class RegisterScreen extends HookConsumerWidget {
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          const Spacer(flex: 4),
-          if (errorMessage != null) ...[
-            ErrorDisplayWidget(
-              errorMessage: errorMessage,
-            ),
-            const Spacer(),
-          ],
+          Flexible(
+            flex: 4,
+            child: (errorMessage != null)
+                ? ErrorDisplayWidget(
+                    errorMessage: errorMessage,
+                  )
+                : const SizedBox(),
+          ),
           TextFormField(
             controller: emailController,
             decoration: const InputDecoration(
