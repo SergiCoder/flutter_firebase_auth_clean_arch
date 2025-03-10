@@ -1,3 +1,5 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
 import 'app_localizations.dart';
 
 // ignore_for_file: type=lint
@@ -106,4 +108,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get continueAsGuest => 'Continue as Guest';
+
+  @override
+  String get errorPageTitle => 'Page Not Found';
+
+  @override
+  String get pageNotFoundMessage => 'The page you\'re looking for doesn\'t exist';
+
+  @override
+  String get goBack => 'Go Back';
 }

@@ -170,5 +170,20 @@
   "continueAsGuest": "Continue as Guest",
   "@continueAsGuest": {
     "description": "Button text for guest mode"
+  },
+  
+  "errorPageTitle": "Page Not Found",
+  "@errorPageTitle": {
+    "description": "Title for the error page when a route is not found"
+  },
+  
+  "pageNotFoundMessage": "The page you're looking for doesn't exist",
+  "@pageNotFoundMessage": {
+    "description": "Message shown when a route is not found"
+  },
+  
+  "goBack": "Go Back",
+  "@goBack": {
+    "description": "Text for button to navigate back"
   }
 } 

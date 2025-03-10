@@ -292,6 +292,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Continue as Guest'**
   String get continueAsGuest;
+
+  /// Title for the error page when a route is not found
+  ///
+  /// In en, this message translates to:
+  /// **'Page Not Found'**
+  String get errorPageTitle;
+
+  /// Message shown when a route is not found
+  ///
+  /// In en, this message translates to:
+  /// **'The page you\'re looking for doesn\'t exist'**
+  String get pageNotFoundMessage;
+
+  /// Text for button to navigate back
+  ///
+  /// In en, this message translates to:
+  /// **'Go Back'**
+  String get goBack;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

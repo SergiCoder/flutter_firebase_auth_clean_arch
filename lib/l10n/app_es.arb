@@ -65,5 +65,11 @@
   
   "or": "O",
   
-  "continueAsGuest": "Continuar como Invitado"
+  "continueAsGuest": "Continuar como Invitado",
+  
+  "errorPageTitle": "Página No Encontrada",
+  
+  "pageNotFoundMessage": "La página que buscas no existe",
+  
+  "goBack": "Volver"
 } 

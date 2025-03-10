@@ -3,6 +3,7 @@ import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/error_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -39,13 +40,8 @@ class AppRouter {
           builder: (context, state) => const HomeScreen(),
         ),
       ],
-      errorBuilder: (context, state) => Scaffold(
-        appBar: AppBar(
-          title: const Text('Page Not Found'),
-        ),
-        body: Center(
-          child: Text('No route defined for ${state.uri.path}'),
-        ),
+      errorBuilder: (context, state) => ErrorScreen(
+        uri: state.uri.toString(),
       ),
       redirect: (context, state) {
         // Always show splash screen until auth state is initialized
