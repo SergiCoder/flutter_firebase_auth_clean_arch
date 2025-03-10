@@ -34,15 +34,6 @@ class HomeScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).homeTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              ref.read(homeProvider.notifier).signOut();
-            },
-            tooltip: AppLocalization.of(context).logoutButton,
-          ),
-        ],
       ),
       body: _buildBody(context, homeState),
     );
