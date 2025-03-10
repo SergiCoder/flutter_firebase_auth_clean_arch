@@ -18,10 +18,9 @@ analyzer:
     # Generated code from flutter_localizations package
     - "**/generated/**"
 
-# Formatter configuration controls how the dart format command behaves
-formatter:
-  # Set the line length for formatting (default in Dart is 80)
-  line-length: 80
-  # Makes the formatter command exit with a non-zero exit code if any changes would be made
-  # Useful in CI/CD pipelines to enforce consistent formatting
-  set-exit-if-changed: true
+# Dart formatter configuration
+dart_line_length: 80
+
+# Makes the formatter command exit with a non-zero exit code if any changes would be made
+# Useful in CI/CD pipelines to enforce consistent formatting
+format_exit_if_changed: true
