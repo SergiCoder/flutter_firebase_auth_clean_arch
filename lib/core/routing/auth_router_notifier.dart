@@ -5,41 +5,43 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositori
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that listens to authentication state changes and refreshes the
-/// router
+/// router.
+///
+/// This class is responsible for:
+/// - Tracking the user's authentication state
+/// - Providing redirection logic based on authentication status
+/// - Notifying listeners when authentication state changes
 class AuthRouterNotifier extends ChangeNotifier {
-  /// Creates a new [AuthRouterNotifier] with the given auth repository
+  /// Creates a new [AuthRouterNotifier] with the given auth repository.
+  ///
+  /// Initializes authentication state tracking and sets up listeners for
+  /// authentication state changes.
+  ///
+  /// [authRepository] Repository that provides authentication operations and
+  /// state changes.
   AuthRouterNotifier({
     required AuthRepository authRepository,
   }) : _authRepository = authRepository {
     _initializeAuthState();
   }
 
-  /// The authentication repository
+  /// The authentication repository used to monitor auth state
   final AuthRepository _authRepository;
 
   /// Whether the user is authenticated
   bool _isAuthenticated = false;
 
-  /// Whether the initial authentication check has completed
-  bool _isInitialized = false;
-
-  /// Returns whether the user is authenticated
+  /// Returns whether the user is currently authenticated.
+  ///
+  /// This value is updated automatically when authentication state changes.
   bool get isAuthenticated => _isAuthenticated;
 
-  /// Returns whether the initial authentication check has completed
-  bool get isInitialized => _isInitialized;
-
-  /// Subscription to auth state changes
+  /// Subscription to auth state changes from the repository
   StreamSubscription<bool>? _authSubscription;
 
-  /// Initializes the authentication state
+  /// Initializes the authentication state by subscribing to auth state changes
   Future<void> _initializeAuthState() async {
     try {
-      // Check initial authentication state
-      _isAuthenticated = await _authRepository.isAuthenticated();
-      _isInitialized = true;
-      notifyListeners();
-
       // Listen to authentication state changes
       _authSubscription =
           _authRepository.authStateChanges.listen((isAuthenticated) {
@@ -48,12 +50,14 @@ class AuthRouterNotifier extends ChangeNotifier {
       });
     } catch (e) {
       // Handle initialization errors
-      _isInitialized = true;
       _isAuthenticated = false;
       notifyListeners();
     }
   }
 
+  /// Cancels the auth state subscription and disposes resources.
+  ///
+  /// This method is called automatically when the notifier is no longer needed.
   @override
   void dispose() {
     _authSubscription?.cancel();
@@ -61,7 +65,11 @@ class AuthRouterNotifier extends ChangeNotifier {
   }
 }
 
-/// Provider for the auth router notifier
+/// Provider for the auth router notifier.
+///
+/// This provider creates and exposes an [AuthRouterNotifier] instance that can
+/// be used throughout the application to access authentication state and
+/// handle navigation redirection.
 final authRouterNotifierProvider = Provider<AuthRouterNotifier>(
   (ref) => AuthRouterNotifier(
     authRepository: ref.watch(authRepositoryProvider),
