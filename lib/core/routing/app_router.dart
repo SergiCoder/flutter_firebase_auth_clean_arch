@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';

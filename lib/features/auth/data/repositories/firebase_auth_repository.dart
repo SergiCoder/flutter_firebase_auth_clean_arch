@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 
 /// Firebase implementation of the [AuthRepository] interface
@@ -18,10 +19,23 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      // Special handling for web platform
+      if (kIsWeb) {
+        // On web, just use a generic error message to avoid any type checking
+        throw Exception(
+          'Authentication failed. Please check your credentials.',
+        );
+      } else {
+        // On mobile, we can include more details
+        throw Exception('Authentication failed: $e');
+      }
+    }
   }
 
   @override
@@ -29,20 +43,46 @@ class FirebaseAuthRepository implements AuthRepository {
     String email,
     String password,
   ) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } catch (e) {
+      // Special handling for web platform
+      if (kIsWeb) {
+        // On web, just use a generic error message to avoid any type checking
+        throw Exception('Registration failed. Please try again.');
+      } else {
+        // On mobile, we can include more details
+        throw Exception('Registration failed: $e');
+      }
+    }
   }
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      throw Exception('Sign out failed. Please try again.');
+    }
   }
 
   @override
   Future<void> sendPasswordResetEmail(String email) async {
-    await _firebaseAuth.sendPasswordResetEmail(email: email);
+    try {
+      await _firebaseAuth.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      // Special handling for web platform
+      if (kIsWeb) {
+        // On web, just use a generic error message to avoid any type checking
+        throw Exception('Password reset failed. Please try again.');
+      } else {
+        // On mobile, we can include more details
+        throw Exception('Password reset failed: $e');
+      }
+    }
   }
 
   @override

@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
@@ -19,12 +22,20 @@ Future<void> main() async {
   await dotenv.load();
 
   // Initialize Firebase with proper configuration
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
 
-  // Initialize Firebase App Check with debug token
-  await FirebaseAppCheck.instance.activate();
+    // Initialize Firebase App Check with debug token
+    // Skip App Check for web platform as it can cause issues
+    if (!kIsWeb) {
+      await FirebaseAppCheck.instance.activate();
+    }
+  } catch (e) {
+    // Log the error but continue with the app
+    log('Firebase initialization error: $e');
+  }
 
   // Initialize dependency injection after Firebase is initialized
   await initServiceLocator();
