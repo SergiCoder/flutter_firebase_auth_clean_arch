@@ -25,7 +25,8 @@ void main() {
       final buttonFinder = find.byType(ElevatedButton);
       expect(buttonFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(buttonFinder);
       final theme = Theme.of(context);
 
@@ -59,7 +60,8 @@ void main() {
       final buttonFinder = find.byType(TextButton);
       expect(buttonFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(buttonFinder);
       final theme = Theme.of(context);
 
@@ -75,12 +77,12 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.theme,
-          home: Scaffold(
+          home: const Scaffold(
             body: Center(
               child: SizedBox(
                 width: 300,
                 child: TextField(
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     hintText: 'Test TextField',
                   ),
                 ),
@@ -94,7 +96,8 @@ void main() {
       final textFieldFinder = find.byType(TextField);
       expect(textFieldFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(textFieldFinder);
       final theme = Theme.of(context);
 
@@ -135,7 +138,8 @@ void main() {
       final appBarFinder = find.byType(AppBar);
       expect(appBarFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(appBarFinder);
       final theme = Theme.of(context);
 
@@ -153,11 +157,11 @@ void main() {
       await tester.pumpWidget(
         MaterialApp(
           theme: AppTheme.theme,
-          home: Scaffold(
+          home: const Scaffold(
             body: Center(
               child: Card(
-                child: const Padding(
-                  padding: EdgeInsets.all(16.0),
+                child: Padding(
+                  padding: EdgeInsets.all(16),
                   child: Text('Test Card'),
                 ),
               ),
@@ -170,7 +174,8 @@ void main() {
       final cardFinder = find.byType(Card);
       expect(cardFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(cardFinder);
       final theme = Theme.of(context);
 
@@ -205,7 +210,8 @@ void main() {
       final scaffoldFinder = find.byType(Scaffold);
       expect(scaffoldFinder, findsOneWidget);
 
-      // In Material 3, we need to check the theme data instead of direct properties
+      // In Material 3, we need to check the theme data instead of direct
+      // properties
       final BuildContext context = tester.element(scaffoldFinder);
       final theme = Theme.of(context);
 

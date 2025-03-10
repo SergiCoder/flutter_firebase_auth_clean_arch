@@ -18,14 +18,14 @@ void main() {
 
       // Get border radius from different components
       final cardBorderRadius =
-          (theme.cardTheme.shape as RoundedRectangleBorder).borderRadius;
+          (theme.cardTheme.shape! as RoundedRectangleBorder).borderRadius;
 
       final buttonBorderRadius = (theme.elevatedButtonTheme.style?.shape
               ?.resolve({}) as RoundedRectangleBorder?)
           ?.borderRadius;
 
       final inputBorderRadius =
-          (theme.inputDecorationTheme.border as OutlineInputBorder)
+          (theme.inputDecorationTheme.border! as OutlineInputBorder)
               .borderRadius;
 
       // Verify they are all the same
@@ -43,7 +43,7 @@ void main() {
       final buttonColor =
           theme.elevatedButtonTheme.style?.backgroundColor?.resolve({});
       final focusedBorderColor =
-          (theme.inputDecorationTheme.focusedBorder as OutlineInputBorder)
+          (theme.inputDecorationTheme.focusedBorder! as OutlineInputBorder)
               .borderSide
               .color;
       final textButtonColor =
