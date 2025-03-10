@@ -74,14 +74,15 @@ void main() {
     });
 
     test('notifies listeners when locale changes', () {
-      int notificationCount = 0;
+      var notificationCount = 0;
 
-      localeProvider.addListener(() {
-        notificationCount++;
-      });
+      localeProvider
+        ..addListener(() {
+          notificationCount++;
+        })
 
-      // Change locale
-      localeProvider.setLocale(const Locale('es'));
+        // Change locale
+        ..setLocale(const Locale('es'));
       expect(notificationCount, equals(1));
 
       // Change to same locale should not notify
