@@ -1,12 +1,10 @@
-import 'dart:developer' as dev;
-
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/error_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/notifiers/splash_screen.dart';
 import 'package:go_router/go_router.dart';
 
 /// Provides the application's routing configuration.
@@ -62,6 +60,22 @@ class AppRouter {
         uri: state.uri.toString(),
       ),
       redirect: (context, state) {
+        // Check if the current location matches any defined route in our enum
+        // For non-existent routes, we need to check if the location exists in
+        //our routes
+        final location = state.matchedLocation.isEmpty
+            ? state.uri.path
+            : state.matchedLocation;
+
+        final isDefinedRoute =
+            AppRoute.values.map((route) => route.path).contains(location);
+
+        // If the route doesn't exist, don't redirect and let errorBuilder
+        // handle it
+        if (!isDefinedRoute) {
+          return null;
+        }
+
         // Implements route protection based on authentication state:
         // 1. Authenticated users trying to access login/register are redirected
         // to home
@@ -70,16 +84,16 @@ class AppRouter {
 
         if (authNotifier.isAuthenticated) {
           // Redirect authenticated users away from auth screens
-          if (state.matchedLocation == AppRoute.login.path ||
-              state.matchedLocation == AppRoute.register.path) {
+          if (location == AppRoute.login.path ||
+              location == AppRoute.register.path) {
             return AppRoute.home.path;
           }
         } else {
           // Redirect unauthenticated users to login if trying to access
           //protected routes
-          if (state.matchedLocation != AppRoute.login.path &&
-              state.matchedLocation != AppRoute.register.path &&
-              state.matchedLocation != AppRoute.splash.path) {
+          if (location != AppRoute.login.path &&
+              location != AppRoute.register.path &&
+              location != AppRoute.splash.path) {
             return AppRoute.login.path;
           }
         }
