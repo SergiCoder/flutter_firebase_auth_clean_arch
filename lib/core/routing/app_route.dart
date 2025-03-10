@@ -28,8 +28,18 @@ enum AppRoute {
 /// Extension methods for GoRouter navigation with AppRoute
 extension GoRouterExtension on BuildContext {
   /// Navigate to the given route
+  ///
+  /// This method replaces the current route with the specified route,
+  /// clearing the navigation stack.
+  ///
+  /// [route] The route to navigate to
   void goRoute(AppRoute route) => go(route.path);
 
   /// Push the given route onto the navigation stack
+  ///
+  /// This method adds the specified route to the navigation stack,
+  /// allowing the user to navigate back to the previous route.
+  ///
+  /// [route] The route to push onto the navigation stack
   void pushRoute(AppRoute route) => push(route.path);
 }
