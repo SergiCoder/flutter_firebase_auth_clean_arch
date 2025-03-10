@@ -16,11 +16,11 @@ String useFormatErrorMessage(String errorMessage) {
       final prefixPattern = RegExp(r'^\[[\w-]+\/[\w-]+\]\s*');
       final cleanedMessage = errorMessage.replaceFirst(prefixPattern, '');
 
-      // Capitalize the first letter if the message doesn't start with a capital
-      // letter
+      // Capitalize the first letter if it doesn't start with a capital letter
       if (cleanedMessage.isNotEmpty &&
           cleanedMessage[0].toLowerCase() == cleanedMessage[0]) {
-        return '${cleanedMessage[0].toUpperCase()}${cleanedMessage.substring(1)}';
+        return '${cleanedMessage[0].toUpperCase()}'
+            '${cleanedMessage.substring(1)}';
       }
 
       return cleanedMessage;

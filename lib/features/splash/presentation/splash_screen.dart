@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/hooks/use_error_widget.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
@@ -78,8 +78,7 @@ class SplashScreen extends HookConsumerWidget {
         ],
       );
     } else if (state is SplashError) {
-      return useErrorWidget(
-        context: context,
+      return ErrorDisplayWidget(
         errorMessage: state.message,
         onRetry: () => ref.read(splashProvider.notifier).retry(),
       );
