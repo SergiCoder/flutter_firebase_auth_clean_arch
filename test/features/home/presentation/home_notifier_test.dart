@@ -19,7 +19,6 @@ class MockAuthRepository extends Mock implements AuthRepository {
 }
 
 class MockFirebaseAuth extends Mock implements FirebaseAuth {
-  @override
   FirebaseAuth get instance => this;
 }
 

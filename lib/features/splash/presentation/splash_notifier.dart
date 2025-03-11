@@ -1,7 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

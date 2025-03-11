@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-11 16:29:44</td>
+            <td class="headerValue">2025-03-11 17:46:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -67,17 +67,17 @@
 <span id="L5"><span class="lineNum">       5</span>              : /// A service class that provides localization functionality for the app</span>
 <span id="L6"><span class="lineNum">       6</span>              : class AppLocalization {</span>
 <span id="L7"><span class="lineNum">       7</span>              :   /// Returns the localization instance for the given context</span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          10 :   static AppLocalizations of(BuildContext context) {</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          10 :     return AppLocalizations.of(context);</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          12 :   static AppLocalizations of(BuildContext context) {</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          12 :     return AppLocalizations.of(context);</span></span>
 <span id="L10"><span class="lineNum">      10</span>              :   }</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              :   /// Returns a list of all supported locales</span>
-<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          10 :   static List&lt;Locale&gt; get supportedLocales =&gt; AppLocalizations.supportedLocales;</span></span>
+<span id="L13"><span class="lineNum">      13</span> <span class="tlaGNC">          12 :   static List&lt;Locale&gt; get supportedLocales =&gt; AppLocalizations.supportedLocales;</span></span>
 <span id="L14"><span class="lineNum">      14</span>              : </span>
 <span id="L15"><span class="lineNum">      15</span>              :   /// Returns a list of all localization delegates required for the app</span>
-<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          20 :   static List&lt;LocalizationsDelegate&lt;dynamic&gt;&gt; get localizationDelegates =&gt; [</span></span>
+<span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          24 :   static List&lt;LocalizationsDelegate&lt;dynamic&gt;&gt; get localizationDelegates =&gt; [</span></span>
 <span id="L17"><span class="lineNum">      17</span>              :         AppLocalizations.delegate,</span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          10 :         ...GlobalMaterialLocalizations.delegates,</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">          12 :         ...GlobalMaterialLocalizations.delegates,</span></span>
 <span id="L19"><span class="lineNum">      19</span>              :       ];</span>
 <span id="L20"><span class="lineNum">      20</span>              : </span>
 <span id="L21"><span class="lineNum">      21</span>              :   /// Returns the locale name for the given locale</span>

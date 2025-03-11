@@ -56,7 +56,7 @@ void main() {
       });
 
       test(
-          'emits SplashNavigate with isAuthenticated=false when not authenticated',
+          '''emits SplashNavigate with isAuthenticated=false when not authenticated''',
           () async {
         // Arrange
         when(mockAuthRepository.isAuthenticated())

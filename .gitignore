@@ -39,3 +39,4 @@ ios/Podfile.lock
 # Xcode project files
 **/ios/**/project.pbxproj
 **/macos/**/project.pbxproj
+android/app/.cxx/*

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-11 16:29:44</td>
+            <td class="headerValue">2025-03-11 17:46:10</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -83,24 +83,24 @@
 <span id="L21"><span class="lineNum">      21</span>              : /// @param requiredFieldMessage Message for required field error</span>
 <span id="L22"><span class="lineNum">      22</span>              : /// @param invalidEmailMessage Message for invalid email format error</span>
 <span id="L23"><span class="lineNum">      23</span>              : /// @return A validator function that returns an error message or null</span>
-<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           4 : String? Function(String?) useEmailValidator({</span></span>
+<span id="L24"><span class="lineNum">      24</span> <span class="tlaGNC">           6 : String? Function(String?) useEmailValidator({</span></span>
 <span id="L25"><span class="lineNum">      25</span>              :   required String requiredFieldMessage,</span>
 <span id="L26"><span class="lineNum">      26</span>              :   required String invalidEmailMessage,</span>
 <span id="L27"><span class="lineNum">      27</span>              : }) {</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           4 :   return useMemoized(</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           4 :     () {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           3 :       return (String? value) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           3 :         if (value == null || value.isEmpty) {</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           6 :   return useMemoized(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           6 :     () {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           5 :       return (String? value) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           5 :         if (value == null || value.isEmpty) {</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :           return requiredFieldMessage;</span>
 <span id="L33"><span class="lineNum">      33</span>              :         }</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :         final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :         if (!emailRegex.hasMatch(value)) {</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           5 :         final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           5 :         if (!emailRegex.hasMatch(value)) {</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :           return invalidEmailMessage;</span>
 <span id="L37"><span class="lineNum">      37</span>              :         }</span>
 <span id="L38"><span class="lineNum">      38</span>              :         return null;</span>
 <span id="L39"><span class="lineNum">      39</span>              :       };</span>
 <span id="L40"><span class="lineNum">      40</span>              :     },</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           4 :     [requiredFieldMessage, invalidEmailMessage],</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           6 :     [requiredFieldMessage, invalidEmailMessage],</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :   );</span>
 <span id="L43"><span class="lineNum">      43</span>              : }</span>
         </pre>

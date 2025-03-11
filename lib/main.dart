@@ -6,7 +6,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
     if (dart.library.html) 'package:flutter_firebase_auth_clean_arch/core/url_strategy/web_url_strategy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
