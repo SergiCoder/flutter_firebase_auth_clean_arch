@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_form_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -44,15 +43,13 @@ class RegisterScreen extends HookConsumerWidget {
         switch (formField) {
           case RegisterFormField.email:
             emailFocusNode.requestFocus();
-            break;
           case RegisterFormField.password:
             passwordFocusNode.requestFocus();
-            break;
           case RegisterFormField.confirmPassword:
             confirmPasswordFocusNode.requestFocus();
-            break;
           case RegisterFormField.none:
-            // Don't do anything here - form submission is handled by the submit button
+            // Don't do anything here - form submission is handled by the submit
+            // button
             break;
         }
         return null;
@@ -165,11 +162,8 @@ class RegisterScreen extends HookConsumerWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
           if (errorMessage != null)
-            Flexible(
-              flex: 4,
-              child: ErrorDisplayWidget(
-                errorMessage: errorMessage,
-              ),
+            ErrorDisplayWidget(
+              errorMessage: errorMessage,
             )
           else
             const Spacer(flex: 4),

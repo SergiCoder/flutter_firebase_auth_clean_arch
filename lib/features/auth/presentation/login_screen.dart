@@ -122,11 +122,8 @@ class LoginScreen extends HookConsumerWidget {
             color: Theme.of(context).colorScheme.primary,
           ),
           if (errorMessage != null)
-            Flexible(
-              flex: 4,
-              child: ErrorDisplayWidget(
-                errorMessage: errorMessage,
-              ),
+            ErrorDisplayWidget(
+              errorMessage: errorMessage,
             )
           else
             const Spacer(flex: 4),
