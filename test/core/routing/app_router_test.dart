@@ -55,7 +55,8 @@ void main() {
         // Get the routes from the router
         final routes = router.configuration.routes;
 
-        // Verify that each route has a builder that returns the correct screen type
+        // Verify that each route has a builder that returns the correct screen
+        // type
         for (final route in routes) {
           final goRoute = route as GoRoute;
           final path = goRoute.path;
@@ -196,7 +197,6 @@ void main() {
         final redirectPath = testRedirect(
           isAuthenticated: false,
           location: '/non-existent',
-          matchedLocation: '',
         );
         expect(redirectPath, isNull);
       });
@@ -220,6 +220,7 @@ class _MockBuildContext extends Fake implements BuildContext {}
 class _MockGoRouterState extends Fake implements GoRouterState {
   _MockGoRouterState({required this.path});
 
+  @override
   final String path;
 
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,7 +5,8 @@ import 'package:go_router/go_router.dart';
 
 import 'mock_auth_router_notifier.dart';
 
-/// A test class that extends AppRouter to expose the redirect function for testing
+/// A test class that extends AppRouter to expose the redirect function for
+/// testing
 class TestAppRouter extends AppRouter {
   /// Exposes the redirect function for testing
   static String? testRedirect({
@@ -14,17 +14,16 @@ class TestAppRouter extends AppRouter {
     required String location,
     String matchedLocation = '',
   }) {
-    final authNotifier = MockAuthRouterNotifier();
-    authNotifier.isAuthenticated = isAuthenticated;
+    final authNotifier = MockAuthRouterNotifier()
+      ..isAuthenticated = isAuthenticated;
 
-    final context = _MockBuildContext();
     final state = _MockGoRouterState(
       path: location,
       matchedLoc: matchedLocation,
     );
 
     // Create a router to get access to the redirect function
-    final router = AppRouter.createRouter(authNotifier: authNotifier);
+    AppRouter.createRouter(authNotifier: authNotifier);
 
     // This is a workaround to test the redirect function
     // We're implementing the same logic as in the app_router.dart file
@@ -49,7 +48,8 @@ class TestAppRouter extends AppRouter {
         return AppRoute.home.path;
       }
     } else {
-      // Redirect unauthenticated users to login if trying to access protected routes
+      // Redirect unauthenticated users to login if trying to access protected
+      // routes
       if (currentLocation != AppRoute.login.path &&
           currentLocation != AppRoute.register.path &&
           currentLocation != AppRoute.splash.path) {
@@ -132,7 +132,6 @@ void main() {
       final redirectPath = TestAppRouter.testRedirect(
         isAuthenticated: false,
         location: '/non-existent',
-        matchedLocation: '',
       );
       expect(redirectPath, isNull);
     });
@@ -148,9 +147,6 @@ void main() {
   });
 }
 
-/// A simple mock BuildContext for testing
-class _MockBuildContext extends Fake implements BuildContext {}
-
 /// A simple mock GoRouterState for testing
 class _MockGoRouterState extends Fake implements GoRouterState {
   _MockGoRouterState({
@@ -158,6 +154,7 @@ class _MockGoRouterState extends Fake implements GoRouterState {
     required this.matchedLoc,
   });
 
+  @override
   final String path;
   final String matchedLoc;
 
