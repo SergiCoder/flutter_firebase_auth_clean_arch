@@ -16,21 +16,19 @@ class MockGoRouter extends Mock implements GoRouter {
     _location = location;
     super.noSuchMethod(
       Invocation.method(#go, [location], {#extra: extra}),
-      returnValue: null,
     );
   }
 
   @override
   Future<T?> push<T extends Object?>(String location, {Object? extra}) {
     _location = location;
-    return Future<T?>.value(null);
+    return Future<T?>.value();
   }
 
   @override
   void pop<T extends Object?>([T? result]) {
     super.noSuchMethod(
       Invocation.method(#pop, result == null ? [] : [result]),
-      returnValue: null,
     );
   }
 

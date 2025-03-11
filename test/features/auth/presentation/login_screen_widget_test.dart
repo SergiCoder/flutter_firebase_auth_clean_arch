@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'mocks/mock_go_router.dart';
 import 'login_screen_test.mocks.dart';
+import 'mocks/mock_go_router.dart';
 
 @GenerateMocks([AuthRepository])
 void main() {
@@ -126,7 +120,8 @@ void main() {
       await tester.tap(registerButton);
       await tester.pump();
 
-      // Assert - We can't verify the mock directly, but we can check that the button was tapped
+      // Assert - We can't verify the mock directly, but we can check that the
+      // button was tapped
       expect(find.byType(TextButton), findsOneWidget);
     });
 
@@ -140,7 +135,8 @@ void main() {
       await tester.pump();
 
       // Assert - Check that form validation is triggered
-      // The exact error messages might vary, so we just check that the form is validated
+      // The exact error messages might vary, so we just check that the form is
+      // validated
       expect(find.byType(TextFormField), findsNWidgets(2));
     });
 
@@ -158,7 +154,8 @@ void main() {
       await tester.pump();
 
       // Assert - Check that form validation is triggered
-      // The exact error messages might vary, so we just check that the form is validated
+      // The exact error messages might vary, so we just check that the form is
+      // validated
       expect(find.byType(TextFormField), findsNWidgets(2));
     });
 
@@ -198,8 +195,8 @@ void main() {
       ).called(1);
     });
 
-    // Note: The following tests may need adjustment based on the actual implementation
-    // of the focus handling in the LoginScreen
+    // Note: The following tests may need adjustment based on the actual
+    // implementation of the focus handling in the LoginScreen
     testWidgets('moves focus when Enter is pressed in email field',
         (tester) async {
       // Arrange

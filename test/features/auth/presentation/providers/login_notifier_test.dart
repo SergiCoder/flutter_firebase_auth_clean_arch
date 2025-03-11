@@ -79,8 +79,10 @@ void main() {
           ),
         ).called(1);
         expect(loginNotifier.state, isA<LoginError>());
-        expect((loginNotifier.state as LoginError).message,
-            contains(errorMessage));
+        expect(
+          (loginNotifier.state as LoginError).message,
+          contains(errorMessage),
+        );
       });
 
       test('handles empty email or password with error from repository',
@@ -120,10 +122,11 @@ void main() {
 
     test('reset sets state to LoginInitial', () {
       // Arrange
-      loginNotifier.state = const LoginError('Some error');
+      loginNotifier
+        ..state = const LoginError('Some error')
 
-      // Act
-      loginNotifier.reset();
+        // Act
+        ..reset();
 
       // Assert
       expect(loginNotifier.state, isA<LoginInitial>());

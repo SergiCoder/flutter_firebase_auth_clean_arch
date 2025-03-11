@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
@@ -13,31 +12,27 @@ import '../../auth/presentation/mocks/mock_go_router.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {
   @override
-  Future<void> signOut() async {
+  Future<bool> isAuthenticated() {
     return super.noSuchMethod(
-      Invocation.method(#signOut, []),
-      returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value(),
-    );
+      Invocation.method(#isAuthenticated, []),
+      returnValue: Future<bool>.value(false),
+      returnValueForMissingStub: Future<bool>.value(false),
+    ) as Future<bool>;
   }
 }
-
-class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  group('HomeScreen', () {
+  group('SplashScreen', () {
     late MockAuthRepository mockAuthRepository;
-    late MockFirebaseAuth mockFirebaseAuth;
     late MockGoRouter mockGoRouter;
     late ProviderContainer container;
     late Widget testWidget;
-    late HomeNotifier homeNotifier;
+    late SplashNotifier splashNotifier;
 
     setUp(() {
       mockAuthRepository = MockAuthRepository();
-      mockFirebaseAuth = MockFirebaseAuth();
       mockGoRouter = MockGoRouter();
 
       // Check if the repository is already registered
@@ -50,13 +45,13 @@ void main() {
           ..registerSingleton<AuthRepository>(mockAuthRepository);
       }
 
-      // Create a HomeNotifier with the mock FirebaseAuth
-      homeNotifier = HomeNotifier(firebaseAuth: mockFirebaseAuth);
+      // Create a SplashNotifier
+      splashNotifier = SplashNotifier();
 
       // Create a provider container with overrides
       container = ProviderContainer(
         overrides: [
-          homeProvider.overrideWith((ref) => homeNotifier),
+          splashProvider.overrideWith((ref) => splashNotifier),
         ],
       );
 
@@ -68,7 +63,7 @@ void main() {
           container: container,
           child: MockGoRouterProvider(
             router: mockGoRouter,
-            child: const HomeScreen(),
+            child: const SplashScreen(),
           ),
         ),
       );
@@ -81,9 +76,9 @@ void main() {
       });
     });
 
-    testWidgets('renders loading state initially', (tester) async {
+    testWidgets('renders loading state correctly', (tester) async {
       // Arrange
-      container.read(homeProvider.notifier).state = const HomeLoading();
+      container.read(splashProvider.notifier).state = const SplashLoading();
 
       // Act
       await tester.pumpWidget(testWidget);
@@ -95,60 +90,58 @@ void main() {
     testWidgets('renders error state correctly', (tester) async {
       // Arrange
       const errorMessage = 'An error occurred';
-      container.read(homeProvider.notifier).state =
-          const HomeError(errorMessage);
+      container.read(splashProvider.notifier).state =
+          const SplashError(errorMessage);
 
       // Act
       await tester.pumpWidget(testWidget);
 
       // Assert
       expect(find.text(errorMessage), findsOneWidget);
-      expect(find.byType(ElevatedButton), findsOneWidget);
     });
 
-    testWidgets('renders loaded state correctly', (tester) async {
+    testWidgets('navigates to login when not authenticated', (tester) async {
       // Arrange
-      const email = 'test@example.com';
-      container.read(homeProvider.notifier).state =
-          const HomeLoaded(email: email);
+      container.read(splashProvider.notifier).state =
+          const SplashNavigate(isAuthenticated: false);
 
       // Act
       await tester.pumpWidget(testWidget);
 
-      // Assert
-      expect(find.byType(ElevatedButton), findsOneWidget);
+      // Allow microtask to complete
+      await tester.pumpAndSettle();
+
+      // Assert - verify go was called with login route
+      verify(mockGoRouter.go('/login')).called(1);
     });
 
-    testWidgets('logs out when logout button is pressed in error state',
-        (tester) async {
+    testWidgets('navigates to home when authenticated', (tester) async {
       // Arrange
-      const errorMessage = 'An error occurred';
-      container.read(homeProvider.notifier).state =
-          const HomeError(errorMessage);
+      container.read(splashProvider.notifier).state =
+          const SplashNavigate(isAuthenticated: true);
 
       // Act
       await tester.pumpWidget(testWidget);
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
 
-      // Assert
-      verify(mockAuthRepository.signOut()).called(1);
+      // Allow microtask to complete
+      await tester.pumpAndSettle();
+
+      // Assert - verify go was called with home route
+      verify(mockGoRouter.go('/')).called(1);
     });
 
-    testWidgets('logs out when logout button is pressed in loaded state',
-        (tester) async {
+    testWidgets('initializes on first build', (tester) async {
       // Arrange
-      const email = 'test@example.com';
-      container.read(homeProvider.notifier).state =
-          const HomeLoaded(email: email);
+      when(mockAuthRepository.isAuthenticated()).thenAnswer((_) async => true);
 
       // Act
       await tester.pumpWidget(testWidget);
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
 
-      // Assert
-      verify(mockAuthRepository.signOut()).called(1);
+      // Allow post-frame callback and microtask to complete
+      await tester.pumpAndSettle();
+
+      // Assert - verify go was called with home route
+      verify(mockGoRouter.go('/')).called(1);
     });
   });
 }

@@ -24,7 +24,7 @@ void main() {
 
     group('registerWithEmailAndPassword', () {
       test(
-          'emits RegisterLoading and RegisterSuccess on successful registration',
+          '''emits RegisterLoading and RegisterSuccess on successful registration''',
           () async {
         // Arrange
         const email = 'test@example.com';
@@ -124,10 +124,11 @@ void main() {
 
     test('reset sets state to RegisterInitial', () {
       // Arrange
-      registerNotifier.state = const RegisterError('Some error');
+      registerNotifier
+        ..state = const RegisterError('Some error')
 
-      // Act
-      registerNotifier.reset();
+        // Act
+        ..reset();
 
       // Assert
       expect(registerNotifier.state, isA<RegisterInitial>());

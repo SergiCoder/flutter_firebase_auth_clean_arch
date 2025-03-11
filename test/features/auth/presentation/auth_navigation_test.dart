@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 
-import 'mocks/mock_go_router.dart';
 import 'login_screen_test.mocks.dart';
+import 'mocks/mock_go_router.dart';
 
 @GenerateMocks([AuthRepository])
 void main() {
@@ -57,8 +50,10 @@ void main() {
 
       // Assert - Check that the login screen is shown
       expect(find.byType(LoginScreen), findsOneWidget);
-      expect(find.byType(TextFormField),
-          findsNWidgets(2)); // Email and password fields
+      expect(
+        find.byType(TextFormField),
+        findsNWidgets(2),
+      ); // Email and password fields
       expect(find.byType(ElevatedButton), findsOneWidget); // Login button
     });
 

@@ -40,8 +40,9 @@ void main() {
         serviceLocator.registerSingleton<AuthRepository>(mockAuthRepository);
       } else {
         // Reset the mock if it's already registered
-        serviceLocator.unregister<AuthRepository>();
-        serviceLocator.registerSingleton<AuthRepository>(mockAuthRepository);
+        serviceLocator
+          ..unregister<AuthRepository>()
+          ..registerSingleton<AuthRepository>(mockAuthRepository);
       }
 
       // Create the HomeNotifier with the mock FirebaseAuth
@@ -95,8 +96,10 @@ void main() {
 
         // Assert
         expect(homeNotifier.state, isA<HomeError>());
-        expect((homeNotifier.state as HomeError).message,
-            equals('No authenticated user found'));
+        expect(
+          (homeNotifier.state as HomeError).message,
+          equals('No authenticated user found'),
+        );
       });
 
       test('emits HomeError when an exception is thrown', () async {
@@ -108,8 +111,10 @@ void main() {
 
         // Assert
         expect(homeNotifier.state, isA<HomeError>());
-        expect((homeNotifier.state as HomeError).message,
-            contains('Exception: Test error'));
+        expect(
+          (homeNotifier.state as HomeError).message,
+          contains('Exception: Test error'),
+        );
       });
     });
 

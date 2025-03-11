@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -57,12 +51,15 @@ void main() {
 
       // Assert
       expect(find.byType(AppBar), findsOneWidget);
-      expect(find.byType(TextFormField),
-          findsNWidgets(3)); // Email, password, confirm password
+      expect(
+        find.byType(TextFormField),
+        findsNWidgets(3),
+      ); // Email, password, confirm password
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.byIcon(Icons.email), findsOneWidget);
-      // Icons might vary based on implementation, so we don't check them specifically
+      // Icons might vary based on implementation, so we don't check them
+      // specifically
     });
 
     testWidgets('shows loading indicator when in loading state',
@@ -127,7 +124,8 @@ void main() {
       await tester.tap(loginButton);
       await tester.pump();
 
-      // Assert - We can't verify the mock directly, but we can check that the button was tapped
+      // Assert - We can't verify the mock directly, but we can check that the
+      // button was tapped
       expect(find.byType(TextButton), findsOneWidget);
     });
 
@@ -141,7 +139,8 @@ void main() {
       await tester.pump();
 
       // Assert - Check that form validation is triggered
-      // The exact error messages might vary, so we just check that the form is validated
+      // The exact error messages might vary, so we just check that the form is
+      // validated
       expect(find.byType(TextFormField), findsNWidgets(3));
     });
 
@@ -180,7 +179,8 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
 
       // Assert - Check that the form was submitted
-      // We can't verify the mock directly, but we can check that the form was submitted
+      // We can't verify the mock directly, but we can check that the form was
+      // submitted
       expect(find.byType(ElevatedButton), findsOneWidget);
     });
   });
