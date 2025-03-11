@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/hooks/use_email_validator.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

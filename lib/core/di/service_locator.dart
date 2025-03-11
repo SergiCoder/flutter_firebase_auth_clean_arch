@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories/firebase_auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:get_it/get_it.dart';
 
 /// Global service locator instance

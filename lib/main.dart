@@ -5,13 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/firebase/firebase_options.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/theme/app_theme.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
     if (dart.library.html) 'package:flutter_firebase_auth_clean_arch/core/url_strategy/web_url_strategy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

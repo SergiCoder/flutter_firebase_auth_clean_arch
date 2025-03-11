@@ -1,6 +1,4 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that manages the state of the login screen

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/routing.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 
 /// A screen to display when a route is not found or an error occurs during
 /// routing.

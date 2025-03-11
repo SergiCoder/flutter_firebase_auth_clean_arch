@@ -1,10 +1,5 @@
-import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/login_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/register_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/error_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/notifiers/splash_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:go_router/go_router.dart';
 
 /// Provides the application's routing configuration.

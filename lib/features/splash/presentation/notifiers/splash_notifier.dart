@@ -1,8 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that manages the state of the splash screen
