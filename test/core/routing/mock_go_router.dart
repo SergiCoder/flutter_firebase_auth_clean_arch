@@ -1,19 +1,18 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mockito/mockito.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 
 /// A mock implementation of [GoRouter] for testing purposes.
 ///
 /// This class provides a mock implementation of the GoRouter that can be used
-/// in tests to verify navigation behavior without requiring a full router setup.
+/// in tests to verify navigation behavior without requiring a full router
+/// setup.
 class MockGoRouter extends Mock implements GoRouter {
   /// The current location of the router.
   String _location = AppRoute.splash.path;
 
   /// Returns the current location of the router.
-  @override
   String get location => _location;
 
   /// Mocks navigation to the specified location.
@@ -38,7 +37,7 @@ class MockGoRouter extends Mock implements GoRouter {
   @override
   Future<T?> push<T extends Object?>(String location, {Object? extra}) {
     _location = location;
-    return Future<T?>.value(null);
+    return Future<T?>.value();
   }
 
   /// Mocks replacing the current location with a new one.
@@ -51,7 +50,7 @@ class MockGoRouter extends Mock implements GoRouter {
   @override
   Future<T?> replace<T extends Object?>(String location, {Object? extra}) {
     _location = location;
-    return Future<T?>.value(null);
+    return Future<T?>.value();
   }
 
   /// Mocks popping the current route.

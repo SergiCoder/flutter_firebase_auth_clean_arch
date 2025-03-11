@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
 import 'mock_auth_router_notifier.dart';
@@ -31,7 +31,8 @@ void main() {
       }
     });
 
-    // Test the redirect logic by directly calling the redirect function in AppRouter
+    // Test the redirect logic by directly calling the redirect function in
+    // AppRouter
     group('redirect logic', () {
       // Helper function to test redirection
       String? testRedirect({
@@ -43,10 +44,10 @@ void main() {
         authNotifier.isAuthenticated = isAuthenticated;
 
         // Create a new router with the updated auth state
-        final testRouter = AppRouter.createRouter(authNotifier: authNotifier);
+        AppRouter.createRouter(authNotifier: authNotifier);
 
         // Extract the redirect function from the router
-        final redirectFn = (BuildContext ctx, GoRouterState state) {
+        String? redirectFn(BuildContext ctx, GoRouterState state) {
           // This is a simplified version of the redirect logic from AppRouter
           // It's based on the implementation in app_router.dart
 
@@ -71,7 +72,8 @@ void main() {
               return AppRoute.home.path;
             }
           } else {
-            // Redirect unauthenticated users to login if trying to access protected routes
+            // Redirect unauthenticated users to login if trying to access
+            // protected routes
             if (currentLocation != AppRoute.login.path &&
                 currentLocation != AppRoute.register.path &&
                 currentLocation != AppRoute.splash.path) {
@@ -81,7 +83,7 @@ void main() {
 
           // No redirection needed
           return null;
-        };
+        }
 
         // Create a mock context and state
         final context = _MockBuildContext();
@@ -165,8 +167,9 @@ void main() {
 /// A simple mock BuildContext for testing
 class _MockBuildContext extends Fake implements BuildContext {
   @override
-  T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>(
-      {Object? aspect}) {
+  T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>({
+    Object? aspect,
+  }) {
     return null;
   }
 }
@@ -179,7 +182,6 @@ class _MockGoRouterState extends Fake implements GoRouterState {
     required this.uri,
   });
 
-  @override
   final String location;
 
   @override
