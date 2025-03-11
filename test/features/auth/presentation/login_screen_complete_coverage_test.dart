@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -135,8 +134,9 @@ void main() {
       // Verify that the form validation shows error for short password
       expect(
         find.text(
-            AppLocalization.of(tester.element(find.byType(ElevatedButton)))
-                .passwordTooShort),
+          AppLocalization.of(tester.element(find.byType(ElevatedButton)))
+              .passwordTooShort,
+        ),
         findsOneWidget,
       );
 
@@ -188,8 +188,9 @@ void main() {
       // Verify that validation error is shown
       expect(
         find.text(
-            AppLocalization.of(tester.element(find.byType(ElevatedButton)))
-                .passwordTooShort),
+          AppLocalization.of(tester.element(find.byType(ElevatedButton)))
+              .passwordTooShort,
+        ),
         findsOneWidget,
       );
     });
