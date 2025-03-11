@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,13 +7,24 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 /// A notifier that manages the state of the home screen
 class HomeNotifier extends StateNotifier<HomeState> {
   /// Creates a new [HomeNotifier]
-  HomeNotifier() : super(const HomeInitial());
+  ///
+  /// If [firebaseAuth] is not provided, it will use [FirebaseAuth.instance]
+  HomeNotifier({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+        super(const HomeInitial());
 
   /// The authentication repository
   final _authRepository = serviceLocator<AuthRepository>();
 
   /// The Firebase Auth instance
-  final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth;
+
+  /// Sets the Firebase Auth instance (for testing)
+  @visibleForTesting
+  set testFirebaseAuth(FirebaseAuth auth) {
+    // This setter is kept for backward compatibility
+    // but we now prefer using the constructor parameter
+  }
 
   /// Initializes the home screen
   Future<void> initialize() async {
