@@ -1,0 +1,9 @@
+# LCOV configuration file
+
+# Exclude generated files
+exclude_pattern = lib/generated/*
+
+# Exclude other patterns if needed
+# exclude_pattern = */test/*
+# exclude_pattern = */.*/*
+# exclude_pattern = */flutter/* 
