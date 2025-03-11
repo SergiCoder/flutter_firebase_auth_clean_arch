@@ -121,14 +121,15 @@ class LoginScreen extends HookConsumerWidget {
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          Flexible(
-            flex: 4,
-            child: (errorMessage != null)
-                ? ErrorDisplayWidget(
-                    errorMessage: errorMessage,
-                  )
-                : const SizedBox(),
-          ),
+          if (errorMessage != null)
+            Flexible(
+              flex: 4,
+              child: ErrorDisplayWidget(
+                errorMessage: errorMessage,
+              ),
+            )
+          else
+            const Spacer(flex: 4),
           TextFormField(
             controller: emailController,
             decoration: InputDecoration(

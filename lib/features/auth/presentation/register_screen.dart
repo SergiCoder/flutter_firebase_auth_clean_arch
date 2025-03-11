@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_form_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,9 +13,12 @@ class RegisterScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final registerState = ref.watch(registerProvider);
+    final formField = ref.watch(registerFormProvider);
+
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
     final confirmPasswordController = useTextEditingController();
+    final emailFocusNode = useFocusNode();
     final passwordFocusNode = useFocusNode();
     final confirmPasswordFocusNode = useFocusNode();
     final formKey = useMemoized(GlobalKey<FormState>.new);
@@ -34,6 +38,28 @@ class RegisterScreen extends HookConsumerWidget {
       [registerState],
     );
 
+    // Handle focus changes based on form field state
+    useEffect(
+      () {
+        switch (formField) {
+          case RegisterFormField.email:
+            emailFocusNode.requestFocus();
+            break;
+          case RegisterFormField.password:
+            passwordFocusNode.requestFocus();
+            break;
+          case RegisterFormField.confirmPassword:
+            confirmPasswordFocusNode.requestFocus();
+            break;
+          case RegisterFormField.none:
+            // Don't do anything here - form submission is handled by the submit button
+            break;
+        }
+        return null;
+      },
+      [formField],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).registerTitle),
@@ -47,6 +73,7 @@ class RegisterScreen extends HookConsumerWidget {
           emailController,
           passwordController,
           confirmPasswordController,
+          emailFocusNode,
           passwordFocusNode,
           confirmPasswordFocusNode,
           formKey,
@@ -62,6 +89,7 @@ class RegisterScreen extends HookConsumerWidget {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
+    FocusNode emailFocusNode,
     FocusNode passwordFocusNode,
     FocusNode confirmPasswordFocusNode,
     GlobalKey<FormState> formKey,
@@ -81,6 +109,7 @@ class RegisterScreen extends HookConsumerWidget {
       emailController,
       passwordController,
       confirmPasswordController,
+      emailFocusNode,
       passwordFocusNode,
       confirmPasswordFocusNode,
       formKey,
@@ -96,10 +125,13 @@ class RegisterScreen extends HookConsumerWidget {
     String password,
   ) {
     if (formKey.currentState?.validate() ?? false) {
-      ref.read(registerProvider.notifier).createUserWithEmailAndPassword(
-            email: email,
-            password: password,
-          );
+      // Use a microtask to avoid modifying providers during build
+      Future<void>.microtask(() {
+        ref.read(registerProvider.notifier).createUserWithEmailAndPassword(
+              email: email,
+              password: password,
+            );
+      });
     }
   }
 
@@ -109,6 +141,7 @@ class RegisterScreen extends HookConsumerWidget {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
+    FocusNode emailFocusNode,
     FocusNode passwordFocusNode,
     FocusNode confirmPasswordFocusNode,
     GlobalKey<FormState> formKey, {
@@ -131,16 +164,19 @@ class RegisterScreen extends HookConsumerWidget {
             size: 80,
             color: Theme.of(context).colorScheme.primary,
           ),
-          Flexible(
-            flex: 4,
-            child: (errorMessage != null)
-                ? ErrorDisplayWidget(
-                    errorMessage: errorMessage,
-                  )
-                : const SizedBox(),
-          ),
+          if (errorMessage != null)
+            Flexible(
+              flex: 4,
+              child: ErrorDisplayWidget(
+                errorMessage: errorMessage,
+              ),
+            )
+          else
+            const Spacer(flex: 4),
           TextFormField(
+            key: const Key('register_email_field'),
             controller: emailController,
+            focusNode: emailFocusNode,
             decoration: InputDecoration(
               labelText: AppLocalization.of(context).email,
               border: const OutlineInputBorder(),
@@ -150,12 +186,13 @@ class RegisterScreen extends HookConsumerWidget {
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (_) {
               // Move focus to password field when Enter is pressed
-              passwordFocusNode.requestFocus();
+              ref.read(registerFormProvider.notifier).focusPassword();
             },
             validator: emailValidator,
           ),
           const Spacer(),
           TextFormField(
+            key: const Key('register_password_field'),
             controller: passwordController,
             focusNode: passwordFocusNode,
             decoration: InputDecoration(
@@ -167,7 +204,7 @@ class RegisterScreen extends HookConsumerWidget {
             textInputAction: TextInputAction.next,
             onFieldSubmitted: (_) {
               // Move focus to confirm password field when Enter is pressed
-              confirmPasswordFocusNode.requestFocus();
+              ref.read(registerFormProvider.notifier).focusConfirmPassword();
             },
             validator: (value) {
               if (value == null || value.isEmpty) {
@@ -181,6 +218,7 @@ class RegisterScreen extends HookConsumerWidget {
           ),
           const Spacer(),
           TextFormField(
+            key: const Key('register_confirm_password_field'),
             controller: confirmPasswordController,
             focusNode: confirmPasswordFocusNode,
             decoration: InputDecoration(
@@ -211,6 +249,7 @@ class RegisterScreen extends HookConsumerWidget {
           ),
           const Spacer(),
           ElevatedButton(
+            key: const Key('register_submit_button'),
             onPressed: () {
               _submitForm(
                 ref,
@@ -226,6 +265,7 @@ class RegisterScreen extends HookConsumerWidget {
           ),
           const Spacer(),
           TextButton(
+            key: const Key('register_login_button'),
             onPressed: () {
               context.goRoute(AppRoute.login);
             },
