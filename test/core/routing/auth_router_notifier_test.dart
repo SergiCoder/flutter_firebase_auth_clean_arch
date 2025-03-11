@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_firebase_auth_clean_arch/core/routing/auth_router_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -130,16 +131,19 @@ void main() {
       authRouterNotifier.dispose();
     });
 
-    test('should handle errors gracefully', () async {
-      // Create the notifier with the mock repository
+    test('should handle initialization errors gracefully', () async {
+      // Create a mock that throws an exception when authStateChanges is
+      // accessed
+      final errorMockRepository = MockAuthRepository();
+      when(errorMockRepository.authStateChanges)
+          .thenThrow(Exception('Test error'));
+
+      // Create a notifier with the error-throwing mock
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: mockAuthRepository,
+        authRepository: errorMockRepository,
       );
 
-      // Wait for initialization to complete
-      await Future<void>.delayed(const Duration(milliseconds: 50));
-
-      // Verify initial state
+      // Verify the state is set to unauthenticated after error
       expect(authRouterNotifier.isAuthenticated, isFalse);
 
       // Clean up
@@ -193,6 +197,22 @@ void main() {
 
   group('authRouterNotifierProvider', () {
     test('should create AuthRouterNotifier with auth repository', () {
+      // Create a ProviderContainer with overrides for testing
+      final container = ProviderContainer(
+        overrides: [
+          // Override the auth repository provider with our mock
+          authRepositoryProvider.overrideWithValue(MockAuthRepository()),
+        ],
+      );
+
+      // Read the provider to trigger its creation
+      final authRouterNotifier = container.read(authRouterNotifierProvider);
+
+      // Assert
+      expect(authRouterNotifier, isA<AuthRouterNotifier>());
+      expect(authRouterNotifier.isAuthenticated, isFalse);
+
+      // Clean up
       // This test would require a ProviderContainer from Riverpod
       // which is beyond the scope of this simple test
       // In a real test, you would use ProviderContainer to test the provider

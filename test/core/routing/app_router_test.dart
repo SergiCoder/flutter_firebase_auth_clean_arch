@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_router.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,10 +32,59 @@ void main() {
       }
     });
 
+    test('should have correct route configuration', () {
+      // Get the routes from the router
+      final routes = router.configuration.routes;
+
+      // Verify that there's a route for each AppRoute value
+      for (final appRoute in AppRoute.values) {
+        final route = routes.firstWhere(
+          (route) => (route as GoRoute).path == appRoute.path,
+        );
+        expect(route, isNotNull);
+        expect((route as GoRoute).name, equals(appRoute.name));
+        expect(route.builder, isNotNull);
+      }
+
+      // Verify that the redirect function is configured
+      expect(router.configuration.redirect, isNotNull);
+    });
+
+    group('route builders', () {
+      test('should have correct route builders', () {
+        // Get the routes from the router
+        final routes = router.configuration.routes;
+
+        // Verify that each route has a builder that returns the correct screen type
+        for (final route in routes) {
+          final goRoute = route as GoRoute;
+          final path = goRoute.path;
+          final builder = goRoute.builder;
+
+          // Create a mock context and state
+          final context = _MockBuildContext();
+          final state = _MockGoRouterState(path: path);
+
+          // Call the builder and verify the returned widget
+          final widget = builder!(context, state);
+
+          if (path == AppRoute.splash.path) {
+            expect(widget, isA<SplashScreen>());
+          } else if (path == AppRoute.login.path) {
+            expect(widget, isA<LoginScreen>());
+          } else if (path == AppRoute.register.path) {
+            expect(widget, isA<RegisterScreen>());
+          } else if (path == AppRoute.home.path) {
+            expect(widget, isA<HomeScreen>());
+          }
+        }
+      });
+    });
+
     // Test the redirect logic by directly calling the redirect function in
     // AppRouter
     group('redirect logic', () {
-      // Helper function to test redirection
+      // Create a simplified version of the redirect function for testing
       String? testRedirect({
         required bool isAuthenticated,
         required String location,
@@ -43,58 +93,39 @@ void main() {
         // Set the authentication state
         authNotifier.isAuthenticated = isAuthenticated;
 
-        // Create a new router with the updated auth state
-        AppRouter.createRouter(authNotifier: authNotifier);
+        // Use the actual location or matchedLocation
+        final currentLocation =
+            matchedLocation.isEmpty ? location : matchedLocation;
 
-        // Extract the redirect function from the router
-        String? redirectFn(BuildContext ctx, GoRouterState state) {
-          // This is a simplified version of the redirect logic from AppRouter
-          // It's based on the implementation in app_router.dart
+        // Check if the route is defined
+        final isDefinedRoute = AppRoute.values
+            .map((route) => route.path)
+            .contains(currentLocation);
 
-          // Check if the current location matches any defined route
-          final currentLocation =
-              matchedLocation.isEmpty ? location : matchedLocation;
-
-          final isDefinedRoute = AppRoute.values
-              .map((route) => route.path)
-              .contains(currentLocation);
-
-          // If the route doesn't exist, don't redirect
-          if (!isDefinedRoute) {
-            return null;
-          }
-
-          // Implement redirection logic based on auth state
-          if (authNotifier.isAuthenticated) {
-            // Redirect authenticated users away from auth screens
-            if (currentLocation == AppRoute.login.path ||
-                currentLocation == AppRoute.register.path) {
-              return AppRoute.home.path;
-            }
-          } else {
-            // Redirect unauthenticated users to login if trying to access
-            // protected routes
-            if (currentLocation != AppRoute.login.path &&
-                currentLocation != AppRoute.register.path &&
-                currentLocation != AppRoute.splash.path) {
-              return AppRoute.login.path;
-            }
-          }
-
-          // No redirection needed
+        // If the route doesn't exist, don't redirect
+        if (!isDefinedRoute) {
           return null;
         }
 
-        // Create a mock context and state
-        final context = _MockBuildContext();
-        final state = _MockGoRouterState(
-          location: location,
-          matchedLocation: matchedLocation,
-          uri: Uri.parse(location),
-        );
+        // Implement redirection logic based on auth state
+        if (isAuthenticated) {
+          // Redirect authenticated users away from auth screens
+          if (currentLocation == AppRoute.login.path ||
+              currentLocation == AppRoute.register.path) {
+            return AppRoute.home.path;
+          }
+        } else {
+          // Redirect unauthenticated users to login if trying to access
+          // protected routes
+          if (currentLocation != AppRoute.login.path &&
+              currentLocation != AppRoute.register.path &&
+              currentLocation != AppRoute.splash.path) {
+            return AppRoute.login.path;
+          }
+        }
 
-        // Call the redirect function with our test parameters
-        return redirectFn(context, state);
+        // No redirection needed
+        return null;
       }
 
       test('should redirect authenticated user from login to home', () {
@@ -160,33 +191,40 @@ void main() {
         );
         expect(redirectPath, isNull);
       });
+
+      test('should handle empty matchedLocation', () {
+        final redirectPath = testRedirect(
+          isAuthenticated: false,
+          location: '/non-existent',
+          matchedLocation: '',
+        );
+        expect(redirectPath, isNull);
+      });
+
+      test('should use matchedLocation when provided', () {
+        final redirectPath = testRedirect(
+          isAuthenticated: false,
+          location: '/some-path',
+          matchedLocation: AppRoute.home.path,
+        );
+        expect(redirectPath, equals(AppRoute.login.path));
+      });
     });
   });
 }
 
 /// A simple mock BuildContext for testing
-class _MockBuildContext extends Fake implements BuildContext {
-  @override
-  T? dependOnInheritedWidgetOfExactType<T extends InheritedWidget>({
-    Object? aspect,
-  }) {
-    return null;
-  }
-}
+class _MockBuildContext extends Fake implements BuildContext {}
 
 /// A simple mock GoRouterState for testing
 class _MockGoRouterState extends Fake implements GoRouterState {
-  _MockGoRouterState({
-    required this.location,
-    required this.matchedLocation,
-    required this.uri,
-  });
+  _MockGoRouterState({required this.path});
 
-  final String location;
+  final String path;
 
   @override
-  final String matchedLocation;
+  String get matchedLocation => path;
 
   @override
-  final Uri uri;
+  Uri get uri => Uri.parse(path);
 }

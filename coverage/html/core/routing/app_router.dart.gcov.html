@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">45.7&nbsp;%</td>
+            <td class="headerCovTableEntryLo">57.1&nbsp;%</td>
             <td class="headerCovTableEntry">35</td>
-            <td class="headerCovTableEntry">16</td>
+            <td class="headerCovTableEntry">20</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-11 17:46:10</td>
+            <td class="headerValue">2025-03-11 18:22:40</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -84,33 +84,33 @@
 <span id="L22"><span class="lineNum">      22</span>              :   /// triggers router refreshes when auth state changes.</span>
 <span id="L23"><span class="lineNum">      23</span>              :   ///</span>
 <span id="L24"><span class="lineNum">      24</span>              :   /// Returns a configured [GoRouter] instance ready for use in the application.</span>
-<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           1 :   static GoRouter createRouter({</span></span>
+<span id="L25"><span class="lineNum">      25</span> <span class="tlaGNC">           3 :   static GoRouter createRouter({</span></span>
 <span id="L26"><span class="lineNum">      26</span>              :     required AuthRouterNotifier authNotifier,</span>
 <span id="L27"><span class="lineNum">      27</span>              :   }) {</span>
-<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           1 :     return GoRouter(</span></span>
-<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           1 :       initialLocation: AppRoute.splash.path,</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           3 :     return GoRouter(</span></span>
+<span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           3 :       initialLocation: AppRoute.splash.path,</span></span>
 <span id="L30"><span class="lineNum">      30</span>              :       debugLogDiagnostics: true,</span>
 <span id="L31"><span class="lineNum">      31</span>              :       refreshListenable: authNotifier,</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           1 :       routes: [</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           1 :         GoRoute(</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           1 :           path: AppRoute.splash.path,</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           1 :           name: AppRoute.splash.name,</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :           builder: (context, state) =&gt; const SplashScreen(),</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           3 :       routes: [</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           3 :         GoRoute(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :           path: AppRoute.splash.path,</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :           name: AppRoute.splash.name,</span></span>
+<span id="L36"><span class="lineNum">      36</span> <span class="tlaGNC">           1 :           builder: (context, state) =&gt; const SplashScreen(),</span></span>
 <span id="L37"><span class="lineNum">      37</span>              :         ),</span>
-<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           1 :         GoRoute(</span></span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :           path: AppRoute.login.path,</span></span>
-<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           1 :           name: AppRoute.login.name,</span></span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :           builder: (context, state) =&gt; const LoginScreen(),</span></span>
+<span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           3 :         GoRoute(</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           3 :           path: AppRoute.login.path,</span></span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           3 :           name: AppRoute.login.name,</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           1 :           builder: (context, state) =&gt; const LoginScreen(),</span></span>
 <span id="L42"><span class="lineNum">      42</span>              :         ),</span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           1 :         GoRoute(</span></span>
-<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           1 :           path: AppRoute.register.path,</span></span>
-<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           1 :           name: AppRoute.register.name,</span></span>
-<span id="L46"><span class="lineNum">      46</span> <span class="tlaUNC">           0 :           builder: (context, state) =&gt; const RegisterScreen(),</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           3 :         GoRoute(</span></span>
+<span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           3 :           path: AppRoute.register.path,</span></span>
+<span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           3 :           name: AppRoute.register.name,</span></span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           1 :           builder: (context, state) =&gt; const RegisterScreen(),</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :         ),</span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           1 :         GoRoute(</span></span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           1 :           path: AppRoute.home.path,</span></span>
-<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           1 :           name: AppRoute.home.name,</span></span>
-<span id="L51"><span class="lineNum">      51</span> <span class="tlaUNC">           0 :           builder: (context, state) =&gt; const HomeScreen(),</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           3 :         GoRoute(</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           3 :           path: AppRoute.home.path,</span></span>
+<span id="L50"><span class="lineNum">      50</span> <span class="tlaGNC">           3 :           name: AppRoute.home.name,</span></span>
+<span id="L51"><span class="lineNum">      51</span> <span class="tlaGNC">           1 :           builder: (context, state) =&gt; const HomeScreen(),</span></span>
 <span id="L52"><span class="lineNum">      52</span>              :         ),</span>
 <span id="L53"><span class="lineNum">      53</span>              :       ],</span>
 <span id="L54"><span class="lineNum">      54</span> <span class="tlaUNC">           0 :       errorBuilder: (context, state) =&gt; ErrorScreen(</span></span>
