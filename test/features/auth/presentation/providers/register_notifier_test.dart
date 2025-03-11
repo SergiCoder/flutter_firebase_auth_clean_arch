@@ -23,68 +23,96 @@ void main() {
     });
 
     group('createUserWithEmailAndPassword', () {
-      const testEmail = 'test@example.com';
-      const testPassword = 'password123';
+      const email = 'test@example.com';
+      const password = 'password123';
 
-      test(
-          'emits [RegisterLoading, RegisterSuccess] when registration succeeds',
+      test('emits loading then success states on successful registration',
           () async {
         // Arrange
         when(
           mockAuthRepository.createUserWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).thenAnswer((_) async {});
 
         // Act
         await registerNotifier.createUserWithEmailAndPassword(
-          email: testEmail,
-          password: testPassword,
+          email: email,
+          password: password,
         );
 
         // Assert
         verify(
           mockAuthRepository.createUserWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).called(1);
         expect(registerNotifier.state, isA<RegisterSuccess>());
       });
 
-      test('emits [RegisterLoading, RegisterError] when registration fails',
-          () async {
+      test('emits loading then error states on failed registration', () async {
         // Arrange
-        const errorMessage = 'Email already in use';
+        const errorMessage = 'Registration failed';
         when(
           mockAuthRepository.createUserWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).thenThrow(errorMessage);
 
         // Act
         await registerNotifier.createUserWithEmailAndPassword(
-          email: testEmail,
-          password: testPassword,
+          email: email,
+          password: password,
         );
 
         // Assert
         verify(
           mockAuthRepository.createUserWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).called(1);
         expect(registerNotifier.state, isA<RegisterError>());
         expect((registerNotifier.state as RegisterError).message, errorMessage);
       });
+
+      test('handles different error types correctly', () async {
+        // Arrange
+        final exception = Exception('Custom exception');
+        when(
+          mockAuthRepository.createUserWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockAuthRepository.createUserWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          exception.toString(),
+        );
+      });
     });
 
     test('reset changes state to RegisterInitial', () {
       // Arrange - put the notifier in an error state
-      registerNotifier = RegisterNotifier(authRepository: mockAuthRepository)
+      registerNotifier
         ..state = const RegisterError('Some error')
 
         // Act
@@ -92,6 +120,29 @@ void main() {
 
       // Assert
       expect(registerNotifier.state, isA<RegisterInitial>());
+    });
+
+    test('state equality works correctly', () {
+      // Same error message
+      const error1 = RegisterError('Error message');
+      const error2 = RegisterError('Error message');
+      expect(error1 == error2, isTrue);
+
+      // Different error messages
+      const error3 = RegisterError('Different message');
+      expect(error1 == error3, isFalse);
+
+      // Same object
+      expect(error1 == error1, isTrue);
+
+      // Different types
+      const success = RegisterSuccess();
+      expect(error1 == success, isFalse);
+    });
+
+    test('state hashCode works correctly', () {
+      const error = RegisterError('Error message');
+      expect(error.hashCode, equals('Error message'.hashCode));
     });
   });
 }
