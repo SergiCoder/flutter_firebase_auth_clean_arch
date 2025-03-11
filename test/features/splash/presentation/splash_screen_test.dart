@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_screen.dart';
@@ -35,23 +36,16 @@ void main() {
       mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
 
-      // Check if the repository is already registered
-      if (!serviceLocator.isRegistered<AuthRepository>()) {
-        serviceLocator.registerSingleton<AuthRepository>(mockAuthRepository);
-      } else {
-        // Reset the mock if it's already registered
-        serviceLocator
-          ..unregister<AuthRepository>()
-          ..registerSingleton<AuthRepository>(mockAuthRepository);
-      }
-
-      // Create a SplashNotifier
-      splashNotifier = SplashNotifier();
+      // Create a SplashNotifier with the mock repository
+      splashNotifier = SplashNotifier(
+        authRepository: mockAuthRepository,
+      );
 
       // Create a provider container with overrides
       container = ProviderContainer(
         overrides: [
           splashProvider.overrideWith((ref) => splashNotifier),
+          authRepositoryProvider.overrideWithValue(mockAuthRepository),
         ],
       );
 
@@ -70,9 +64,6 @@ void main() {
 
       addTearDown(() {
         container.dispose();
-        if (serviceLocator.isRegistered<AuthRepository>()) {
-          serviceLocator.unregister<AuthRepository>();
-        }
       });
     });
 

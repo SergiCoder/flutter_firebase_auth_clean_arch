@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/localization/locale_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
     if (dart.library.html) 'package:flutter_firebase_auth_clean_arch/core/url_strategy/web_url_strategy.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -36,17 +37,9 @@ Future<void> main() async {
     log('Firebase initialization error: $e');
   }
 
-  // Initialize dependency injection after Firebase is initialized
-  await initServiceLocator();
-
-  // Initialize required services
-  final localeProvider = serviceLocator<LocaleProvider>();
-
   runApp(
-    ProviderScope(
-      child: MyApp(
-        localeProvider: localeProvider,
-      ),
+    const ProviderScope(
+      child: MyApp(),
     ),
   );
 }
@@ -54,18 +47,15 @@ Future<void> main() async {
 /// The main application widget
 class MyApp extends ConsumerWidget {
   /// Creates a new [MyApp] widget
-  const MyApp({
-    required this.localeProvider,
-    super.key,
-  });
-
-  /// The locale provider for handling app localization
-  final LocaleProvider localeProvider;
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // Get the auth router notifier from the provider
     final authNotifier = ref.watch(authRouterNotifierProvider);
+
+    // Get the locale provider from the provider
+    final localeProvider = ref.watch(localeProviderProvider);
 
     // Create the router with the auth notifier
     final router = AppRouter.createRouter(

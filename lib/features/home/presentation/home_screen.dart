@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,11 +32,11 @@ class HomeScreen extends HookConsumerWidget {
       appBar: AppBar(
         title: Text(AppLocalization.of(context).homeTitle),
       ),
-      body: _buildBody(context, homeState),
+      body: _buildBody(context, ref, homeState),
     );
   }
 
-  Widget _buildBody(BuildContext context, HomeState state) {
+  Widget _buildBody(BuildContext context, WidgetRef ref, HomeState state) {
     if (state is HomeLoading) {
       return const Center(
         child: CircularProgressIndicator(),
@@ -50,7 +51,7 @@ class HomeScreen extends HookConsumerWidget {
             Text(state.message),
             ElevatedButton(
               onPressed: () {
-                serviceLocator<AuthRepository>().signOut();
+                ref.read(authRepositoryProvider).signOut();
                 if (context.mounted) {
                   context.goRoute(AppRoute.login);
                 }
@@ -76,7 +77,7 @@ class HomeScreen extends HookConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  serviceLocator<AuthRepository>().signOut();
+                  ref.read(authRepositoryProvider).signOut();
                   if (context.mounted) {
                     context.goRoute(AppRoute.login);
                   }

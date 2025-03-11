@@ -1,4 +1,4 @@
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
@@ -27,24 +27,10 @@ void main() {
     setUp(() {
       mockAuthRepository = MockAuthRepository();
 
-      // Check if the repository is already registered
-      if (!serviceLocator.isRegistered<AuthRepository>()) {
-        serviceLocator.registerSingleton<AuthRepository>(mockAuthRepository);
-      } else {
-        // Reset the mock if it's already registered
-        serviceLocator
-          ..unregister<AuthRepository>()
-          ..registerSingleton<AuthRepository>(mockAuthRepository);
-      }
-
-      // Create the SplashNotifier
-      splashNotifier = SplashNotifier();
-    });
-
-    tearDown(() {
-      if (serviceLocator.isRegistered<AuthRepository>()) {
-        serviceLocator.unregister<AuthRepository>();
-      }
+      // Create the SplashNotifier with the mock repository
+      splashNotifier = SplashNotifier(
+        authRepository: mockAuthRepository,
+      );
     });
 
     test('initial state is SplashInitial', () {
@@ -52,7 +38,7 @@ void main() {
     });
 
     group('initialize', () {
-      test('emits SplashLoading then SplashNavigate when authenticated',
+      test('emits SplashNavigate with isAuthenticated=true when authenticated',
           () async {
         // Arrange
         when(mockAuthRepository.isAuthenticated())
@@ -69,7 +55,8 @@ void main() {
         );
       });
 
-      test('emits SplashLoading then SplashNavigate when not authenticated',
+      test(
+          'emits SplashNavigate with isAuthenticated=false when not authenticated',
           () async {
         // Arrange
         when(mockAuthRepository.isAuthenticated())
@@ -121,20 +108,25 @@ void main() {
         verify(mockAuthRepository.isAuthenticated()).called(1);
       });
     });
+  });
 
-    group('splashProvider', () {
-      test('creates a SplashNotifier instance', () {
-        // Arrange
-        final container = ProviderContainer();
-        addTearDown(container.dispose);
+  group('splashProvider', () {
+    test('creates a SplashNotifier with the correct dependencies', () {
+      // Arrange
+      final mockAuthRepository = MockAuthRepository();
+      final container = ProviderContainer(
+        overrides: [
+          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+        ],
+      );
+      addTearDown(container.dispose);
 
-        // Act
-        final notifier = container.read(splashProvider.notifier);
+      // Act
+      final notifier = container.read(splashProvider.notifier);
 
-        // Assert
-        expect(notifier, isA<SplashNotifier>());
-        expect(container.read(splashProvider), isA<SplashInitial>());
-      });
+      // Assert
+      expect(notifier, isA<SplashNotifier>());
+      expect(container.read(splashProvider), isA<SplashInitial>());
     });
   });
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,13 +8,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class HomeNotifier extends StateNotifier<HomeState> {
   /// Creates a new [HomeNotifier]
   ///
-  /// If [firebaseAuth] is not provided, it will use [FirebaseAuth.instance]
-  HomeNotifier({FirebaseAuth? firebaseAuth})
-      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance,
+  /// Requires [firebaseAuth] for authentication operations and [authRepository]
+  /// for authentication actions
+  HomeNotifier({
+    required FirebaseAuth firebaseAuth,
+    required AuthRepository authRepository,
+  })  : _firebaseAuth = firebaseAuth,
+        _authRepository = authRepository,
         super(const HomeInitial());
 
   /// The authentication repository
-  final _authRepository = serviceLocator<AuthRepository>();
+  final AuthRepository _authRepository;
 
   /// The Firebase Auth instance
   final FirebaseAuth _firebaseAuth;
@@ -48,5 +53,8 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
 /// Provider for the home screen state
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>(
-  (ref) => HomeNotifier(),
+  (ref) => HomeNotifier(
+    firebaseAuth: ref.watch(firebaseAuthProvider),
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
 );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A provider class that manages the app's locale state
 class LocaleProvider extends ChangeNotifier {
@@ -42,3 +43,8 @@ class LocaleProvider extends ChangeNotifier {
     setLocale(supportedLocale);
   }
 }
+
+/// Provider for the locale provider
+final localeProviderProvider = Provider<LocaleProvider>(
+  (ref) => LocaleProvider(),
+);

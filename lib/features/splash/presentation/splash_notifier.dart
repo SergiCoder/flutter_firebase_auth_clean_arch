@@ -1,16 +1,19 @@
 import 'dart:async';
 
-import 'package:flutter_firebase_auth_clean_arch/core/di/service_locator.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// A notifier that manages the state of the splash screen
 class SplashNotifier extends StateNotifier<SplashState> {
-  /// Creates a new [SplashNotifier]
-  SplashNotifier() : super(const SplashInitial());
+  /// Creates a new [SplashNotifier] with the provided [authRepository]
+  SplashNotifier({required AuthRepository authRepository})
+      : _authRepository = authRepository,
+        super(const SplashInitial());
 
   /// The authentication repository
-  final _authRepository = serviceLocator<AuthRepository>();
+  final AuthRepository _authRepository;
 
   /// Initializes the splash screen
   Future<void> initialize() async {
@@ -36,5 +39,7 @@ class SplashNotifier extends StateNotifier<SplashState> {
 
 /// Provider for the splash screen state
 final splashProvider = StateNotifierProvider<SplashNotifier, SplashState>(
-  (ref) => SplashNotifier(),
+  (ref) => SplashNotifier(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
 );
