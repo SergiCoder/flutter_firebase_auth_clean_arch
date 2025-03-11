@@ -15,7 +15,7 @@ void main() {
     testWidgets('should provide AuthRouterNotifier to descendants',
         (tester) async {
       // Arrange
-      bool notifierFound = false;
+      var notifierFound = false;
 
       // Create a test widget that tries to access the notifier
       await tester.pumpWidget(
@@ -61,7 +61,7 @@ void main() {
 
     testWidgets('should update when notifier changes', (tester) async {
       // Arrange
-      int buildCount = 0;
+      var buildCount = 0;
 
       // Create a test widget that rebuilds when the notifier changes
       await tester.pumpWidget(

@@ -52,7 +52,7 @@ void main() {
       // Act - Emit authenticated state
       authStateController.add(true);
       // Allow the stream event to be processed
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Assert
       expect(authRouterNotifier.isAuthenticated, isTrue);
@@ -60,7 +60,7 @@ void main() {
       // Act - Emit unauthenticated state
       authStateController.add(false);
       // Allow the stream event to be processed
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Assert
       expect(authRouterNotifier.isAuthenticated, isFalse);
@@ -81,13 +81,13 @@ void main() {
       );
 
       // Wait for initialization to complete
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Verify initial state
       expect(authRouterNotifier.isAuthenticated, isFalse);
 
       // Setup a counter to track notifications
-      int notificationCount = 0;
+      var notificationCount = 0;
 
       // Add listener that increments the counter when called
       authRouterNotifier.addListener(() {
@@ -100,19 +100,18 @@ void main() {
       // Act - Emit authenticated state
       testController.add(true);
       // Allow the stream event to be processed
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Assert - Verify notification occurred
       expect(notificationCount, greaterThan(0));
       expect(authRouterNotifier.isAuthenticated, isTrue);
 
       // Store the current count
-      final countAfterFirstChange = notificationCount;
 
       // Act - Emit the same state
       testController.add(true);
       // Allow the stream event to be processed
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Store the count after emitting the same state
       final countAfterSameState = notificationCount;
@@ -120,14 +119,14 @@ void main() {
       // Act - Emit different state
       testController.add(false);
       // Allow the stream event to be processed
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Assert - Verify notification occurred for the state change
       expect(notificationCount, greaterThan(countAfterSameState));
       expect(authRouterNotifier.isAuthenticated, isFalse);
 
       // Clean up
-      testController.close();
+      await testController.close();
       authRouterNotifier.dispose();
     });
 
@@ -138,7 +137,7 @@ void main() {
       );
 
       // Wait for initialization to complete
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Verify initial state
       expect(authRouterNotifier.isAuthenticated, isFalse);
@@ -159,10 +158,10 @@ void main() {
       );
 
       // Wait for initialization to complete
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Setup a flag to track if notification occurred
-      bool notificationOccurred = false;
+      var notificationOccurred = false;
 
       // Add listener that sets the flag when called
       authRouterNotifier.addListener(() {
@@ -171,7 +170,7 @@ void main() {
 
       // Emit initial state and verify listener is called
       testController.add(true);
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
       expect(notificationOccurred, isTrue);
 
       // Reset the flag
@@ -182,13 +181,13 @@ void main() {
 
       // Emit a new state after disposal (should not trigger listener)
       testController.add(false);
-      await Future.delayed(const Duration(milliseconds: 50));
+      await Future<void>.delayed(const Duration(milliseconds: 50));
 
       // Assert - No notification should have occurred
       expect(notificationOccurred, isFalse);
 
       // Clean up
-      testController.close();
+      await testController.close();
     });
   });
 
