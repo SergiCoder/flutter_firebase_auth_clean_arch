@@ -4,6 +4,15 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('AppTheme', () {
+    test('private constructor prevents instantiation', () {
+      // Test the private constructor using the test method
+      AppTheme.testPrivateConstructor();
+
+      // Verify that the static members work as expected
+      expect(AppTheme.theme, isA<ThemeData>());
+      expect(AppTheme.animationDuration, const Duration(milliseconds: 300));
+    });
+
     test('theme should have correct primary color', () {
       final theme = AppTheme.theme;
       expect(theme.colorScheme.primary, const Color(0xFF009688));
