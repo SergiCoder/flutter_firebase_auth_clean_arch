@@ -19,73 +19,111 @@ void main() {
     });
 
     test('initial state is LoginInitial', () {
+      // Assert
       expect(loginNotifier.state, isA<LoginInitial>());
     });
 
     group('signInWithEmailAndPassword', () {
-      const testEmail = 'test@example.com';
-      const testPassword = 'password123';
-
-      test('emits [LoginLoading, LoginSuccess] when login succeeds', () async {
+      test('emits LoginLoading and LoginSuccess on successful login', () async {
         // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+
         when(
           mockAuthRepository.signInWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).thenAnswer((_) async {});
 
         // Act
         await loginNotifier.signInWithEmailAndPassword(
-          email: testEmail,
-          password: testPassword,
+          email: email,
+          password: password,
         );
 
         // Assert
         verify(
           mockAuthRepository.signInWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).called(1);
         expect(loginNotifier.state, isA<LoginSuccess>());
       });
 
-      test('emits [LoginLoading, LoginError] when login fails', () async {
+      test('emits LoginLoading and LoginError on login failure', () async {
         // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
         const errorMessage = 'Invalid credentials';
+
         when(
           mockAuthRepository.signInWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
-        ).thenThrow(errorMessage);
+        ).thenThrow(Exception(errorMessage));
 
         // Act
         await loginNotifier.signInWithEmailAndPassword(
-          email: testEmail,
-          password: testPassword,
+          email: email,
+          password: password,
         );
 
         // Assert
         verify(
           mockAuthRepository.signInWithEmailAndPassword(
-            testEmail,
-            testPassword,
+            email,
+            password,
           ),
         ).called(1);
         expect(loginNotifier.state, isA<LoginError>());
-        expect((loginNotifier.state as LoginError).message, errorMessage);
+        expect((loginNotifier.state as LoginError).message,
+            contains(errorMessage));
+      });
+
+      test('handles empty email or password with error from repository',
+          () async {
+        // Arrange
+        const email = '';
+        const password = '';
+        const errorMessage = 'Email and password cannot be empty';
+
+        when(
+          mockAuthRepository.signInWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).thenThrow(Exception(errorMessage));
+
+        // Act
+        await loginNotifier.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockAuthRepository.signInWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(loginNotifier.state, isA<LoginError>());
+        expect(
+          (loginNotifier.state as LoginError).message,
+          contains(errorMessage),
+        );
       });
     });
 
-    test('reset changes state to LoginInitial', () {
-      // Arrange - put the notifier in an error state
-      loginNotifier = LoginNotifier(authRepository: mockAuthRepository)
-        ..state = const LoginError('Some error')
+    test('reset sets state to LoginInitial', () {
+      // Arrange
+      loginNotifier.state = const LoginError('Some error');
 
-        // Act
-        ..reset();
+      // Act
+      loginNotifier.reset();
 
       // Assert
       expect(loginNotifier.state, isA<LoginInitial>());

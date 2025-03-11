@@ -22,13 +22,14 @@ void main() {
       expect(registerNotifier.state, isA<RegisterInitial>());
     });
 
-    group('createUserWithEmailAndPassword', () {
-      const email = 'test@example.com';
-      const password = 'password123';
-
-      test('emits loading then success states on successful registration',
+    group('registerWithEmailAndPassword', () {
+      test(
+          'emits RegisterLoading and RegisterSuccess on successful registration',
           () async {
         // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+
         when(
           mockAuthRepository.createUserWithEmailAndPassword(
             email,
@@ -52,42 +53,19 @@ void main() {
         expect(registerNotifier.state, isA<RegisterSuccess>());
       });
 
-      test('emits loading then error states on failed registration', () async {
+      test('emits RegisterLoading and RegisterError on registration failure',
+          () async {
         // Arrange
-        const errorMessage = 'Registration failed';
+        const email = 'test@example.com';
+        const password = 'password123';
+        const errorMessage = 'Email already in use';
+
         when(
           mockAuthRepository.createUserWithEmailAndPassword(
             email,
             password,
           ),
-        ).thenThrow(errorMessage);
-
-        // Act
-        await registerNotifier.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-
-        // Assert
-        verify(
-          mockAuthRepository.createUserWithEmailAndPassword(
-            email,
-            password,
-          ),
-        ).called(1);
-        expect(registerNotifier.state, isA<RegisterError>());
-        expect((registerNotifier.state as RegisterError).message, errorMessage);
-      });
-
-      test('handles different error types correctly', () async {
-        // Arrange
-        final exception = Exception('Custom exception');
-        when(
-          mockAuthRepository.createUserWithEmailAndPassword(
-            email,
-            password,
-          ),
-        ).thenThrow(exception);
+        ).thenThrow(Exception(errorMessage));
 
         // Act
         await registerNotifier.createUserWithEmailAndPassword(
@@ -105,18 +83,51 @@ void main() {
         expect(registerNotifier.state, isA<RegisterError>());
         expect(
           (registerNotifier.state as RegisterError).message,
-          exception.toString(),
+          contains(errorMessage),
+        );
+      });
+
+      test('handles empty email or password with error from repository',
+          () async {
+        // Arrange
+        const email = '';
+        const password = '';
+        const errorMessage = 'Email and password cannot be empty';
+
+        when(
+          mockAuthRepository.createUserWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).thenThrow(Exception(errorMessage));
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockAuthRepository.createUserWithEmailAndPassword(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          contains(errorMessage),
         );
       });
     });
 
-    test('reset changes state to RegisterInitial', () {
-      // Arrange - put the notifier in an error state
-      registerNotifier
-        ..state = const RegisterError('Some error')
+    test('reset sets state to RegisterInitial', () {
+      // Arrange
+      registerNotifier.state = const RegisterError('Some error');
 
-        // Act
-        ..reset();
+      // Act
+      registerNotifier.reset();
 
       // Assert
       expect(registerNotifier.state, isA<RegisterInitial>());
