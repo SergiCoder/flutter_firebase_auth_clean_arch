@@ -39,11 +39,12 @@ class HomeNotifier extends StateNotifier<HomeState> {
           name: 'HomeNotifier',
         );
       } else {
-        state = const HomeError('No authenticated user found');
+        // Use a specific state for unauthenticated users instead of an error
+        state = const HomeUnauthenticated();
 
-        // Log no user found error
+        // Log unauthenticated state
         developer.log(
-          'Home initialization error: No authenticated user found',
+          'Home initialization: User is not authenticated',
           name: 'HomeNotifier',
         );
       }
@@ -81,10 +82,21 @@ class HomeNotifier extends StateNotifier<HomeState> {
       );
     }
   }
+
+  /// Resets the home state to initial
+  void reset() {
+    state = const HomeInitial();
+
+    // Log state reset
+    developer.log(
+      'Home state reset',
+      name: 'HomeNotifier',
+    );
+  }
 }
 
 /// Provider for the home screen state
-final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>(
+final homeProvider = StateNotifierProvider.autoDispose<HomeNotifier, HomeState>(
   (ref) => HomeNotifier(
     firebaseAuth: ref.watch(firebaseAuthProvider),
     signOutUseCase: ref.watch(signOutUseCaseProvider),

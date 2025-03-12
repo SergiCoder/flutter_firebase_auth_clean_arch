@@ -91,7 +91,8 @@ void main() {
         expect((homeNotifier.state as HomeLoaded).email, equals('User'));
       });
 
-      test('emits HomeError when user is not authenticated', () async {
+      test('emits HomeUnauthenticated when user is not authenticated',
+          () async {
         // Arrange
         when(mockFirebaseAuth.currentUser).thenReturn(null);
 
@@ -99,11 +100,7 @@ void main() {
         await homeNotifier.initialize();
 
         // Assert
-        expect(homeNotifier.state, isA<HomeError>());
-        expect(
-          (homeNotifier.state as HomeError).message,
-          equals('No authenticated user found'),
-        );
+        expect(homeNotifier.state, isA<HomeUnauthenticated>());
       });
 
       test('emits HomeError when an exception is thrown', () async {

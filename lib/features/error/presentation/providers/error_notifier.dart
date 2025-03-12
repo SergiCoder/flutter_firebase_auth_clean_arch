@@ -50,6 +50,7 @@ class ErrorNotifier extends StateNotifier<ErrorState> {
 }
 
 /// Provider for the error handling state
-final errorProvider = StateNotifierProvider<ErrorNotifier, ErrorState>(
+final errorProvider =
+    StateNotifierProvider.autoDispose<ErrorNotifier, ErrorState>(
   (ref) => ErrorNotifier(),
 );

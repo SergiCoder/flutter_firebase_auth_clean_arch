@@ -33,6 +33,14 @@ class HomeLoaded extends HomeState {
   List<Object?> get props => [email];
 }
 
+/// Unauthenticated state of the home screen
+///
+/// This state indicates that no user is currently authenticated
+class HomeUnauthenticated extends HomeState {
+  /// Creates a new [HomeUnauthenticated] state
+  const HomeUnauthenticated();
+}
+
 /// Error state of the home screen
 class HomeError extends HomeState {
   /// Creates a new [HomeError] state with the given error message

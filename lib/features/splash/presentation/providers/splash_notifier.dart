@@ -56,10 +56,22 @@ class SplashNotifier extends StateNotifier<SplashState> {
 
     await initialize();
   }
+
+  /// Resets the splash state to initial
+  void reset() {
+    state = const SplashInitial();
+
+    // Log state reset
+    developer.log(
+      'Splash state reset',
+      name: 'SplashNotifier',
+    );
+  }
 }
 
 /// Provider for the splash screen state
-final splashProvider = StateNotifierProvider<SplashNotifier, SplashState>(
+final splashProvider =
+    StateNotifierProvider.autoDispose<SplashNotifier, SplashState>(
   (ref) => SplashNotifier(
     isAuthenticatedUseCase: ref.watch(isAuthenticatedUseCaseProvider),
   ),
