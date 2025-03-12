@@ -35,7 +35,3 @@ final authRepositoryImplProvider = Provider<AuthRepository>(
     errorHandler: ref.watch(errorHandlerProvider),
   ),
 );
-
-/// @deprecated Use [authRepositoryImplProvider] instead
-@Deprecated('Use authRepositoryImplProvider instead')
-final firebaseAuthRepositoryProvider = authRepositoryImplProvider;

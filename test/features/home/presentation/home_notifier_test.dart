@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/providers/home_notifier.dart';

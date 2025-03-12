@@ -1,1 +1,3 @@
-export 'auth_repository_provider.dart';
+// Auth data providers will be added here as needed
+
+export 'repository_provider.dart';

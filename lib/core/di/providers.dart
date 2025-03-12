@@ -7,15 +7,14 @@ import 'package:flutter_firebase_auth_clean_arch/'
     as auth_domain;
 // Import the home data layer providers with an alias
 import 'package:flutter_firebase_auth_clean_arch/'
-    'features/home/data/providers/home_repository_provider.dart' as home_data;
+    'features/home/data/providers/providers.dart' as home_data;
 // Import the home domain layer providers with an alias
 import 'package:flutter_firebase_auth_clean_arch/'
         'features/home/domain/providers/home_usecases_providers.dart'
     as home_domain;
 // Import the splash data layer providers with an alias
 import 'package:flutter_firebase_auth_clean_arch/'
-        'features/splash/data/providers/splash_repository_provider.dart'
-    as splash_data;
+    'features/splash/data/providers/providers.dart' as splash_data;
 // Import the splash domain layer providers with an alias
 import 'package:flutter_firebase_auth_clean_arch/'
         'features/splash/domain/providers/splash_usecases_providers.dart'
