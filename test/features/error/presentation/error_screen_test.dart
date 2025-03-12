@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/error_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/screens/error_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../../core/routing/mock_go_router.dart';

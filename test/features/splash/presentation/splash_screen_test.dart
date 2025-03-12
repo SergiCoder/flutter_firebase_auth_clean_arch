@@ -4,7 +4,7 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/is_authenticated_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/splash_state.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_screen.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
