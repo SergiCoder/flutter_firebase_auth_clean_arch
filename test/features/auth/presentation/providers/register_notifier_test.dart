@@ -1,3 +1,4 @@
+import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/create_user_with_email_and_password_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
@@ -55,19 +56,189 @@ void main() {
         expect(registerNotifier.state, isA<RegisterSuccess>());
       });
 
-      test('emits RegisterLoading and RegisterError on registration failure',
-          () async {
+      test('handles InvalidCredentialsException correctly', () async {
         // Arrange
         const email = 'test@example.com';
         const password = 'password123';
-        const errorMessage = 'Email already in use';
+        const errorMessage = 'Invalid email format';
+        final exception = InvalidCredentialsException(message: errorMessage);
 
         when(
           mockCreateUserUseCase.execute(
             email,
             password,
           ),
-        ).thenThrow(Exception(errorMessage));
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          equals(errorMessage),
+        );
+      });
+
+      test('handles EmailAlreadyInUseException correctly', () async {
+        // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+        const errorMessage = 'Email already in use';
+        final exception = EmailAlreadyInUseException(message: errorMessage);
+
+        when(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          equals(errorMessage),
+        );
+      });
+
+      test('handles WeakPasswordException correctly', () async {
+        // Arrange
+        const email = 'test@example.com';
+        const password = 'weak';
+        const errorMessage = 'Password is too weak';
+        final exception = WeakPasswordException(message: errorMessage);
+
+        when(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          equals(errorMessage),
+        );
+      });
+
+      test('handles AuthException correctly', () async {
+        // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+        const errorMessage = 'Authentication error';
+        final exception = AuthException(errorMessage);
+
+        when(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          equals(errorMessage),
+        );
+      });
+
+      test('handles AppException correctly', () async {
+        // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+        const errorMessage = 'Application error';
+        final exception = UnexpectedException(message: errorMessage);
+
+        when(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
+
+        // Act
+        await registerNotifier.createUserWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
+
+        // Assert
+        verify(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).called(1);
+        expect(registerNotifier.state, isA<RegisterError>());
+        expect(
+          (registerNotifier.state as RegisterError).message,
+          equals(errorMessage),
+        );
+      });
+
+      test('handles generic Exception correctly', () async {
+        // Arrange
+        const email = 'test@example.com';
+        const password = 'password123';
+        const errorMessage = 'Unknown error';
+        final exception = Exception(errorMessage);
+
+        when(
+          mockCreateUserUseCase.execute(
+            email,
+            password,
+          ),
+        ).thenThrow(exception);
 
         // Act
         await registerNotifier.createUserWithEmailAndPassword(
