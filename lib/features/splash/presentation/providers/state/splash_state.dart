@@ -1,10 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
 /// Represents the different states of the splash screen
-@immutable
-abstract class SplashState {
+abstract class SplashState extends Equatable {
   /// Creates a new [SplashState]
   const SplashState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 /// The initial state of the splash screen
@@ -28,13 +30,7 @@ class SplashError extends SplashState {
   final String message;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is SplashError && other.message == message;
-  }
-
-  @override
-  int get hashCode => message.hashCode;
+  List<Object?> get props => [message];
 }
 
 /// The navigate state of the splash screen
@@ -49,11 +45,5 @@ class SplashNavigate extends SplashState {
   final bool isAuthenticated;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is SplashNavigate && other.isAuthenticated == isAuthenticated;
-  }
-
-  @override
-  int get hashCode => isAuthenticated.hashCode;
+  List<Object?> get props => [isAuthenticated];
 }

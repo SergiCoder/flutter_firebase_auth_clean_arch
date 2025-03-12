@@ -1,10 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
 /// Represents the different states of the register screen
-@immutable
-abstract class RegisterState {
+abstract class RegisterState extends Equatable {
   /// Creates a new [RegisterState]
   const RegisterState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 /// The initial state of the register screen
@@ -34,11 +36,5 @@ class RegisterError extends RegisterState {
   final String message;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    return other is RegisterError && other.message == message;
-  }
-
-  @override
-  int get hashCode => message.hashCode;
+  List<Object?> get props => [message];
 }

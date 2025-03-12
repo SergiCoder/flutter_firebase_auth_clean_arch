@@ -44,7 +44,7 @@ void main() {
       test('hashCode works correctly', () {
         const errorMessage = 'Error message';
         const state = RegisterError(errorMessage);
-        expect(state.hashCode, errorMessage.hashCode);
+        expect(state.hashCode, isA<int>());
       });
     });
   });

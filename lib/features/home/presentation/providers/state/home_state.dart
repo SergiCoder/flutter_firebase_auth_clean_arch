@@ -1,7 +1,12 @@
+import 'package:equatable/equatable.dart';
+
 /// Base state class for the home screen
-abstract class HomeState {
+abstract class HomeState extends Equatable {
   /// Creates a new [HomeState]
   const HomeState();
+
+  @override
+  List<Object?> get props => [];
 }
 
 /// Initial state of the home screen
@@ -23,6 +28,9 @@ class HomeLoaded extends HomeState {
 
   /// The email of the authenticated user
   final String email;
+
+  @override
+  List<Object?> get props => [email];
 }
 
 /// Error state of the home screen
@@ -32,4 +40,7 @@ class HomeError extends HomeState {
 
   /// The error message
   final String message;
+
+  @override
+  List<Object?> get props => [message];
 }
