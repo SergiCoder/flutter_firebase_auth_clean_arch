@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-11 18:25:31</td>
+            <td class="headerValue">2025-03-12 09:20:20</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -63,7 +63,7 @@
 <span id="L1"><span class="lineNum">       1</span>              : import 'package:firebase_auth/firebase_auth.dart';</span>
 <span id="L2"><span class="lineNum">       2</span>              : import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories/firebase_auth_repository.dart';</span>
 <span id="L3"><span class="lineNum">       3</span>              : import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';</span>
-<span id="L4"><span class="lineNum">       4</span>              : import 'package:flutter_riverpod/flutter_riverpod.dart';</span>
+<span id="L4"><span class="lineNum">       4</span>              : import 'package:hooks_riverpod/hooks_riverpod.dart';</span>
 <span id="L5"><span class="lineNum">       5</span>              : </span>
 <span id="L6"><span class="lineNum">       6</span>              : /// Mock FirebaseAuth instance for testing</span>
 <span id="L7"><span class="lineNum">       7</span>              : FirebaseAuth? _mockFirebaseAuth;</span>
@@ -90,7 +90,7 @@
 <span id="L28"><span class="lineNum">      28</span>              : );</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              : /// Provider for the authentication repository</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          51 : final authRepositoryProvider = Provider&lt;AuthRepository&gt;(</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          45 : final authRepositoryProvider = Provider&lt;AuthRepository&gt;(</span></span>
 <span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           2 :   (ref) =&gt; FirebaseAuthRepository(</span></span>
 <span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           2 :     firebaseAuth: ref.watch(firebaseAuthProvider),</span></span>
 <span id="L34"><span class="lineNum">      34</span>              :   ),</span>

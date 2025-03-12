@@ -5,10 +5,8 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-@GenerateMocks([Ref])
 class MockFirebaseAuth extends Mock implements FirebaseAuth {}
 
 class MockAuthRepository extends Mock implements AuthRepository {}

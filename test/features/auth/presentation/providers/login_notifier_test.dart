@@ -1,21 +1,29 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'login_notifier_test.mocks.dart';
+class MockSignInWithEmailAndPasswordUseCase extends Mock
+    implements SignInWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
 
-@GenerateMocks([AuthRepository])
 void main() {
   group('LoginNotifier', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockSignInWithEmailAndPasswordUseCase mockSignInUseCase;
     late LoginNotifier loginNotifier;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
-      loginNotifier = LoginNotifier(authRepository: mockAuthRepository);
+      mockSignInUseCase = MockSignInWithEmailAndPasswordUseCase();
+      loginNotifier = LoginNotifier(signInUseCase: mockSignInUseCase);
     });
 
     test('initial state is LoginInitial', () {
@@ -29,13 +37,6 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
 
-        when(
-          mockAuthRepository.signInWithEmailAndPassword(
-            email,
-            password,
-          ),
-        ).thenAnswer((_) async {});
-
         // Act
         await loginNotifier.signInWithEmailAndPassword(
           email: email,
@@ -44,7 +45,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.signInWithEmailAndPassword(
+          mockSignInUseCase.execute(
             email,
             password,
           ),
@@ -59,7 +60,7 @@ void main() {
         const errorMessage = 'Invalid credentials';
 
         when(
-          mockAuthRepository.signInWithEmailAndPassword(
+          mockSignInUseCase.execute(
             email,
             password,
           ),
@@ -73,7 +74,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.signInWithEmailAndPassword(
+          mockSignInUseCase.execute(
             email,
             password,
           ),
@@ -85,7 +86,7 @@ void main() {
         );
       });
 
-      test('handles empty email or password with error from repository',
+      test('handles empty email or password with error from use case',
           () async {
         // Arrange
         const email = '';
@@ -93,7 +94,7 @@ void main() {
         const errorMessage = 'Email and password cannot be empty';
 
         when(
-          mockAuthRepository.signInWithEmailAndPassword(
+          mockSignInUseCase.execute(
             email,
             password,
           ),
@@ -107,7 +108,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.signInWithEmailAndPassword(
+          mockSignInUseCase.execute(
             email,
             password,
           ),

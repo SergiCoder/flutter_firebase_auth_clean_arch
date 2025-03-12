@@ -1,28 +1,38 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'login_provider_test.mocks.dart';
+class MockSignInWithEmailAndPasswordUseCase extends Mock
+    implements SignInWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
 
-@GenerateMocks([AuthRepository])
 void main() {
   group('loginProvider with listener', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockSignInWithEmailAndPasswordUseCase mockSignInUseCase;
     late ProviderContainer container;
     late List<LoginState> stateHistory;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
+      mockSignInUseCase = MockSignInWithEmailAndPasswordUseCase();
       stateHistory = [];
 
       container = ProviderContainer(
         overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          signInWithEmailAndPasswordUseCaseProvider.overrideWithValue(
+            mockSignInUseCase,
+          ),
         ],
       )..listen<LoginState>(
           loginProvider,
@@ -44,13 +54,6 @@ void main() {
       const email = 'test@example.com';
       const password = 'password123';
 
-      when(
-        mockAuthRepository.signInWithEmailAndPassword(
-          email,
-          password,
-        ),
-      ).thenAnswer((_) async {});
-
       // Clear the initial state
       stateHistory.clear();
 
@@ -61,6 +64,13 @@ void main() {
           );
 
       // Assert
+      verify(
+        mockSignInUseCase.execute(
+          email,
+          password,
+        ),
+      ).called(1);
+
       expect(stateHistory.length, 2);
       expect(stateHistory[0], isA<LoginLoading>());
       expect(stateHistory[1], isA<LoginSuccess>());
@@ -75,7 +85,7 @@ void main() {
       const errorMessage = 'Authentication failed';
 
       when(
-        mockAuthRepository.signInWithEmailAndPassword(
+        mockSignInUseCase.execute(
           email,
           password,
         ),
@@ -91,6 +101,13 @@ void main() {
           );
 
       // Assert
+      verify(
+        mockSignInUseCase.execute(
+          email,
+          password,
+        ),
+      ).called(1);
+
       expect(stateHistory.length, 2);
       expect(stateHistory[0], isA<LoginLoading>());
       expect(stateHistory[1], isA<LoginError>());
