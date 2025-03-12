@@ -24,11 +24,20 @@ void resetMockFirebaseAuth() {
 FirebaseAuth getFirebaseAuth() => _mockFirebaseAuth ?? FirebaseAuth.instance;
 
 /// Provider for Firebase Authentication
+///
+/// This provider creates and exposes a FirebaseAuth instance
+/// that can be used throughout the application.
 final firebaseAuthProvider = Provider<FirebaseAuth>(
   (ref) => getFirebaseAuth(),
 );
 
-/// Provider for the Firebase implementation of the authentication repository
+/// Provider for the Firebase implementation of the authentication repository.
+///
+/// This provider creates and exposes a FirebaseAuthRepository instance
+/// that implements the AuthRepository interface.
+///
+/// The implementation uses Firebase Authentication for user management
+/// and includes error handling through the error handler provider.
 final authRepositoryImplProvider = Provider<AuthRepository>(
   (ref) => FirebaseAuthRepository(
     firebaseAuth: ref.watch(firebaseAuthProvider),
