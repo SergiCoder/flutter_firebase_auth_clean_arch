@@ -1,4 +1,4 @@
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/splash_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
