@@ -35,6 +35,6 @@ class LoginFormNotifier extends StateNotifier<LoginFormField> {
 
 /// Provider for the login form state
 final loginFormProvider =
-    StateNotifierProvider<LoginFormNotifier, LoginFormField>(
+    StateNotifierProvider.autoDispose<LoginFormNotifier, LoginFormField>(
   (ref) => LoginFormNotifier(),
 );
