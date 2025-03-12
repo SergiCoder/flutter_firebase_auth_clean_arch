@@ -50,7 +50,7 @@ class HomeScreen extends HookConsumerWidget {
             Text(state.message),
             ElevatedButton(
               onPressed: () {
-                ref.read(authRepositoryProvider).signOut();
+                ref.read(homeProvider.notifier).signOut();
                 if (context.mounted) {
                   context.goRoute(AppRoute.login);
                 }
@@ -76,7 +76,7 @@ class HomeScreen extends HookConsumerWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  ref.read(authRepositoryProvider).signOut();
+                  ref.read(homeProvider.notifier).signOut();
                   if (context.mounted) {
                     context.goRoute(AppRoute.login);
                   }

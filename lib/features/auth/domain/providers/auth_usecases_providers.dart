@@ -23,3 +23,13 @@ final createUserWithEmailAndPasswordUseCaseProvider =
     authRepository: ref.watch(authRepositoryProvider),
   ),
 );
+
+/// Provider for the sign out use case.
+///
+/// This provider creates and exposes a [SignOutUseCase]
+/// instance that can be used throughout the application.
+final signOutUseCaseProvider = Provider<SignOutUseCase>(
+  (ref) => SignOutUseCase(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);

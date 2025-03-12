@@ -1,17 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
-class MockAuthRepository extends Mock implements AuthRepository {
+class MockSignOutUseCase extends Mock implements SignOutUseCase {
   @override
-  Future<void> signOut() async {
+  Future<void> execute() async {
     return super.noSuchMethod(
-      Invocation.method(#signOut, []),
+      Invocation.method(#execute, []),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value(),
     );
@@ -28,20 +29,20 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('HomeNotifier', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockSignOutUseCase mockSignOutUseCase;
     late MockFirebaseAuth mockFirebaseAuth;
     late MockUser mockUser;
     late HomeNotifier homeNotifier;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
+      mockSignOutUseCase = MockSignOutUseCase();
       mockFirebaseAuth = MockFirebaseAuth();
       mockUser = MockUser();
 
       // Create the HomeNotifier with the mock dependencies
       homeNotifier = HomeNotifier(
         firebaseAuth: mockFirebaseAuth,
-        authRepository: mockAuthRepository,
+        signOutUseCase: mockSignOutUseCase,
       );
     });
 
@@ -52,10 +53,10 @@ void main() {
     test('constructor uses provided dependencies', () {
       // Create a new mock instance to verify it's being used
       final customMockAuth = MockFirebaseAuth();
-      final customMockRepo = MockAuthRepository();
+      final customMockUseCase = MockSignOutUseCase();
       final notifier = HomeNotifier(
         firebaseAuth: customMockAuth,
-        authRepository: customMockRepo,
+        signOutUseCase: customMockUseCase,
       );
 
       // Verify initial state is correct
@@ -122,20 +123,20 @@ void main() {
     });
 
     group('signOut', () {
-      test('calls signOut on the auth repository', () async {
+      test('calls execute on the sign out use case', () async {
         // Act
         await homeNotifier.signOut();
 
         // Assert
-        verify(mockAuthRepository.signOut()).called(1);
+        verify(mockSignOutUseCase.execute()).called(1);
       });
 
       test('does not change state when signOut succeeds', () async {
         // Arrange
-        when(mockAuthRepository.signOut()).thenAnswer((_) async {});
+        when(mockSignOutUseCase.execute()).thenAnswer((_) async {});
         homeNotifier = HomeNotifier(
           firebaseAuth: mockFirebaseAuth,
-          authRepository: mockAuthRepository,
+          signOutUseCase: mockSignOutUseCase,
         );
 
         // Act
@@ -147,11 +148,11 @@ void main() {
 
       test('does not change state when signOut fails', () async {
         // Arrange
-        when(mockAuthRepository.signOut())
+        when(mockSignOutUseCase.execute())
             .thenThrow(Exception('Sign out failed'));
         homeNotifier = HomeNotifier(
           firebaseAuth: mockFirebaseAuth,
-          authRepository: mockAuthRepository,
+          signOutUseCase: mockSignOutUseCase,
         );
 
         // Act
@@ -167,11 +168,11 @@ void main() {
     test('creates a HomeNotifier with the correct dependencies', () {
       // Arrange
       final mockFirebaseAuth = MockFirebaseAuth();
-      final mockAuthRepository = MockAuthRepository();
+      final mockSignOutUseCase = MockSignOutUseCase();
       final container = ProviderContainer(
         overrides: [
           firebaseAuthProvider.overrideWithValue(mockFirebaseAuth),
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          signOutUseCaseProvider.overrideWithValue(mockSignOutUseCase),
         ],
       );
       addTearDown(container.dispose);

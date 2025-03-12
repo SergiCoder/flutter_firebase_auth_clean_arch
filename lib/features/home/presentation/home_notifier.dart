@@ -6,17 +6,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class HomeNotifier extends StateNotifier<HomeState> {
   /// Creates a new [HomeNotifier]
   ///
-  /// Requires [firebaseAuth] for authentication operations and [authRepository]
-  /// for authentication actions
+  /// Requires [firebaseAuth] for authentication operations and [signOutUseCase]
+  /// for sign out functionality
   HomeNotifier({
     required FirebaseAuth firebaseAuth,
-    required AuthRepository authRepository,
+    required SignOutUseCase signOutUseCase,
   })  : _firebaseAuth = firebaseAuth,
-        _authRepository = authRepository,
+        _signOutUseCase = signOutUseCase,
         super(const HomeInitial());
 
-  /// The authentication repository
-  final AuthRepository _authRepository;
+  /// The sign out use case
+  final SignOutUseCase _signOutUseCase;
 
   /// The Firebase Auth instance
   final FirebaseAuth _firebaseAuth;
@@ -41,7 +41,7 @@ class HomeNotifier extends StateNotifier<HomeState> {
   /// Signs out the current user
   Future<void> signOut() async {
     try {
-      await _authRepository.signOut();
+      await _signOutUseCase.execute();
     } catch (e) {
       // Even if sign out fails, we'll still navigate away
       // but we could handle this differently if needed
@@ -53,6 +53,6 @@ class HomeNotifier extends StateNotifier<HomeState> {
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>(
   (ref) => HomeNotifier(
     firebaseAuth: ref.watch(firebaseAuthProvider),
-    authRepository: ref.watch(authRepositoryProvider),
+    signOutUseCase: ref.watch(signOutUseCaseProvider),
   ),
 );

@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_screen.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/home/presentation/home_state.dart';
@@ -12,11 +13,11 @@ import 'package:mockito/mockito.dart';
 
 import '../../auth/presentation/mocks/mock_go_router.dart';
 
-class MockAuthRepository extends Mock implements AuthRepository {
+class MockSignOutUseCase extends Mock implements SignOutUseCase {
   @override
-  Future<void> signOut() async {
+  Future<void> execute() async {
     return super.noSuchMethod(
-      Invocation.method(#signOut, []),
+      Invocation.method(#execute, []),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value(),
     );
@@ -29,7 +30,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('HomeScreen', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockSignOutUseCase mockSignOutUseCase;
     late MockFirebaseAuth mockFirebaseAuth;
     late MockGoRouter mockGoRouter;
     late ProviderContainer container;
@@ -37,14 +38,14 @@ void main() {
     late HomeNotifier homeNotifier;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
+      mockSignOutUseCase = MockSignOutUseCase();
       mockFirebaseAuth = MockFirebaseAuth();
       mockGoRouter = MockGoRouter();
 
       // Create a HomeNotifier with the mock dependencies
       homeNotifier = HomeNotifier(
         firebaseAuth: mockFirebaseAuth,
-        authRepository: mockAuthRepository,
+        signOutUseCase: mockSignOutUseCase,
       );
 
       // Create a provider container with overrides
@@ -52,7 +53,7 @@ void main() {
         overrides: [
           homeProvider.overrideWith((ref) => homeNotifier),
           firebaseAuthProvider.overrideWithValue(mockFirebaseAuth),
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          signOutUseCaseProvider.overrideWithValue(mockSignOutUseCase),
         ],
       );
 
@@ -125,7 +126,7 @@ void main() {
       await tester.pump();
 
       // Assert
-      verify(mockAuthRepository.signOut()).called(1);
+      verify(mockSignOutUseCase.execute()).called(1);
     });
 
     testWidgets('logs out when logout button is pressed in loaded state',
@@ -141,7 +142,7 @@ void main() {
       await tester.pump();
 
       // Assert
-      verify(mockAuthRepository.signOut()).called(1);
+      verify(mockSignOutUseCase.execute()).called(1);
     });
   });
 }
