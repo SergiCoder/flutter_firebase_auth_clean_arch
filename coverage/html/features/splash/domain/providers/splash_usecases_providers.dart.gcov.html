@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">40.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">5</td>
-            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">5</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 18:07:35</td>
+            <td class="headerValue">2025-03-12 21:17:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -68,17 +68,17 @@
 <span id="L6"><span class="lineNum">       6</span>              : /// This is a placeholder that should be overridden in the composition root.</span>
 <span id="L7"><span class="lineNum">       7</span>              : /// This approach maintains clean architecture by ensuring the domain layer</span>
 <span id="L8"><span class="lineNum">       8</span>              : /// doesn't depend on the data layer.</span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           3 : final splashRepositoryProvider = Provider&lt;SplashRepository&gt;(</span></span>
-<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           2 :   (ref) =&gt; throw UnimplementedError(</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           6 : final splashRepositoryProvider = Provider&lt;SplashRepository&gt;(</span></span>
+<span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           4 :   (ref) =&gt; throw UnimplementedError(</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :     'splashRepositoryProvider has not been overridden. '</span>
 <span id="L12"><span class="lineNum">      12</span>              :     'Make sure to override this provider in the composition root.',</span>
 <span id="L13"><span class="lineNum">      13</span>              :   ),</span>
 <span id="L14"><span class="lineNum">      14</span>              : );</span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span>              : /// Provider for the some splash operation use case</span>
-<span id="L17"><span class="lineNum">      17</span> <span class="tlaUNC">           0 : final someSplashOperationUseCaseProvider = Provider&lt;SomeSplashOperationUseCase&gt;(</span></span>
-<span id="L18"><span class="lineNum">      18</span> <span class="tlaUNC">           0 :   (ref) =&gt; SomeSplashOperationUseCase(</span></span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaUNC">           0 :     splashRepository: ref.watch(splashRepositoryProvider),</span></span>
+<span id="L17"><span class="lineNum">      17</span> <span class="tlaGNC">           3 : final someSplashOperationUseCaseProvider = Provider&lt;SomeSplashOperationUseCase&gt;(</span></span>
+<span id="L18"><span class="lineNum">      18</span> <span class="tlaGNC">           2 :   (ref) =&gt; SomeSplashOperationUseCase(</span></span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">           2 :     splashRepository: ref.watch(splashRepositoryProvider),</span></span>
 <span id="L20"><span class="lineNum">      20</span>              :   ),</span>
 <span id="L21"><span class="lineNum">      21</span>              : );</span>
         </pre>

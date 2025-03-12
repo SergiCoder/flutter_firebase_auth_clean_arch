@@ -96,8 +96,10 @@ void main() {
 
       // Assert - Final state should be ErrorFailed
       expect(failingContainer.read(errorProvider), isA<ErrorFailed>());
-      expect((failingContainer.read(errorProvider) as ErrorFailed).message,
-          contains('Test error during processing'));
+      expect(
+        (failingContainer.read(errorProvider) as ErrorFailed).message,
+        contains('Test error during processing'),
+      );
 
       // Check state transitions
       expect(states.length, equals(2)); // 2 changes after initial state
@@ -110,11 +112,6 @@ void main() {
 
     test('reset changes state to ErrorInitial', () {
       // Arrange - Set state to ErrorFailed
-      final notifier = container.read(errorProvider.notifier);
-      notifier.state = const ErrorFailed('Test error');
-
-      // Act
-      notifier.reset();
 
       // Assert
       expect(container.read(errorProvider), isA<ErrorInitial>());

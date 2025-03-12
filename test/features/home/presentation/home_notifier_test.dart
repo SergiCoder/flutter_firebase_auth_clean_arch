@@ -159,6 +159,30 @@ void main() {
         expect(homeNotifier.state, isA<HomeInitial>());
       });
     });
+
+    group('reset', () {
+      test('resets state to HomeInitial', () async {
+        // Arrange - Set state to something other than HomeInitial
+        homeNotifier = HomeNotifier(
+          firebaseAuth: mockFirebaseAuth,
+          signOutUseCase: mockSignOutUseCase,
+        );
+
+        // First change state to something else
+        when(mockFirebaseAuth.currentUser).thenReturn(mockUser);
+        when(mockUser.email).thenReturn('test@example.com');
+        await homeNotifier.initialize();
+
+        // Verify state changed to HomeLoaded after initialization
+        expect(homeNotifier.state, isA<HomeLoaded>());
+
+        // Act
+        homeNotifier.reset();
+
+        // Assert
+        expect(homeNotifier.state, isA<HomeInitial>());
+      });
+    });
   });
 
   group('homeProvider', () {

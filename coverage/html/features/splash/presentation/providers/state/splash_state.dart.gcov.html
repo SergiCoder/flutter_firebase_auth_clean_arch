@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryMed">81.8&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">11</td>
-            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">11</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 18:07:35</td>
+            <td class="headerValue">2025-03-12 21:17:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -65,34 +65,34 @@
 <span id="L3"><span class="lineNum">       3</span>              : /// Represents the different states of the splash screen</span>
 <span id="L4"><span class="lineNum">       4</span>              : abstract class SplashState extends Equatable {</span>
 <span id="L5"><span class="lineNum">       5</span>              :   /// Creates a new [SplashState]</span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          45 :   const SplashState();</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          54 :   const SplashState();</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
-<span id="L8"><span class="lineNum">       8</span> <span class="tlaUNC">           0 :   @override</span></span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaUNC">           0 :   List&lt;Object?&gt; get props =&gt; [];</span></span>
+<span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           1 :   @override</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           1 :   List&lt;Object?&gt; get props =&gt; [];</span></span>
 <span id="L10"><span class="lineNum">      10</span>              : }</span>
 <span id="L11"><span class="lineNum">      11</span>              : </span>
 <span id="L12"><span class="lineNum">      12</span>              : /// The initial state of the splash screen</span>
 <span id="L13"><span class="lineNum">      13</span>              : class SplashInitial extends SplashState {</span>
 <span id="L14"><span class="lineNum">      14</span>              :   /// Creates a new [SplashInitial] state</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          43 :   const SplashInitial();</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          49 :   const SplashInitial();</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : }</span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
 <span id="L18"><span class="lineNum">      18</span>              : /// The loading state of the splash screen</span>
 <span id="L19"><span class="lineNum">      19</span>              : class SplashLoading extends SplashState {</span>
 <span id="L20"><span class="lineNum">      20</span>              :   /// Creates a new [SplashLoading] state</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          43 :   const SplashLoading();</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          51 :   const SplashLoading();</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : }</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              : /// The error state of the splash screen</span>
 <span id="L25"><span class="lineNum">      25</span>              : class SplashError extends SplashState {</span>
 <span id="L26"><span class="lineNum">      26</span>              :   /// Creates a new [SplashError] state with the given error message</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           3 :   const SplashError(this.message);</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">           7 :   const SplashError(this.message);</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : </span>
 <span id="L29"><span class="lineNum">      29</span>              :   /// The error message</span>
 <span id="L30"><span class="lineNum">      30</span>              :   final String message;</span>
 <span id="L31"><span class="lineNum">      31</span>              : </span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           2 :   List&lt;Object?&gt; get props =&gt; [message];</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           4 :   List&lt;Object?&gt; get props =&gt; [message];</span></span>
 <span id="L34"><span class="lineNum">      34</span>              : }</span>
 <span id="L35"><span class="lineNum">      35</span>              : </span>
 <span id="L36"><span class="lineNum">      36</span>              : /// The navigate state of the splash screen</span>
@@ -101,13 +101,13 @@
 <span id="L39"><span class="lineNum">      39</span>              :   ///</span>
 <span id="L40"><span class="lineNum">      40</span>              :   /// The [isAuthenticated] parameter indicates whether the user is already</span>
 <span id="L41"><span class="lineNum">      41</span>              :   /// authenticated</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           4 :   const SplashNavigate({required this.isAuthenticated});</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           8 :   const SplashNavigate({required this.isAuthenticated});</span></span>
 <span id="L43"><span class="lineNum">      43</span>              : </span>
 <span id="L44"><span class="lineNum">      44</span>              :   /// Whether the user is already authenticated</span>
 <span id="L45"><span class="lineNum">      45</span>              :   final bool isAuthenticated;</span>
 <span id="L46"><span class="lineNum">      46</span>              : </span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           1 :   @override</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           2 :   List&lt;Object?&gt; get props =&gt; [isAuthenticated];</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           2 :   @override</span></span>
+<span id="L48"><span class="lineNum">      48</span> <span class="tlaGNC">           4 :   List&lt;Object?&gt; get props =&gt; [isAuthenticated];</span></span>
 <span id="L49"><span class="lineNum">      49</span>              : }</span>
         </pre>
               </td>

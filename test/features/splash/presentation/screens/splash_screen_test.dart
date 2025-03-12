@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
@@ -7,14 +5,13 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/i
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/state/splash_state.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/screens/splash_screen.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../auth/presentation/mocks/mock_go_router.dart';
 
-// Mock the IsAuthenticatedUseCase
+/// Mock implementation of IsAuthenticatedUseCase for testing
 class MockIsAuthenticatedUseCase extends Mock
     implements IsAuthenticatedUseCase {
   @override
@@ -27,8 +24,9 @@ class MockIsAuthenticatedUseCase extends Mock
   }
 }
 
-// Mock SplashNotifier to control state for testing
+/// Mock SplashNotifier to control state for testing
 class MockSplashNotifier extends SplashNotifier {
+  /// Creates a new [MockSplashNotifier] with the provided use case
   MockSplashNotifier({required super.isAuthenticatedUseCase});
 
   @override

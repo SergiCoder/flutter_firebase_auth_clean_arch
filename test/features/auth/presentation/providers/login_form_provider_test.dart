@@ -17,10 +17,11 @@ void main() {
 
     test('focusEmail sets state to email field', () {
       // Arrange
-      notifier.state = LoginFormField.password;
+      notifier
+        ..state = LoginFormField.password
 
-      // Act
-      notifier.focusEmail();
+        // Act
+        ..focusEmail();
 
       // Assert
       expect(notifier.state, equals(LoginFormField.email));
@@ -28,10 +29,11 @@ void main() {
 
     test('focusPassword sets state to password field', () {
       // Arrange
-      notifier.state = LoginFormField.email;
+      notifier
+        ..state = LoginFormField.email
 
-      // Act
-      notifier.focusPassword();
+        // Act
+        ..focusPassword();
 
       // Assert
       expect(notifier.state, equals(LoginFormField.password));
@@ -39,10 +41,11 @@ void main() {
 
     test('submitForm sets state to none', () {
       // Arrange
-      notifier.state = LoginFormField.password;
+      notifier
+        ..state = LoginFormField.password
 
-      // Act
-      notifier.submitForm();
+        // Act
+        ..submitForm();
 
       // Assert
       expect(notifier.state, equals(LoginFormField.none));
@@ -68,12 +71,14 @@ void main() {
     test('notifier methods update state correctly', () {
       // Arrange
       final container = ProviderContainer();
-      final notifier = container.read(loginFormProvider.notifier);
+      final notifier = container.read(loginFormProvider.notifier)
 
-      // Act & Assert - Test each method
-      notifier.focusPassword();
+        // Act & Assert - Test each method
+        ..focusPassword();
       expect(
-          container.read(loginFormProvider), equals(LoginFormField.password));
+        container.read(loginFormProvider),
+        equals(LoginFormField.password),
+      );
 
       notifier.focusEmail();
       expect(container.read(loginFormProvider), equals(LoginFormField.email));

@@ -34,38 +34,45 @@ void main() {
     });
 
     group('initialize', () {
-      test('sets state to SplashLoading then SplashNavigate when authenticated',
-          () async {
-        // Arrange
-        when(mockIsAuthenticatedUseCase.execute())
-            .thenAnswer((_) async => true);
+      test(
+        'sets state to SplashNavigate when authenticated',
+        () async {
+          // Arrange
+          when(mockIsAuthenticatedUseCase.execute())
+              .thenAnswer((_) async => true);
 
-        // Act
-        await splashNotifier.initialize();
+          // Act
+          await splashNotifier.initialize();
 
-        // Assert
-        verify(mockIsAuthenticatedUseCase.execute()).called(1);
-        expect(splashNotifier.state, isA<SplashNavigate>());
-        expect(
-            (splashNotifier.state as SplashNavigate).isAuthenticated, isTrue);
-      });
+          // Assert
+          verify(mockIsAuthenticatedUseCase.execute()).called(1);
+          expect(splashNotifier.state, isA<SplashNavigate>());
+          expect(
+            (splashNotifier.state as SplashNavigate).isAuthenticated,
+            isTrue,
+          );
+        },
+      );
 
       test(
-          'sets state to SplashLoading then SplashNavigate when not authenticated',
-          () async {
-        // Arrange
-        when(mockIsAuthenticatedUseCase.execute())
-            .thenAnswer((_) async => false);
+        'sets state to SplashNavigate when not authenticated',
+        () async {
+          // Arrange
+          when(mockIsAuthenticatedUseCase.execute())
+              .thenAnswer((_) async => false);
 
-        // Act
-        await splashNotifier.initialize();
+          // Act
+          await splashNotifier.initialize();
 
-        // Assert
-        verify(mockIsAuthenticatedUseCase.execute()).called(1);
-        expect(splashNotifier.state, isA<SplashNavigate>());
-        expect(
-            (splashNotifier.state as SplashNavigate).isAuthenticated, isFalse);
-      });
+          // Assert
+          verify(mockIsAuthenticatedUseCase.execute()).called(1);
+          expect(splashNotifier.state, isA<SplashNavigate>());
+          expect(
+            (splashNotifier.state as SplashNavigate).isAuthenticated,
+            isFalse,
+          );
+        },
+      );
 
       test('sets state to SplashError when an exception occurs', () async {
         // Arrange
@@ -78,8 +85,10 @@ void main() {
         // Assert
         verify(mockIsAuthenticatedUseCase.execute()).called(1);
         expect(splashNotifier.state, isA<SplashError>());
-        expect((splashNotifier.state as SplashError).message,
-            contains('Exception: Test error'));
+        expect(
+          (splashNotifier.state as SplashError).message,
+          contains('Exception: Test error'),
+        );
       });
     });
 
@@ -93,15 +102,19 @@ void main() {
       // Assert
       verify(mockIsAuthenticatedUseCase.execute()).called(1);
       expect(splashNotifier.state, isA<SplashNavigate>());
-      expect((splashNotifier.state as SplashNavigate).isAuthenticated, isTrue);
+      expect(
+        (splashNotifier.state as SplashNavigate).isAuthenticated,
+        isTrue,
+      );
     });
 
     test('reset sets state to SplashInitial', () {
       // Arrange
-      splashNotifier.state = const SplashLoading();
+      splashNotifier
+        ..state = const SplashLoading()
 
-      // Act
-      splashNotifier.reset();
+        // Act
+        ..reset();
 
       // Assert
       expect(splashNotifier.state, isA<SplashInitial>());

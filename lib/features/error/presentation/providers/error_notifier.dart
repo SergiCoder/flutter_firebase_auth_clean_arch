@@ -6,7 +6,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// A notifier that manages the state of error handling
 class ErrorNotifier extends StateNotifier<ErrorState> {
   /// Creates a new [ErrorNotifier]
-  ErrorNotifier() : super(const ErrorInitial());
+  ///
+  /// [forceException] can be set to true to force an exception during processing
+  /// This is primarily used for testing the catch block
+  ErrorNotifier({this.forceException = false}) : super(const ErrorInitial());
+
+  /// Flag to force an exception during processing (for testing)
+  final bool forceException;
 
   /// Processes an error
   Future<void> processError(String errorMessage) async {
@@ -14,6 +20,9 @@ class ErrorNotifier extends StateNotifier<ErrorState> {
 
     try {
       // Simulate error processing
+      if (forceException) {
+        throw Exception('Forced exception for testing');
+      }
       await Future<void>.delayed(const Duration(seconds: 1));
 
       // Successfully handled the error

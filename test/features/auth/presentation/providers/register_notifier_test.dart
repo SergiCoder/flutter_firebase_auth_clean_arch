@@ -61,7 +61,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Invalid email format';
-        final exception = InvalidCredentialsException(message: errorMessage);
+        const exception = InvalidCredentialsException(message: errorMessage);
 
         when(
           mockCreateUserUseCase.execute(
@@ -95,7 +95,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Email already in use';
-        final exception = EmailAlreadyInUseException(message: errorMessage);
+        const exception = EmailAlreadyInUseException(message: errorMessage);
 
         when(
           mockCreateUserUseCase.execute(
@@ -129,7 +129,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'weak';
         const errorMessage = 'Password is too weak';
-        final exception = WeakPasswordException(message: errorMessage);
+        const exception = WeakPasswordException(message: errorMessage);
 
         when(
           mockCreateUserUseCase.execute(
@@ -163,7 +163,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Authentication error';
-        final exception = AuthException(errorMessage);
+        const exception = AuthException(errorMessage);
 
         when(
           mockCreateUserUseCase.execute(
@@ -197,7 +197,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Application error';
-        final exception = UnexpectedException(message: errorMessage);
+        const exception = UnexpectedException(message: errorMessage);
 
         when(
           mockCreateUserUseCase.execute(

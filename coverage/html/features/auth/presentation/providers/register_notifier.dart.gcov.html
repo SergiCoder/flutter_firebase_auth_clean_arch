@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">57.1&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">35</td>
-            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">35</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 18:07:35</td>
+            <td class="headerValue">2025-03-12 21:17:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -98,51 +98,51 @@
 <span id="L36"><span class="lineNum">      36</span>              :       );</span>
 <span id="L37"><span class="lineNum">      37</span> <span class="tlaGNC">           4 :     } on InvalidCredentialsException catch (e) {</span></span>
 <span id="L38"><span class="lineNum">      38</span>              :       // Handle invalid credentials specifically</span>
-<span id="L39"><span class="lineNum">      39</span> <span class="tlaUNC">           0 :       state = RegisterError(e.message);</span></span>
+<span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           3 :       state = RegisterError(e.message);</span></span>
 <span id="L40"><span class="lineNum">      40</span>              : </span>
 <span id="L41"><span class="lineNum">      41</span>              :       // Log the error</span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :       developer.log(</span></span>
-<span id="L43"><span class="lineNum">      43</span> <span class="tlaUNC">           0 :         'Registration failed: Invalid credentials - ${e.message}',</span></span>
+<span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           1 :       developer.log(</span></span>
+<span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           2 :         'Registration failed: Invalid credentials - ${e.message}',</span></span>
 <span id="L44"><span class="lineNum">      44</span>              :         name: 'RegisterNotifier',</span>
 <span id="L45"><span class="lineNum">      45</span>              :         error: e,</span>
 <span id="L46"><span class="lineNum">      46</span>              :       );</span>
 <span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           4 :     } on EmailAlreadyInUseException catch (e) {</span></span>
 <span id="L48"><span class="lineNum">      48</span>              :       // Handle email already in use specifically</span>
-<span id="L49"><span class="lineNum">      49</span> <span class="tlaUNC">           0 :       state = RegisterError(e.message);</span></span>
+<span id="L49"><span class="lineNum">      49</span> <span class="tlaGNC">           3 :       state = RegisterError(e.message);</span></span>
 <span id="L50"><span class="lineNum">      50</span>              : </span>
 <span id="L51"><span class="lineNum">      51</span>              :       // Log the error</span>
-<span id="L52"><span class="lineNum">      52</span> <span class="tlaUNC">           0 :       developer.log(</span></span>
-<span id="L53"><span class="lineNum">      53</span> <span class="tlaUNC">           0 :         'Registration failed: Email already in use - ${e.message}',</span></span>
+<span id="L52"><span class="lineNum">      52</span> <span class="tlaGNC">           1 :       developer.log(</span></span>
+<span id="L53"><span class="lineNum">      53</span> <span class="tlaGNC">           2 :         'Registration failed: Email already in use - ${e.message}',</span></span>
 <span id="L54"><span class="lineNum">      54</span>              :         name: 'RegisterNotifier',</span>
 <span id="L55"><span class="lineNum">      55</span>              :         error: e,</span>
 <span id="L56"><span class="lineNum">      56</span>              :       );</span>
 <span id="L57"><span class="lineNum">      57</span> <span class="tlaGNC">           4 :     } on WeakPasswordException catch (e) {</span></span>
 <span id="L58"><span class="lineNum">      58</span>              :       // Handle weak password specifically</span>
-<span id="L59"><span class="lineNum">      59</span> <span class="tlaUNC">           0 :       state = RegisterError(e.message);</span></span>
+<span id="L59"><span class="lineNum">      59</span> <span class="tlaGNC">           3 :       state = RegisterError(e.message);</span></span>
 <span id="L60"><span class="lineNum">      60</span>              : </span>
 <span id="L61"><span class="lineNum">      61</span>              :       // Log the error</span>
-<span id="L62"><span class="lineNum">      62</span> <span class="tlaUNC">           0 :       developer.log(</span></span>
-<span id="L63"><span class="lineNum">      63</span> <span class="tlaUNC">           0 :         'Registration failed: Weak password - ${e.message}',</span></span>
+<span id="L62"><span class="lineNum">      62</span> <span class="tlaGNC">           1 :       developer.log(</span></span>
+<span id="L63"><span class="lineNum">      63</span> <span class="tlaGNC">           2 :         'Registration failed: Weak password - ${e.message}',</span></span>
 <span id="L64"><span class="lineNum">      64</span>              :         name: 'RegisterNotifier',</span>
 <span id="L65"><span class="lineNum">      65</span>              :         error: e,</span>
 <span id="L66"><span class="lineNum">      66</span>              :       );</span>
 <span id="L67"><span class="lineNum">      67</span> <span class="tlaGNC">           4 :     } on AuthException catch (e) {</span></span>
 <span id="L68"><span class="lineNum">      68</span>              :       // Handle other auth exceptions</span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaUNC">           0 :       state = RegisterError(e.message);</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">           3 :       state = RegisterError(e.message);</span></span>
 <span id="L70"><span class="lineNum">      70</span>              : </span>
 <span id="L71"><span class="lineNum">      71</span>              :       // Log the error</span>
-<span id="L72"><span class="lineNum">      72</span> <span class="tlaUNC">           0 :       developer.log(</span></span>
-<span id="L73"><span class="lineNum">      73</span> <span class="tlaUNC">           0 :         'Registration failed: Auth error - ${e.message}',</span></span>
+<span id="L72"><span class="lineNum">      72</span> <span class="tlaGNC">           1 :       developer.log(</span></span>
+<span id="L73"><span class="lineNum">      73</span> <span class="tlaGNC">           2 :         'Registration failed: Auth error - ${e.message}',</span></span>
 <span id="L74"><span class="lineNum">      74</span>              :         name: 'RegisterNotifier',</span>
 <span id="L75"><span class="lineNum">      75</span>              :         error: e,</span>
 <span id="L76"><span class="lineNum">      76</span>              :       );</span>
 <span id="L77"><span class="lineNum">      77</span> <span class="tlaGNC">           4 :     } on AppException catch (e) {</span></span>
 <span id="L78"><span class="lineNum">      78</span>              :       // Handle general app exceptions</span>
-<span id="L79"><span class="lineNum">      79</span> <span class="tlaUNC">           0 :       state = RegisterError(e.message);</span></span>
+<span id="L79"><span class="lineNum">      79</span> <span class="tlaGNC">           3 :       state = RegisterError(e.message);</span></span>
 <span id="L80"><span class="lineNum">      80</span>              : </span>
 <span id="L81"><span class="lineNum">      81</span>              :       // Log the error</span>
-<span id="L82"><span class="lineNum">      82</span> <span class="tlaUNC">           0 :       developer.log(</span></span>
-<span id="L83"><span class="lineNum">      83</span> <span class="tlaUNC">           0 :         'Registration failed: App error - ${e.message}',</span></span>
+<span id="L82"><span class="lineNum">      82</span> <span class="tlaGNC">           1 :       developer.log(</span></span>
+<span id="L83"><span class="lineNum">      83</span> <span class="tlaGNC">           2 :         'Registration failed: App error - ${e.message}',</span></span>
 <span id="L84"><span class="lineNum">      84</span>              :         name: 'RegisterNotifier',</span>
 <span id="L85"><span class="lineNum">      85</span>              :         error: e,</span>
 <span id="L86"><span class="lineNum">      86</span>              :       );</span>

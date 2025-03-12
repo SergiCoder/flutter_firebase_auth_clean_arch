@@ -66,36 +66,41 @@ void main() {
       expect(state1, equals(state2));
     });
 
-    test('SplashError instances with different messages should not be equal',
-        () {
-      // Arrange
-      const state1 = SplashError('Message 1');
-      const state2 = SplashError('Message 2');
+    test(
+      'SplashError instances with different messages should not be equal',
+      () {
+        // Arrange
+        const state1 = SplashError('Message 1');
+        const state2 = SplashError('Message 2');
 
-      // Assert
-      expect(state1, isNot(equals(state2)));
-    });
-
-    test('SplashNavigate instances with same isAuthenticated should be equal',
-        () {
-      // Arrange
-      const state1 = SplashNavigate(isAuthenticated: true);
-      const state2 = SplashNavigate(isAuthenticated: true);
-
-      // Assert
-      expect(state1, equals(state2));
-    });
+        // Assert
+        expect(state1, isNot(equals(state2)));
+      },
+    );
 
     test(
-        'SplashNavigate instances with different isAuthenticated should not be equal',
-        () {
-      // Arrange
-      const state1 = SplashNavigate(isAuthenticated: true);
-      const state2 = SplashNavigate(isAuthenticated: false);
+      'SplashNavigate with same isAuthenticated should be equal',
+      () {
+        // Arrange
+        const state1 = SplashNavigate(isAuthenticated: true);
+        const state2 = SplashNavigate(isAuthenticated: true);
 
-      // Assert
-      expect(state1, isNot(equals(state2)));
-    });
+        // Assert
+        expect(state1, equals(state2));
+      },
+    );
+
+    test(
+      'SplashNavigate with different isAuthenticated should not be equal',
+      () {
+        // Arrange
+        const state1 = SplashNavigate(isAuthenticated: true);
+        const state2 = SplashNavigate(isAuthenticated: false);
+
+        // Assert
+        expect(state1, isNot(equals(state2)));
+      },
+    );
 
     test('Different state types should not be equal', () {
       // Arrange

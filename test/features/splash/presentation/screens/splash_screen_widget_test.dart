@@ -4,13 +4,13 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/is_authenticated_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/providers/state/splash_state.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../auth/presentation/mocks/mock_go_router.dart';
 
+/// Mock implementation of IsAuthenticatedUseCase for testing
 class MockIsAuthenticatedUseCase extends Mock
     implements IsAuthenticatedUseCase {
   @override
@@ -83,9 +83,11 @@ void main() {
       container = ProviderContainer(
         overrides: [
           // Override the splash provider to use our mock
-          splashProvider.overrideWith((ref) => SplashNotifier(
-                isAuthenticatedUseCase: mockIsAuthenticatedUseCase,
-              )),
+          splashProvider.overrideWith(
+            (ref) => SplashNotifier(
+              isAuthenticatedUseCase: mockIsAuthenticatedUseCase,
+            ),
+          ),
           isAuthenticatedUseCaseProvider
               .overrideWithValue(mockIsAuthenticatedUseCase),
         ],
@@ -171,7 +173,7 @@ void main() {
       // Pump the widget to reflect the state change
       await tester.pump();
 
-      // Assert - Should show an empty container (no CircularProgressIndicator or ErrorDisplayWidget)
+      // Assert - Should show an empty container
       expect(find.byType(CircularProgressIndicator), findsNothing);
       expect(find.byType(ErrorDisplayWidget), findsNothing);
     });
@@ -190,7 +192,7 @@ void main() {
       // Pump the widget to reflect the state change
       await tester.pump();
 
-      // Assert - Should show an empty container (no CircularProgressIndicator or ErrorDisplayWidget)
+      // Assert - Should show an empty container
       expect(find.byType(CircularProgressIndicator), findsNothing);
       expect(find.byType(ErrorDisplayWidget), findsNothing);
     });

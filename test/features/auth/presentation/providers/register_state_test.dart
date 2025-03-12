@@ -1,6 +1,11 @@
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+// Create a concrete implementation of RegisterState for testing
+class TestRegisterState extends RegisterState {
+  const TestRegisterState();
+}
+
 void main() {
   group('RegisterState', () {
     test('RegisterInitial is a RegisterState', () {
@@ -21,6 +26,11 @@ void main() {
     test('RegisterError is a RegisterState', () {
       const state = RegisterError('Error message');
       expect(state, isA<RegisterState>());
+    });
+
+    test('base RegisterState props returns empty list', () {
+      const state = TestRegisterState();
+      expect(state.props, isEmpty);
     });
 
     group('RegisterError', () {

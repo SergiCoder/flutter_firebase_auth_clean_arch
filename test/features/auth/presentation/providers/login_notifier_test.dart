@@ -59,7 +59,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Invalid email or password';
-        final exception = InvalidCredentialsException(message: errorMessage);
+        const exception = InvalidCredentialsException();
 
         when(
           mockSignInUseCase.execute(
@@ -93,7 +93,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Authentication error';
-        final exception = AuthException(errorMessage);
+        const exception = AuthException(errorMessage);
 
         when(
           mockSignInUseCase.execute(
@@ -127,7 +127,7 @@ void main() {
         const email = 'test@example.com';
         const password = 'password123';
         const errorMessage = 'Application error';
-        final exception = UnexpectedException(message: errorMessage);
+        const exception = UnexpectedException(message: errorMessage);
 
         when(
           mockSignInUseCase.execute(
