@@ -1,4 +1,4 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';

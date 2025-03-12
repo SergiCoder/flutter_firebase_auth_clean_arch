@@ -1,2 +1,2 @@
 export 'home_notifier.dart';
-export 'home_state.dart';
+export 'state/state.dart';

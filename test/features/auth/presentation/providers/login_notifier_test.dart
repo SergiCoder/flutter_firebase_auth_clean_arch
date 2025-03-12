@@ -1,6 +1,6 @@
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 

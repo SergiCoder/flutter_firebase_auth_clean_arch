@@ -1,2 +1,2 @@
 export 'splash_notifier.dart';
-export 'splash_state.dart';
+export 'state/state.dart';
