@@ -30,11 +30,6 @@ class TestAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> sendPasswordResetEmail(String email) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> signOut() {
     throw UnimplementedError();
   }

@@ -11,12 +11,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - Providing redirection logic based on authentication status
 /// - Notifying listeners when authentication state changes
 class AuthRouterNotifier extends ChangeNotifier {
-  /// Creates a new [AuthRouterNotifier] with the given auth state changes use case.
+  /// Creates a new [AuthRouterNotifier] with the given auth state changes
+  /// use case.
   ///
   /// Initializes authentication state tracking and sets up listeners for
   /// authentication state changes.
   ///
-  /// [getAuthStateChangesUseCase] Use case that provides authentication state changes.
+  /// [getAuthStateChangesUseCase] Use case that provides authentication state
+  /// changes.
   AuthRouterNotifier({
     required GetAuthStateChangesUseCase getAuthStateChangesUseCase,
   }) : _getAuthStateChangesUseCase = getAuthStateChangesUseCase {

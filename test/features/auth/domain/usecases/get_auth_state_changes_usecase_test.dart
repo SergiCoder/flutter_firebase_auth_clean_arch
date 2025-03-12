@@ -8,8 +8,8 @@ class MockAuthRepository extends Mock implements AuthRepository {
   Stream<bool> get authStateChanges {
     return super.noSuchMethod(
       Invocation.getter(#authStateChanges),
-      returnValue: Stream<bool>.empty(),
-      returnValueForMissingStub: Stream<bool>.empty(),
+      returnValue: const Stream<bool>.empty(),
+      returnValueForMissingStub: const Stream<bool>.empty(),
     ) as Stream<bool>;
   }
 }
