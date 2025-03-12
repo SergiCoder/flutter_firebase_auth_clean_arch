@@ -31,13 +31,13 @@
             <td class="headerValue">lcov.info</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntryLo">0.0&nbsp;%</td>
+            <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
             <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">0</td>
+            <td class="headerCovTableEntry">7</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 15:32:07</td>
+            <td class="headerValue">2025-03-12 18:07:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -69,47 +69,46 @@
 <span id="L7"><span class="lineNum">       7</span>              :     as auth_domain;</span>
 <span id="L8"><span class="lineNum">       8</span>              : // Import the home data layer providers with an alias</span>
 <span id="L9"><span class="lineNum">       9</span>              : import 'package:flutter_firebase_auth_clean_arch/'</span>
-<span id="L10"><span class="lineNum">      10</span>              :     'features/home/data/providers/home_repository_provider.dart' as home_data;</span>
+<span id="L10"><span class="lineNum">      10</span>              :     'features/home/data/providers/providers.dart' as home_data;</span>
 <span id="L11"><span class="lineNum">      11</span>              : // Import the home domain layer providers with an alias</span>
 <span id="L12"><span class="lineNum">      12</span>              : import 'package:flutter_firebase_auth_clean_arch/'</span>
 <span id="L13"><span class="lineNum">      13</span>              :         'features/home/domain/providers/home_usecases_providers.dart'</span>
 <span id="L14"><span class="lineNum">      14</span>              :     as home_domain;</span>
 <span id="L15"><span class="lineNum">      15</span>              : // Import the splash data layer providers with an alias</span>
 <span id="L16"><span class="lineNum">      16</span>              : import 'package:flutter_firebase_auth_clean_arch/'</span>
-<span id="L17"><span class="lineNum">      17</span>              :         'features/splash/data/providers/splash_repository_provider.dart'</span>
-<span id="L18"><span class="lineNum">      18</span>              :     as splash_data;</span>
-<span id="L19"><span class="lineNum">      19</span>              : // Import the splash domain layer providers with an alias</span>
-<span id="L20"><span class="lineNum">      20</span>              : import 'package:flutter_firebase_auth_clean_arch/'</span>
-<span id="L21"><span class="lineNum">      21</span>              :         'features/splash/domain/providers/splash_usecases_providers.dart'</span>
-<span id="L22"><span class="lineNum">      22</span>              :     as splash_domain;</span>
-<span id="L23"><span class="lineNum">      23</span>              : </span>
-<span id="L24"><span class="lineNum">      24</span>              : /// Connects different layers of the application.</span>
-<span id="L25"><span class="lineNum">      25</span>              : /// Maintains clean architecture by wiring up dependencies.</span>
-<span id="L26"><span class="lineNum">      26</span>              : ///</span>
-<span id="L27"><span class="lineNum">      27</span>              : /// In clean architecture, the domain layer should not depend on the data layer.</span>
-<span id="L28"><span class="lineNum">      28</span>              : /// This file serves as a bridge between these layers.</span>
-<span id="L29"><span class="lineNum">      29</span>              : </span>
-<span id="L30"><span class="lineNum">      30</span>              : /// List of provider overrides for the application.</span>
-<span id="L31"><span class="lineNum">      31</span>              : /// This is used in the ProviderScope at the root of the application.</span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaUNC">           0 : final overrides = [</span></span>
-<span id="L33"><span class="lineNum">      33</span>              :   // Override the domain layer's authRepositoryProvider with the data layer's</span>
-<span id="L34"><span class="lineNum">      34</span>              :   // implementation</span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaUNC">           0 :   auth_domain.authRepositoryProvider.overrideWith(</span></span>
-<span id="L36"><span class="lineNum">      36</span> <span class="tlaUNC">           0 :     (ref) =&gt; ref.watch(auth_data.firebaseAuthRepositoryProvider),</span></span>
-<span id="L37"><span class="lineNum">      37</span>              :   ),</span>
-<span id="L38"><span class="lineNum">      38</span>              : </span>
-<span id="L39"><span class="lineNum">      39</span>              :   // Override the domain layer's homeRepositoryProvider with the data layer's</span>
-<span id="L40"><span class="lineNum">      40</span>              :   // implementation</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaUNC">           0 :   home_domain.homeRepositoryProvider.overrideWith(</span></span>
-<span id="L42"><span class="lineNum">      42</span> <span class="tlaUNC">           0 :     (ref) =&gt; ref.watch(home_data.homeRepositoryImplProvider),</span></span>
-<span id="L43"><span class="lineNum">      43</span>              :   ),</span>
-<span id="L44"><span class="lineNum">      44</span>              : </span>
-<span id="L45"><span class="lineNum">      45</span>              :   // Override the domain layer's splashRepositoryProvider with the data layer's</span>
-<span id="L46"><span class="lineNum">      46</span>              :   // implementation</span>
-<span id="L47"><span class="lineNum">      47</span> <span class="tlaUNC">           0 :   splash_domain.splashRepositoryProvider.overrideWith(</span></span>
-<span id="L48"><span class="lineNum">      48</span> <span class="tlaUNC">           0 :     (ref) =&gt; ref.watch(splash_data.splashRepositoryImplProvider),</span></span>
-<span id="L49"><span class="lineNum">      49</span>              :   ),</span>
-<span id="L50"><span class="lineNum">      50</span>              : ];</span>
+<span id="L17"><span class="lineNum">      17</span>              :     'features/splash/data/providers/providers.dart' as splash_data;</span>
+<span id="L18"><span class="lineNum">      18</span>              : // Import the splash domain layer providers with an alias</span>
+<span id="L19"><span class="lineNum">      19</span>              : import 'package:flutter_firebase_auth_clean_arch/'</span>
+<span id="L20"><span class="lineNum">      20</span>              :         'features/splash/domain/providers/splash_usecases_providers.dart'</span>
+<span id="L21"><span class="lineNum">      21</span>              :     as splash_domain;</span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span>              : /// Connects different layers of the application.</span>
+<span id="L24"><span class="lineNum">      24</span>              : /// Maintains clean architecture by wiring up dependencies.</span>
+<span id="L25"><span class="lineNum">      25</span>              : ///</span>
+<span id="L26"><span class="lineNum">      26</span>              : /// In clean architecture, the domain layer should not depend on the data layer.</span>
+<span id="L27"><span class="lineNum">      27</span>              : /// This file serves as a bridge between these layers.</span>
+<span id="L28"><span class="lineNum">      28</span>              : </span>
+<span id="L29"><span class="lineNum">      29</span>              : /// List of provider overrides for the application.</span>
+<span id="L30"><span class="lineNum">      30</span>              : /// This is used in the ProviderScope at the root of the application.</span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           3 : final overrides = [</span></span>
+<span id="L32"><span class="lineNum">      32</span>              :   // Override the domain layer's authRepositoryProvider with the data layer's</span>
+<span id="L33"><span class="lineNum">      33</span>              :   // implementation</span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           2 :   auth_domain.authRepositoryProvider.overrideWith(</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :     (ref) =&gt; ref.watch(auth_data.authRepositoryImplProvider),</span></span>
+<span id="L36"><span class="lineNum">      36</span>              :   ),</span>
+<span id="L37"><span class="lineNum">      37</span>              : </span>
+<span id="L38"><span class="lineNum">      38</span>              :   // Override the domain layer's homeRepositoryProvider with the data layer's</span>
+<span id="L39"><span class="lineNum">      39</span>              :   // implementation</span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           2 :   home_domain.homeRepositoryProvider.overrideWith(</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           3 :     (ref) =&gt; ref.watch(home_data.homeRepositoryImplProvider),</span></span>
+<span id="L42"><span class="lineNum">      42</span>              :   ),</span>
+<span id="L43"><span class="lineNum">      43</span>              : </span>
+<span id="L44"><span class="lineNum">      44</span>              :   // Override the domain layer's splashRepositoryProvider with the data layer's</span>
+<span id="L45"><span class="lineNum">      45</span>              :   // implementation</span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           2 :   splash_domain.splashRepositoryProvider.overrideWith(</span></span>
+<span id="L47"><span class="lineNum">      47</span> <span class="tlaGNC">           3 :     (ref) =&gt; ref.watch(splash_data.splashRepositoryImplProvider),</span></span>
+<span id="L48"><span class="lineNum">      48</span>              :   ),</span>
+<span id="L49"><span class="lineNum">      49</span>              : ];</span>
         </pre>
               </td>
             </tr>
