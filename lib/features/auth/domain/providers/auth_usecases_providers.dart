@@ -33,3 +33,13 @@ final signOutUseCaseProvider = Provider<SignOutUseCase>(
     authRepository: ref.watch(authRepositoryProvider),
   ),
 );
+
+/// Provider for the is authenticated use case.
+///
+/// This provider creates and exposes an [IsAuthenticatedUseCase]
+/// instance that can be used throughout the application.
+final isAuthenticatedUseCaseProvider = Provider<IsAuthenticatedUseCase>(
+  (ref) => IsAuthenticatedUseCase(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);

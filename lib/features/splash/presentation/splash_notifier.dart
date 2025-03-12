@@ -5,13 +5,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A notifier that manages the state of the splash screen
 class SplashNotifier extends StateNotifier<SplashState> {
-  /// Creates a new [SplashNotifier] with the provided [authRepository]
-  SplashNotifier({required AuthRepository authRepository})
-      : _authRepository = authRepository,
+  /// Creates a new [SplashNotifier] with the provided use case
+  ///
+  /// [isAuthenticatedUseCase] The use case for checking if a user is
+  /// authenticated
+  SplashNotifier({required IsAuthenticatedUseCase isAuthenticatedUseCase})
+      : _isAuthenticatedUseCase = isAuthenticatedUseCase,
         super(const SplashInitial());
 
-  /// The authentication repository
-  final AuthRepository _authRepository;
+  /// The use case for checking if a user is authenticated
+  final IsAuthenticatedUseCase _isAuthenticatedUseCase;
 
   /// Initializes the splash screen
   Future<void> initialize() async {
@@ -19,7 +22,7 @@ class SplashNotifier extends StateNotifier<SplashState> {
 
     try {
       // Check if the user is already authenticated
-      final isAuthenticated = await _authRepository.isAuthenticated();
+      final isAuthenticated = await _isAuthenticatedUseCase.execute();
 
       // After loading, navigate to the next screen with authentication info
       state = SplashNavigate(isAuthenticated: isAuthenticated);
@@ -38,6 +41,6 @@ class SplashNotifier extends StateNotifier<SplashState> {
 /// Provider for the splash screen state
 final splashProvider = StateNotifierProvider<SplashNotifier, SplashState>(
   (ref) => SplashNotifier(
-    authRepository: ref.watch(authRepositoryProvider),
+    isAuthenticatedUseCase: ref.watch(isAuthenticatedUseCaseProvider),
   ),
 );

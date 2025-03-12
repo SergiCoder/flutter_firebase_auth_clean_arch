@@ -142,8 +142,8 @@ void main() {
   });
 }
 
-// Simple mock implementation of Ref for testing
-class MockRef implements Ref {
+// Simple test implementation of Ref for testing
+class TestRef implements Ref {
   @override
   dynamic noSuchMethod(Invocation invocation) {
     return super.noSuchMethod(invocation);

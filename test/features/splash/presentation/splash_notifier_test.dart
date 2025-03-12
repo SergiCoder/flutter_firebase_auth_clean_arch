@@ -1,16 +1,17 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/is_authenticated_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
-class MockAuthRepository extends Mock implements AuthRepository {
+class MockIsAuthenticatedUseCase extends Mock
+    implements IsAuthenticatedUseCase {
   @override
-  Future<bool> isAuthenticated() {
+  Future<bool> execute() {
     return super.noSuchMethod(
-      Invocation.method(#isAuthenticated, []),
+      Invocation.method(#execute, []),
       returnValue: Future<bool>.value(false),
       returnValueForMissingStub: Future<bool>.value(false),
     ) as Future<bool>;
@@ -21,15 +22,15 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   group('SplashNotifier', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockIsAuthenticatedUseCase mockIsAuthenticatedUseCase;
     late SplashNotifier splashNotifier;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
+      mockIsAuthenticatedUseCase = MockIsAuthenticatedUseCase();
 
-      // Create the SplashNotifier with the mock repository
+      // Create the SplashNotifier with the mock use case
       splashNotifier = SplashNotifier(
-        authRepository: mockAuthRepository,
+        isAuthenticatedUseCase: mockIsAuthenticatedUseCase,
       );
     });
 
@@ -41,7 +42,7 @@ void main() {
       test('emits SplashNavigate with isAuthenticated=true when authenticated',
           () async {
         // Arrange
-        when(mockAuthRepository.isAuthenticated())
+        when(mockIsAuthenticatedUseCase.execute())
             .thenAnswer((_) async => true);
 
         // Act
@@ -59,7 +60,7 @@ void main() {
           '''emits SplashNavigate with isAuthenticated=false when not authenticated''',
           () async {
         // Arrange
-        when(mockAuthRepository.isAuthenticated())
+        when(mockIsAuthenticatedUseCase.execute())
             .thenAnswer((_) async => false);
 
         // Act
@@ -75,7 +76,7 @@ void main() {
 
       test('emits SplashError when an exception is thrown', () async {
         // Arrange
-        when(mockAuthRepository.isAuthenticated())
+        when(mockIsAuthenticatedUseCase.execute())
             .thenThrow(Exception('Test error'));
 
         // Act
@@ -93,7 +94,7 @@ void main() {
     group('retry', () {
       test('calls initialize method', () async {
         // Arrange
-        when(mockAuthRepository.isAuthenticated())
+        when(mockIsAuthenticatedUseCase.execute())
             .thenAnswer((_) async => true);
 
         // Act
@@ -105,7 +106,7 @@ void main() {
           (splashNotifier.state as SplashNavigate).isAuthenticated,
           isTrue,
         );
-        verify(mockAuthRepository.isAuthenticated()).called(1);
+        verify(mockIsAuthenticatedUseCase.execute()).called(1);
       });
     });
   });
@@ -113,10 +114,11 @@ void main() {
   group('splashProvider', () {
     test('creates a SplashNotifier with the correct dependencies', () {
       // Arrange
-      final mockAuthRepository = MockAuthRepository();
+      final mockIsAuthenticatedUseCase = MockIsAuthenticatedUseCase();
       final container = ProviderContainer(
         overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          isAuthenticatedUseCaseProvider
+              .overrideWithValue(mockIsAuthenticatedUseCase),
         ],
       );
       addTearDown(container.dispose);
