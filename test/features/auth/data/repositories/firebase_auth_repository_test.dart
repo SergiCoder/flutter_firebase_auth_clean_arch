@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/error/error_handler.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -8,14 +10,35 @@ import 'package:mockito/mockito.dart';
 @GenerateMocks([FirebaseAuth, UserCredential, User])
 import 'firebase_auth_repository_test.mocks.dart';
 
+// Simple mock for ErrorHandler
+class MockErrorHandler implements ErrorHandler {
+  const MockErrorHandler();
+
+  @override
+  AppException handleError(dynamic error) => const UnexpectedException();
+
+  @override
+  AppException handleFirebaseAuthError(FirebaseAuthException error) =>
+      const UnexpectedException();
+
+  @override
+  AppException handleFirebaseError(FirebaseException error) =>
+      const UnexpectedException();
+}
+
 void main() {
   late MockFirebaseAuth mockFirebaseAuth;
+  late ErrorHandler mockErrorHandler;
   late FirebaseAuthRepository repository;
   late MockUser mockUser;
 
   setUp(() {
     mockFirebaseAuth = MockFirebaseAuth();
-    repository = FirebaseAuthRepository(firebaseAuth: mockFirebaseAuth);
+    mockErrorHandler = const MockErrorHandler();
+    repository = FirebaseAuthRepository(
+      firebaseAuth: mockFirebaseAuth,
+      errorHandler: mockErrorHandler,
+    );
     mockUser = MockUser();
   });
 

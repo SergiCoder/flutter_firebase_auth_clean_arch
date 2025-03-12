@@ -1,3 +1,6 @@
+import 'dart:developer' as developer;
+
+import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -23,8 +26,52 @@ class LoginNotifier extends StateNotifier<LoginState> {
     try {
       await _signInUseCase.execute(email, password);
       state = const LoginSuccess();
+
+      // Log successful login
+      developer.log(
+        'Login successful',
+        name: 'LoginNotifier',
+      );
+    } on InvalidCredentialsException catch (e) {
+      // Handle invalid credentials specifically
+      state = LoginError(e.message);
+
+      // Log the error
+      developer.log(
+        'Login failed: Invalid credentials - ${e.message}',
+        name: 'LoginNotifier',
+        error: e,
+      );
+    } on AuthException catch (e) {
+      // Handle other auth exceptions
+      state = LoginError(e.message);
+
+      // Log the error
+      developer.log(
+        'Login failed: Auth error - ${e.message}',
+        name: 'LoginNotifier',
+        error: e,
+      );
+    } on AppException catch (e) {
+      // Handle general app exceptions
+      state = LoginError(e.message);
+
+      // Log the error
+      developer.log(
+        'Login failed: App error - ${e.message}',
+        name: 'LoginNotifier',
+        error: e,
+      );
     } catch (e) {
+      // Handle unexpected errors
       state = LoginError(e.toString());
+
+      // Log the error
+      developer.log(
+        'Login failed: Unexpected error',
+        name: 'LoginNotifier',
+        error: e,
+      );
     }
   }
 

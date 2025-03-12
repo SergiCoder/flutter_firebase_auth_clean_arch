@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/error/providers.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories/firebase_auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,5 +32,6 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
 final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => FirebaseAuthRepository(
     firebaseAuth: ref.watch(firebaseAuthProvider),
+    errorHandler: ref.watch(errorHandlerProvider),
   ),
 );

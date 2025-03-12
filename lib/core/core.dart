@@ -1,3 +1,4 @@
+export 'error/error.dart';
 export 'firebase/firebase_options.dart';
 export 'localization/localization.dart';
 export 'presentation/presentation.dart';

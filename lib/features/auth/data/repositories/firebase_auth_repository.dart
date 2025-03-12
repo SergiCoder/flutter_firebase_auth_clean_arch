@@ -1,27 +1,44 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/error/error.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 
 /// Firebase implementation of the [AuthRepository] interface
 class FirebaseAuthRepository implements AuthRepository {
   /// Creates a new [FirebaseAuthRepository] with the given Firebase Auth
-  /// instance
-  FirebaseAuthRepository({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  /// instance and error handler
+  FirebaseAuthRepository({
+    required FirebaseAuth firebaseAuth,
+    required ErrorHandler errorHandler,
+  })  : _firebaseAuth = firebaseAuth,
+        _errorHandler = errorHandler;
 
   /// The Firebase Auth instance
   final FirebaseAuth _firebaseAuth;
 
+  /// The error handler
+  final ErrorHandler _errorHandler;
+
   @override
   Future<bool> isAuthenticated() async {
-    return _firebaseAuth.currentUser != null;
+    try {
+      return _firebaseAuth.currentUser != null;
+    } catch (e) {
+      throw _errorHandler.handleError(e);
+    }
   }
 
   @override
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-    await _firebaseAuth.signInWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw _errorHandler.handleFirebaseAuthError(e);
+    } catch (e) {
+      throw _errorHandler.handleError(e);
+    }
   }
 
   @override
@@ -29,18 +46,33 @@ class FirebaseAuthRepository implements AuthRepository {
     String email,
     String password,
   ) async {
-    await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      await _firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      throw _errorHandler.handleFirebaseAuthError(e);
+    } catch (e) {
+      throw _errorHandler.handleError(e);
+    }
   }
 
   @override
   Future<void> signOut() async {
-    await _firebaseAuth.signOut();
+    try {
+      await _firebaseAuth.signOut();
+    } catch (e) {
+      throw _errorHandler.handleError(e);
+    }
   }
 
   @override
-  Stream<bool> get authStateChanges =>
-      _firebaseAuth.authStateChanges().map((user) => user != null);
+  Stream<bool> get authStateChanges {
+    try {
+      return _firebaseAuth.authStateChanges().map((user) => user != null);
+    } catch (e) {
+      throw _errorHandler.handleError(e);
+    }
+  }
 }
