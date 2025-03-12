@@ -12,8 +12,11 @@ class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginState = ref.watch(loginProvider);
+    final formField = ref.watch(loginFormProvider);
+
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+    final emailFocusNode = useFocusNode();
     final passwordFocusNode = useFocusNode();
     final formKey = useMemoized(GlobalKey<FormState>.new);
 
@@ -32,6 +35,23 @@ class LoginScreen extends HookConsumerWidget {
       [loginState],
     );
 
+    // Handle focus changes based on form field state
+    useEffect(
+      () {
+        switch (formField) {
+          case LoginFormField.email:
+            emailFocusNode.requestFocus();
+          case LoginFormField.password:
+            passwordFocusNode.requestFocus();
+          case LoginFormField.none:
+            // No focus needed when form is submitted
+            break;
+        }
+        return null;
+      },
+      [formField],
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).loginTitle),
@@ -44,6 +64,7 @@ class LoginScreen extends HookConsumerWidget {
           ref,
           emailController,
           passwordController,
+          emailFocusNode,
           passwordFocusNode,
           formKey,
         ),
@@ -57,6 +78,7 @@ class LoginScreen extends HookConsumerWidget {
     WidgetRef ref,
     TextEditingController emailController,
     TextEditingController passwordController,
+    FocusNode emailFocusNode,
     FocusNode passwordFocusNode,
     GlobalKey<FormState> formKey,
   ) {
@@ -74,6 +96,7 @@ class LoginScreen extends HookConsumerWidget {
       ref,
       emailController,
       passwordController,
+      emailFocusNode,
       passwordFocusNode,
       formKey,
       errorMessage: errorMessage,
@@ -88,6 +111,9 @@ class LoginScreen extends HookConsumerWidget {
     String password,
   ) {
     if (formKey.currentState?.validate() ?? false) {
+      // Set form field to none to indicate submission
+      ref.read(loginFormProvider.notifier).submitForm();
+
       ref.read(loginProvider.notifier).signInWithEmailAndPassword(
             email: email,
             password: password,
@@ -100,6 +126,7 @@ class LoginScreen extends HookConsumerWidget {
     WidgetRef ref,
     TextEditingController emailController,
     TextEditingController passwordController,
+    FocusNode emailFocusNode,
     FocusNode passwordFocusNode,
     GlobalKey<FormState> formKey, {
     String? errorMessage,
