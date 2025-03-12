@@ -28,8 +28,8 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
   (ref) => getFirebaseAuth(),
 );
 
-/// Provider for the authentication repository
-final authRepositoryProvider = Provider<AuthRepository>(
+/// Provider for the Firebase implementation of the authentication repository
+final firebaseAuthRepositoryProvider = Provider<AuthRepository>(
   (ref) => FirebaseAuthRepository(
     firebaseAuth: ref.watch(firebaseAuthProvider),
     errorHandler: ref.watch(errorHandlerProvider),

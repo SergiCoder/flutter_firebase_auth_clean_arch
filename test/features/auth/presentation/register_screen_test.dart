@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';

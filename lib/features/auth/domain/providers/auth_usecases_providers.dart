@@ -1,6 +1,17 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/auth_repository_provider.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/usecases.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+/// Provider for the auth repository.
+/// This is a placeholder that should be overridden in the composition root.
+/// This approach maintains clean architecture by ensuring the domain layer
+/// doesn't depend on the data layer.
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => throw UnimplementedError(
+    'authRepositoryProvider has not been overridden. '
+    'Make sure to override this provider in the composition root.',
+  ),
+);
 
 /// Provider for the sign in with email and password use case.
 ///

@@ -48,7 +48,8 @@ void main() {
     group('AuthRepositoryProvider', () {
       test('provides a FirebaseAuthRepository instance', () {
         // Act
-        final repository = container.read(provider.authRepositoryProvider);
+        final repository =
+            container.read(provider.firebaseAuthRepositoryProvider);
 
         // Assert
         expect(repository, isA<FirebaseAuthRepository>());
@@ -56,8 +57,10 @@ void main() {
 
       test('provides the same instance each time', () {
         // Act
-        final repository1 = container.read(provider.authRepositoryProvider);
-        final repository2 = container.read(provider.authRepositoryProvider);
+        final repository1 =
+            container.read(provider.firebaseAuthRepositoryProvider);
+        final repository2 =
+            container.read(provider.firebaseAuthRepositoryProvider);
 
         // Assert
         expect(identical(repository1, repository2), isTrue);
