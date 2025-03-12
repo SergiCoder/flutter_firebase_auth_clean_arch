@@ -1,1 +1,1 @@
-export 'splash_repository_impl.dart';
+export 'in_memory_splash_repository.dart';
