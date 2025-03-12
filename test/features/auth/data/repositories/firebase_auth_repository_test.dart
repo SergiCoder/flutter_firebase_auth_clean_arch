@@ -105,25 +105,6 @@ void main() {
       verify(mockFirebaseAuth.signOut()).called(1);
     });
 
-    test('sendPasswordResetEmail calls Firebase Auth', () async {
-      // Arrange
-      when(
-        mockFirebaseAuth.sendPasswordResetEmail(
-          email: anyNamed('email'),
-        ),
-      ).thenAnswer((_) async {});
-
-      // Act
-      await repository.sendPasswordResetEmail('test@example.com');
-
-      // Assert
-      verify(
-        mockFirebaseAuth.sendPasswordResetEmail(
-          email: 'test@example.com',
-        ),
-      ).called(1);
-    });
-
     test('authStateChanges emits correct values', () async {
       // Arrange
       final mockAuthStateChanges = Stream<User?>.fromIterable([mockUser, null]);

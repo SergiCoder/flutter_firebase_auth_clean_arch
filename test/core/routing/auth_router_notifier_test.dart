@@ -7,21 +7,21 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-// Generate mock for AuthRepository
-@GenerateMocks([AuthRepository])
+// Generate mock for GetAuthStateChangesUseCase
+@GenerateMocks([GetAuthStateChangesUseCase])
 import 'auth_router_notifier_test.mocks.dart';
 
 void main() {
   group('AuthRouterNotifier', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockGetAuthStateChangesUseCase mockGetAuthStateChangesUseCase;
     late StreamController<bool> authStateController;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
+      mockGetAuthStateChangesUseCase = MockGetAuthStateChangesUseCase();
       authStateController = StreamController<bool>.broadcast();
 
-      // Setup the mock repository to return our controlled stream
-      when(mockAuthRepository.authStateChanges)
+      // Setup the mock use case to return our controlled stream
+      when(mockGetAuthStateChangesUseCase.execute())
           .thenAnswer((_) => authStateController.stream);
     });
 
@@ -31,9 +31,9 @@ void main() {
     });
 
     test('should initialize with unauthenticated state by default', () {
-      // Create the notifier with the mock repository
+      // Create the notifier with the mock use case
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: mockAuthRepository,
+        getAuthStateChangesUseCase: mockGetAuthStateChangesUseCase,
       );
 
       // Assert
@@ -45,9 +45,9 @@ void main() {
 
     test('should update authentication state when stream emits new value',
         () async {
-      // Create the notifier with the mock repository
+      // Create the notifier with the mock use case
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: mockAuthRepository,
+        getAuthStateChangesUseCase: mockGetAuthStateChangesUseCase,
       );
 
       // Act - Emit authenticated state
@@ -73,12 +73,12 @@ void main() {
     test('should notify listeners when authentication state changes', () async {
       // Create a separate controller for this test
       final testController = StreamController<bool>.broadcast();
-      when(mockAuthRepository.authStateChanges)
+      when(mockGetAuthStateChangesUseCase.execute())
           .thenAnswer((_) => testController.stream);
 
-      // Create the notifier with the mock repository
+      // Create the notifier with the mock use case
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: mockAuthRepository,
+        getAuthStateChangesUseCase: mockGetAuthStateChangesUseCase,
       );
 
       // Wait for initialization to complete
@@ -132,15 +132,13 @@ void main() {
     });
 
     test('should handle initialization errors gracefully', () async {
-      // Create a mock that throws an exception when authStateChanges is
-      // accessed
-      final errorMockRepository = MockAuthRepository();
-      when(errorMockRepository.authStateChanges)
-          .thenThrow(Exception('Test error'));
+      // Create a mock that throws an exception when execute is called
+      final errorMockUseCase = MockGetAuthStateChangesUseCase();
+      when(errorMockUseCase.execute()).thenThrow(Exception('Test error'));
 
       // Create a notifier with the error-throwing mock
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: errorMockRepository,
+        getAuthStateChangesUseCase: errorMockUseCase,
       );
 
       // Verify the state is set to unauthenticated after error
@@ -153,12 +151,12 @@ void main() {
     test('should cancel subscription when disposed', () async {
       // Create a separate controller for this test
       final testController = StreamController<bool>.broadcast();
-      when(mockAuthRepository.authStateChanges)
+      when(mockGetAuthStateChangesUseCase.execute())
           .thenAnswer((_) => testController.stream);
 
-      // Create the notifier with the mock repository
+      // Create the notifier with the mock use case
       final authRouterNotifier = AuthRouterNotifier(
-        authRepository: mockAuthRepository,
+        getAuthStateChangesUseCase: mockGetAuthStateChangesUseCase,
       );
 
       // Wait for initialization to complete
@@ -196,12 +194,15 @@ void main() {
   });
 
   group('authRouterNotifierProvider', () {
-    test('should create AuthRouterNotifier with auth repository', () {
+    test('should create AuthRouterNotifier with auth state changes use case',
+        () {
       // Create a ProviderContainer with overrides for testing
       final container = ProviderContainer(
         overrides: [
-          // Override the auth repository provider with our mock
-          authRepositoryProvider.overrideWithValue(MockAuthRepository()),
+          // Override the use case provider with our mock
+          getAuthStateChangesUseCaseProvider.overrideWithValue(
+            MockGetAuthStateChangesUseCase(),
+          ),
         ],
       );
 
@@ -213,10 +214,7 @@ void main() {
       expect(authRouterNotifier.isAuthenticated, isFalse);
 
       // Clean up
-      // This test would require a ProviderContainer from Riverpod
-      // which is beyond the scope of this simple test
-      // In a real test, you would use ProviderContainer to test the provider
-      expect(authRouterNotifierProvider, isNotNull);
+      container.dispose();
     });
   });
 }

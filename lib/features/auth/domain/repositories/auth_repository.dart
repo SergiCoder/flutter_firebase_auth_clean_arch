@@ -12,9 +12,6 @@ abstract class AuthRepository {
   /// Signs out the current user
   Future<void> signOut();
 
-  /// Sends a password reset email
-  Future<void> sendPasswordResetEmail(String email);
-
   /// Stream of authentication state changes
   Stream<bool> get authStateChanges;
 }

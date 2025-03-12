@@ -43,3 +43,13 @@ final isAuthenticatedUseCaseProvider = Provider<IsAuthenticatedUseCase>(
     authRepository: ref.watch(authRepositoryProvider),
   ),
 );
+
+/// Provider for the get authentication state changes use case.
+///
+/// This provider creates and exposes a [GetAuthStateChangesUseCase]
+/// instance that can be used throughout the application.
+final getAuthStateChangesUseCaseProvider = Provider<GetAuthStateChangesUseCase>(
+  (ref) => GetAuthStateChangesUseCase(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);

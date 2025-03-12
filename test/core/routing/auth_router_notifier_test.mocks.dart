@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart'
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/get_auth_state_changes_usecase.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
 
@@ -23,72 +23,20 @@ import 'package:mockito/mockito.dart' as _i1;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-/// A class which mocks [AuthRepository].
+/// A class which mocks [GetAuthStateChangesUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
-  MockAuthRepository() {
+class MockGetAuthStateChangesUseCase extends _i1.Mock
+    implements _i2.GetAuthStateChangesUseCase {
+  MockGetAuthStateChangesUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Stream<bool> get authStateChanges =>
+  _i3.Stream<bool> execute() =>
       (super.noSuchMethod(
-            Invocation.getter(#authStateChanges),
+            Invocation.method(#execute, []),
             returnValue: _i3.Stream<bool>.empty(),
           )
           as _i3.Stream<bool>);
-
-  @override
-  _i3.Future<bool> isAuthenticated() =>
-      (super.noSuchMethod(
-            Invocation.method(#isAuthenticated, []),
-            returnValue: _i3.Future<bool>.value(false),
-          )
-          as _i3.Future<bool>);
-
-  @override
-  _i3.Future<void> signInWithEmailAndPassword(
-    String? email,
-    String? password,
-  ) =>
-      (super.noSuchMethod(
-            Invocation.method(#signInWithEmailAndPassword, [email, password]),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> createUserWithEmailAndPassword(
-    String? email,
-    String? password,
-  ) =>
-      (super.noSuchMethod(
-            Invocation.method(#createUserWithEmailAndPassword, [
-              email,
-              password,
-            ]),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> signOut() =>
-      (super.noSuchMethod(
-            Invocation.method(#signOut, []),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
-
-  @override
-  _i3.Future<void> sendPasswordResetEmail(String? email) =>
-      (super.noSuchMethod(
-            Invocation.method(#sendPasswordResetEmail, [email]),
-            returnValue: _i3.Future<void>.value(),
-            returnValueForMissingStub: _i3.Future<void>.value(),
-          )
-          as _i3.Future<void>);
 }

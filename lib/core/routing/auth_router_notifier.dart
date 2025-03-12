@@ -11,21 +11,20 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// - Providing redirection logic based on authentication status
 /// - Notifying listeners when authentication state changes
 class AuthRouterNotifier extends ChangeNotifier {
-  /// Creates a new [AuthRouterNotifier] with the given auth repository.
+  /// Creates a new [AuthRouterNotifier] with the given auth state changes use case.
   ///
   /// Initializes authentication state tracking and sets up listeners for
   /// authentication state changes.
   ///
-  /// [authRepository] Repository that provides authentication operations and
-  /// state changes.
+  /// [getAuthStateChangesUseCase] Use case that provides authentication state changes.
   AuthRouterNotifier({
-    required AuthRepository authRepository,
-  }) : _authRepository = authRepository {
+    required GetAuthStateChangesUseCase getAuthStateChangesUseCase,
+  }) : _getAuthStateChangesUseCase = getAuthStateChangesUseCase {
     _initializeAuthState();
   }
 
-  /// The authentication repository used to monitor auth state
-  final AuthRepository _authRepository;
+  /// The use case for getting authentication state changes
+  final GetAuthStateChangesUseCase _getAuthStateChangesUseCase;
 
   /// Whether the user is authenticated
   bool _isAuthenticated = false;
@@ -35,7 +34,7 @@ class AuthRouterNotifier extends ChangeNotifier {
   /// This value is updated automatically when authentication state changes.
   bool get isAuthenticated => _isAuthenticated;
 
-  /// Subscription to auth state changes from the repository
+  /// Subscription to auth state changes from the use case
   StreamSubscription<bool>? _authSubscription;
 
   /// Initializes the authentication state by subscribing to auth state changes
@@ -43,7 +42,7 @@ class AuthRouterNotifier extends ChangeNotifier {
     try {
       // Listen to authentication state changes
       _authSubscription =
-          _authRepository.authStateChanges.listen((isAuthenticated) {
+          _getAuthStateChangesUseCase.execute().listen((isAuthenticated) {
         _isAuthenticated = isAuthenticated;
         notifyListeners();
       });
@@ -71,6 +70,6 @@ class AuthRouterNotifier extends ChangeNotifier {
 /// handle navigation redirection.
 final authRouterNotifierProvider = Provider<AuthRouterNotifier>(
   (ref) => AuthRouterNotifier(
-    authRepository: ref.watch(authRepositoryProvider),
+    getAuthStateChangesUseCase: ref.watch(getAuthStateChangesUseCaseProvider),
   ),
 );
