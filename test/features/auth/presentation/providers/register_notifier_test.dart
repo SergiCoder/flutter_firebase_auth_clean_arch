@@ -1,41 +1,43 @@
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/create_user_with_email_and_password_usecase.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-import 'register_notifier_test.mocks.dart';
+class MockCreateUserWithEmailAndPasswordUseCase extends Mock
+    implements CreateUserWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
 
-@GenerateMocks([AuthRepository])
 void main() {
   group('RegisterNotifier', () {
-    late MockAuthRepository mockAuthRepository;
+    late MockCreateUserWithEmailAndPasswordUseCase mockCreateUserUseCase;
     late RegisterNotifier registerNotifier;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
-      registerNotifier = RegisterNotifier(authRepository: mockAuthRepository);
+      mockCreateUserUseCase = MockCreateUserWithEmailAndPasswordUseCase();
+      registerNotifier =
+          RegisterNotifier(createUserUseCase: mockCreateUserUseCase);
     });
 
     test('initial state is RegisterInitial', () {
       expect(registerNotifier.state, isA<RegisterInitial>());
     });
 
-    group('registerWithEmailAndPassword', () {
+    group('createUserWithEmailAndPassword', () {
       test(
           '''emits RegisterLoading and RegisterSuccess on successful registration''',
           () async {
         // Arrange
         const email = 'test@example.com';
         const password = 'password123';
-
-        when(
-          mockAuthRepository.createUserWithEmailAndPassword(
-            email,
-            password,
-          ),
-        ).thenAnswer((_) async {});
 
         // Act
         await registerNotifier.createUserWithEmailAndPassword(
@@ -45,7 +47,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.createUserWithEmailAndPassword(
+          mockCreateUserUseCase.execute(
             email,
             password,
           ),
@@ -61,7 +63,7 @@ void main() {
         const errorMessage = 'Email already in use';
 
         when(
-          mockAuthRepository.createUserWithEmailAndPassword(
+          mockCreateUserUseCase.execute(
             email,
             password,
           ),
@@ -75,7 +77,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.createUserWithEmailAndPassword(
+          mockCreateUserUseCase.execute(
             email,
             password,
           ),
@@ -87,7 +89,7 @@ void main() {
         );
       });
 
-      test('handles empty email or password with error from repository',
+      test('handles empty email or password with error from use case',
           () async {
         // Arrange
         const email = '';
@@ -95,7 +97,7 @@ void main() {
         const errorMessage = 'Email and password cannot be empty';
 
         when(
-          mockAuthRepository.createUserWithEmailAndPassword(
+          mockCreateUserUseCase.execute(
             email,
             password,
           ),
@@ -109,7 +111,7 @@ void main() {
 
         // Assert
         verify(
-          mockAuthRepository.createUserWithEmailAndPassword(
+          mockCreateUserUseCase.execute(
             email,
             password,
           ),

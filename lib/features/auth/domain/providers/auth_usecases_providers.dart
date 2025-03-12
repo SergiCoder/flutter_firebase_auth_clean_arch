@@ -12,3 +12,14 @@ final signInWithEmailAndPasswordUseCaseProvider =
     authRepository: ref.watch(authRepositoryProvider),
   ),
 );
+
+/// Provider for the create user with email and password use case.
+///
+/// This provider creates and exposes a [CreateUserWithEmailAndPasswordUseCase]
+/// instance that can be used throughout the application.
+final createUserWithEmailAndPasswordUseCaseProvider =
+    Provider<CreateUserWithEmailAndPasswordUseCase>(
+  (ref) => CreateUserWithEmailAndPasswordUseCase(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);

@@ -3,13 +3,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A notifier that manages the state of the register screen
 class RegisterNotifier extends StateNotifier<RegisterState> {
-  /// Creates a new [RegisterNotifier] with the provided [authRepository]
-  RegisterNotifier({required AuthRepository authRepository})
-      : _authRepository = authRepository,
+  /// Creates a new [RegisterNotifier] with the provided use case
+  ///
+  /// [createUserUseCase] The use case for creating a user with email and
+  /// password
+  RegisterNotifier({
+    required CreateUserWithEmailAndPasswordUseCase createUserUseCase,
+  })  : _createUserUseCase = createUserUseCase,
         super(const RegisterInitial());
 
-  /// The authentication repository
-  final AuthRepository _authRepository;
+  /// The use case for creating a user with email and password
+  final CreateUserWithEmailAndPasswordUseCase _createUserUseCase;
 
   /// Attempts to create a new user with the provided email and password
   Future<void> createUserWithEmailAndPassword({
@@ -19,7 +23,7 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
     state = const RegisterLoading();
 
     try {
-      await _authRepository.createUserWithEmailAndPassword(email, password);
+      await _createUserUseCase.execute(email, password);
       state = const RegisterSuccess();
     } catch (e) {
       state = RegisterError(e.toString());
@@ -36,6 +40,6 @@ class RegisterNotifier extends StateNotifier<RegisterState> {
 final registerProvider =
     StateNotifierProvider.autoDispose<RegisterNotifier, RegisterState>(
   (ref) => RegisterNotifier(
-    authRepository: ref.watch(authRepositoryProvider),
+    createUserUseCase: ref.watch(createUserWithEmailAndPasswordUseCaseProvider),
   ),
 );
