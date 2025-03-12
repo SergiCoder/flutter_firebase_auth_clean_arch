@@ -6,69 +6,151 @@ A cross-platform Flutter application implementing Firebase Authentication with C
 
 - **Cross-Platform Support**: Runs on iOS, Android, Web, macOS, Windows, and Linux
 - **Clean Architecture**: Separation of concerns with domain, data, and presentation layers
-- **Firebase Authentication**: Complete user authentication flow
-- **State Management**: Powered by Riverpod for predictable state handling
+- **Firebase Authentication**: Complete user authentication flow with email/password
+- **State Management**: Powered by Riverpod and Flutter Hooks for predictable state handling
 - **Navigation**: Declarative routing with go_router
-- **Code Reusability**: Custom Flutter Hooks for improved code sharing
+- **Internationalization**: Multi-language support with Flutter's built-in localization
+- **Environment Configuration**: Secure configuration using dotenv
+- **Firebase App Check**: Enhanced security for Firebase services
 
-## Pages
+## Architecture Overview
 
-The application consists of four main pages:
+This project strictly follows Clean Architecture principles, dividing the application into three main layers:
 
-1. **Splash Screen**: Initial loading screen with app branding
-2. **Login**: User authentication with email and password
-3. **Register**: New user registration
-4. **Welcome**: Protected page shown after successful authentication
+### Domain Layer
 
-## Custom Hooks
+The innermost layer containing business logic and rules:
+- **Entities**: Core business objects
+- **Repositories**: Interfaces defining data operations
+- **Use Cases**: Application-specific business rules
 
-This project implements two custom Flutter hooks to improve code sharing:
+### Data Layer
 
-1. First custom hook (details to be added)
-2. Second custom hook (details to be added)
+The middle layer responsible for data management:
+- **Repositories**: Implementations of domain repository interfaces
+- **Data Sources**: Remote (Firebase) and local data providers
+- **Models**: Data representations of domain entities
 
-Additionally, the project utilizes two hooks from the flutter_hooks package:
+> **Note**: In the current implementation, explicit model classes are not used as the authentication flow leverages Firebase Auth SDK's built-in data structures directly. Models would be added when implementing more complex features requiring data transformation between external sources and domain entities.
 
-1. First package hook (details to be added)
-2. Second package hook (details to be added)
+### Presentation Layer
 
-## Error Handling
+The outermost layer handling UI and user interactions:
+- **Screens**: User interface components
+- **Providers**: State management using Riverpod
+- **Widgets**: Reusable UI components
 
-The application handles the following error cases:
+## Riverpod Integration
 
-1. **Network Connectivity**: Graceful handling when there is no internet connection
-2. **Authentication Errors**: User-friendly messages for incorrect credentials
+The project leverages Riverpod for state management and dependency injection:
+
+- **Providers**: Organized by feature and layer for clear separation of concerns
+- **StateNotifier**: Used for complex state management with immutable state objects
+- **Provider Scopes**: Properly scoped providers to prevent unnecessary rebuilds
+- **Dependency Injection**: Clean hierarchical provider dependencies
+
+Example of provider usage:
+```dart
+// Domain layer provider
+final authRepositoryProvider = Provider<AuthRepository>(
+  (ref) => FirebaseAuthRepository(
+    firebaseAuth: ref.watch(firebaseAuthProvider),
+  ),
+);
+
+// Use case provider
+final signInWithEmailAndPasswordUseCaseProvider = 
+    Provider<SignInWithEmailAndPasswordUseCase>(
+  (ref) => SignInWithEmailAndPasswordUseCase(
+    authRepository: ref.watch(authRepositoryProvider),
+  ),
+);
+
+// Presentation layer provider
+final loginProvider = 
+    StateNotifierProvider.autoDispose<LoginNotifier, LoginState>(
+  (ref) => LoginNotifier(
+    signInUseCase: ref.watch(signInWithEmailAndPasswordUseCaseProvider),
+  ),
+);
+```
+
+## Flutter Hooks Integration
+
+The project uses Flutter Hooks to manage widget state and lifecycle:
+
+- **HookConsumerWidget**: Combines Hooks and Riverpod for efficient state management
+- **Built-in Hooks**: Leverages hooks like `useTextEditingController`, `useFocusNode`, and `useEffect`
+- **Custom Hooks**: Implements reusable logic across widgets
+
+Example of hooks usage:
+```dart
+class LoginScreen extends HookConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginProvider);
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final passwordFocusNode = useFocusNode();
+    
+    // Side effects with useEffect
+    useEffect(() {
+      if (loginState is LoginSuccess) {
+        // Navigate on successful login
+      }
+      return null;
+    }, [loginState]);
+    
+    // Rest of the build method...
+  }
+}
+```
 
 ## Project Structure
 
 ```
 lib/
-├── core/
-│   ├── error/
-│   ├── network/
-│   └── use_cases/
-├── features/
-│   └── auth/
-│       ├── data/
-│       │   ├── datasources/
-│       │   ├── models/
-│       │   └── repositories/
-│       ├── domain/
-│       │   ├── entities/
-│       │   ├── repositories/
-│       │   └── use_cases/
-│       └── presentation/
-│           ├── bloc/
-│           ├── pages/
-│           └── widgets/
-└── main.dart
+├── core/                     # Core functionality shared across features
+│   ├── firebase/             # Firebase configuration
+│   ├── localization/         # Internationalization setup
+│   ├── presentation/         # Shared UI components
+│   ├── routing/              # Application routing
+│   ├── theme/                # App theme and styling
+│   └── url_strategy/         # URL handling for web
+├── features/                 # Feature modules
+│   ├── auth/                 # Authentication feature
+│   │   ├── data/             # Data layer
+│   │   │   ├── providers/    # Data providers
+│   │   │   └── repositories/ # Repository implementations
+│   │   ├── domain/           # Domain layer
+│   │   │   ├── providers/    # Domain providers
+│   │   │   ├── repositories/ # Repository interfaces
+│   │   │   └── usecases/     # Business logic
+│   │   └── presentation/     # Presentation layer
+│   │       ├── providers/    # UI state providers
+│   │       └── screens       # UI components
+│   ├── home/                 # Home feature
+│   ├── splash/               # Splash screen feature
+│   └── error/                # Error handling feature
+├── generated/                # Generated code
+├── l10n/                     # Localization resources
+└── main.dart                 # Application entry point
 ```
+
+## Authentication Flow
+
+The application implements a complete authentication flow:
+
+1. **Splash Screen**: Checks authentication status
+2. **Login/Register**: User authentication with email and password
+3. **Home Screen**: Protected content for authenticated users
+4. **Sign Out**: User logout functionality
 
 ## Getting Started
 
 ### Prerequisites
 
-- Flutter SDK (latest stable version)
+- Flutter SDK (version 3.5.4 or later)
 - Firebase project setup
 - IDE (VS Code, Android Studio, or IntelliJ)
 
@@ -91,21 +173,45 @@ lib/
 
 4. Configure Firebase:
    - Create a Firebase project
+   - Enable Authentication with Email/Password
    - Add your application to the Firebase project
-   - Download and add the configuration files (google-services.json for Android, GoogleService-Info.plist for iOS)
+   - Download and add the configuration files
 
-5. Run the application:
+5. Set up environment variables:
+   - Copy `.env.example` to `.env`
+   - Update the values with your Firebase configuration
+
+6. Run the application:
    ```
    flutter run
    ```
 
 ## Testing
 
-The project includes unit, widget, and integration tests:
+The project includes comprehensive tests:
 
+- **Unit Tests**: Testing individual components (use cases, repositories)
+- **Widget Tests**: Testing UI components
+- **Integration Tests**: Testing feature workflows
+
+Run tests with:
 ```
 flutter test
 ```
+
+For test coverage:
+```
+./test_coverage.sh
+```
+
+## Best Practices Implemented
+
+- **Separation of Concerns**: Clear boundaries between layers
+- **Dependency Inversion**: Domain layer defines interfaces implemented by outer layers
+- **Single Responsibility**: Each class has a single purpose
+- **Testability**: Dependencies are injected for easy mocking
+- **Code Documentation**: Comprehensive documentation for public APIs
+- **Error Handling**: Robust error handling with user-friendly messages
 
 ## License
 
