@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A notifier that manages the state of the splash screen
 class SplashNotifier extends StateNotifier<SplashState> {

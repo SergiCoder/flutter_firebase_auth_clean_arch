@@ -8,7 +8,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/url_strategy/default_url_strategy.dart'
     if (dart.library.html) 'package:flutter_firebase_auth_clean_arch/core/url_strategy/web_url_strategy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 Future<void> main() async {
   // Ensure Flutter is initialized
@@ -44,7 +44,7 @@ Future<void> main() async {
 }
 
 /// The main application widget
-class MyApp extends ConsumerWidget {
+class MyApp extends HookConsumerWidget {
   /// Creates a new [MyApp] widget
   const MyApp({super.key});
 

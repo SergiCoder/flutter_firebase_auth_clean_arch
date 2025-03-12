@@ -27,7 +27,7 @@ class TestRegisterScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Consumer(
+        child: HookConsumer(
           builder: (context, ref, _) {
             final registerState = ref.watch(registerProvider);
 

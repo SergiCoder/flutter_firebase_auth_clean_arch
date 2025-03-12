@@ -1,5 +1,5 @@
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A notifier that manages the state of the register screen
 class RegisterNotifier extends StateNotifier<RegisterState> {

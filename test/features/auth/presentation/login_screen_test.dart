@@ -28,7 +28,7 @@ class TestLoginScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Consumer(
+        child: HookConsumer(
           builder: (context, ref, _) {
             final loginState = ref.watch(loginProvider);
 

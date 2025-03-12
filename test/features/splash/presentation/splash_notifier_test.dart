@@ -2,8 +2,8 @@ import 'package:flutter_firebase_auth_clean_arch/features/auth/data/providers/au
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/splash/presentation/splash_state.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/mockito.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {
