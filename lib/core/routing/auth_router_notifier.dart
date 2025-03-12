@@ -1,6 +1,9 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'dart:developer' as developer;
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/get_auth_state_changes_usecase.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// A notifier that listens to authentication state changes and refreshes the
@@ -21,7 +24,8 @@ class AuthRouterNotifier extends ChangeNotifier {
   /// changes.
   AuthRouterNotifier({
     required GetAuthStateChangesUseCase getAuthStateChangesUseCase,
-  }) : _getAuthStateChangesUseCase = getAuthStateChangesUseCase {
+  })  : _getAuthStateChangesUseCase = getAuthStateChangesUseCase,
+        _isAuthenticated = false {
     _initializeAuthState();
   }
 
@@ -29,7 +33,7 @@ class AuthRouterNotifier extends ChangeNotifier {
   final GetAuthStateChangesUseCase _getAuthStateChangesUseCase;
 
   /// Whether the user is authenticated
-  bool _isAuthenticated = false;
+  bool _isAuthenticated;
 
   /// Returns whether the user is currently authenticated.
   ///
@@ -47,11 +51,30 @@ class AuthRouterNotifier extends ChangeNotifier {
           _getAuthStateChangesUseCase.execute().listen((isAuthenticated) {
         _isAuthenticated = isAuthenticated;
         notifyListeners();
+
+        // Log authentication state change
+        developer.log(
+          'Authentication state changed: $isAuthenticated',
+          name: 'AuthRouterNotifier',
+        );
       });
+
+      // Log successful initialization
+      developer.log(
+        'Auth router notifier initialized',
+        name: 'AuthRouterNotifier',
+      );
     } catch (e) {
       // Handle initialization errors
       _isAuthenticated = false;
       notifyListeners();
+
+      // Log initialization error
+      developer.log(
+        'Auth router notifier initialization failed',
+        name: 'AuthRouterNotifier',
+        error: e,
+      );
     }
   }
 
@@ -61,6 +84,13 @@ class AuthRouterNotifier extends ChangeNotifier {
   @override
   void dispose() {
     _authSubscription?.cancel();
+
+    // Log disposal
+    developer.log(
+      'Auth router notifier disposed',
+      name: 'AuthRouterNotifier',
+    );
+
     super.dispose();
   }
 }

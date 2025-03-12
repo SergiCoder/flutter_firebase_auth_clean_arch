@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer' as developer;
 
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -26,14 +27,33 @@ class SplashNotifier extends StateNotifier<SplashState> {
 
       // After loading, navigate to the next screen with authentication info
       state = SplashNavigate(isAuthenticated: isAuthenticated);
+
+      // Log successful initialization
+      developer.log(
+        'Splash screen initialized, authentication status: $isAuthenticated',
+        name: 'SplashNotifier',
+      );
     } catch (e) {
       // If an unknown error occurs, update the state to error
       state = SplashError(e.toString());
+
+      // Log initialization error
+      developer.log(
+        'Splash screen initialization failed',
+        name: 'SplashNotifier',
+        error: e,
+      );
     }
   }
 
   /// Retries the initialization process
   Future<void> retry() async {
+    // Log retry attempt
+    developer.log(
+      'Retrying splash screen initialization',
+      name: 'SplashNotifier',
+    );
+
     await initialize();
   }
 }

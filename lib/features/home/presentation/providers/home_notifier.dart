@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/features.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -30,11 +32,30 @@ class HomeNotifier extends StateNotifier<HomeState> {
 
       if (currentUser != null) {
         state = HomeLoaded(email: currentUser.email ?? 'User');
+
+        // Log successful initialization
+        developer.log(
+          'Home screen initialized for user: ${currentUser.email ?? 'User'}',
+          name: 'HomeNotifier',
+        );
       } else {
         state = const HomeError('No authenticated user found');
+
+        // Log no user found error
+        developer.log(
+          'Home initialization error: No authenticated user found',
+          name: 'HomeNotifier',
+        );
       }
     } catch (e) {
       state = HomeError(e.toString());
+
+      // Log initialization error
+      developer.log(
+        'Home initialization failed',
+        name: 'HomeNotifier',
+        error: e,
+      );
     }
   }
 
@@ -42,9 +63,22 @@ class HomeNotifier extends StateNotifier<HomeState> {
   Future<void> signOut() async {
     try {
       await _signOutUseCase.execute();
+
+      // Log successful sign out
+      developer.log(
+        'User signed out successfully',
+        name: 'HomeNotifier',
+      );
     } catch (e) {
       // Even if sign out fails, we'll still navigate away
       // but we could handle this differently if needed
+
+      // Log sign out error
+      developer.log(
+        'Sign out failed',
+        name: 'HomeNotifier',
+        error: e,
+      );
     }
   }
 }
