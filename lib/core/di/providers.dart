@@ -33,7 +33,7 @@ final overrides = [
   // Override the domain layer's authRepositoryProvider with the data layer's
   // implementation
   auth_domain.authRepositoryProvider.overrideWith(
-    (ref) => ref.watch(auth_data.firebaseAuthRepositoryProvider),
+    (ref) => ref.watch(auth_data.authRepositoryImplProvider),
   ),
 
   // Override the domain layer's homeRepositoryProvider with the data layer's

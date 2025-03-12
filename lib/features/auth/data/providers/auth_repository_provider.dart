@@ -29,9 +29,13 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
 );
 
 /// Provider for the Firebase implementation of the authentication repository
-final firebaseAuthRepositoryProvider = Provider<AuthRepository>(
+final authRepositoryImplProvider = Provider<AuthRepository>(
   (ref) => FirebaseAuthRepository(
     firebaseAuth: ref.watch(firebaseAuthProvider),
     errorHandler: ref.watch(errorHandlerProvider),
   ),
 );
+
+/// @deprecated Use [authRepositoryImplProvider] instead
+@Deprecated('Use authRepositoryImplProvider instead')
+final firebaseAuthRepositoryProvider = authRepositoryImplProvider;

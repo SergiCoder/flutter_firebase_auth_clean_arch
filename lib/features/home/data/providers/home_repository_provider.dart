@@ -4,5 +4,5 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 /// Provider for the home repository implementation
 final homeRepositoryImplProvider = Provider<HomeRepository>(
-  (ref) => const HomeRepositoryImpl(),
+  (ref) => const InMemoryHomeRepository(),
 );
