@@ -10,6 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// In a real application, this would be replaced with an actual implementation
 /// that connects to a data source. Currently, it's a placeholder implementation
 /// for demonstration purposes.
-final splashRepositoryImplProvider = Provider<SplashRepository>(
+final splashRepositoryProvider = Provider<SplashRepository>(
   (ref) => const InMemorySplashRepository(),
 );

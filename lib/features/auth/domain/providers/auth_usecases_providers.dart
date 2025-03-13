@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// This is a placeholder that should be overridden in the composition root.
 /// This approach maintains clean architecture by ensuring the domain layer
 /// doesn't depend on the data layer.
-final authRepositoryProvider = Provider<AuthRepository>(
+final authRepositoryDomainProvider = Provider<AuthRepository>(
   (ref) => throw UnimplementedError(
-    'authRepositoryProvider has not been overridden. '
+    'authRepositoryDomainProvider has not been overridden. '
     'Make sure to override this provider in the composition root.',
   ),
 );
@@ -20,7 +20,7 @@ final authRepositoryProvider = Provider<AuthRepository>(
 final signInWithEmailAndPasswordUseCaseProvider =
     Provider<SignInWithEmailAndPasswordUseCase>(
   (ref) => SignInWithEmailAndPasswordUseCase(
-    authRepository: ref.watch(authRepositoryProvider),
+    authRepository: ref.watch(authRepositoryDomainProvider),
   ),
 );
 
@@ -31,7 +31,7 @@ final signInWithEmailAndPasswordUseCaseProvider =
 final createUserWithEmailAndPasswordUseCaseProvider =
     Provider<CreateUserWithEmailAndPasswordUseCase>(
   (ref) => CreateUserWithEmailAndPasswordUseCase(
-    authRepository: ref.watch(authRepositoryProvider),
+    authRepository: ref.watch(authRepositoryDomainProvider),
   ),
 );
 
@@ -41,7 +41,7 @@ final createUserWithEmailAndPasswordUseCaseProvider =
 /// instance that can be used throughout the application.
 final signOutUseCaseProvider = Provider<SignOutUseCase>(
   (ref) => SignOutUseCase(
-    authRepository: ref.watch(authRepositoryProvider),
+    authRepository: ref.watch(authRepositoryDomainProvider),
   ),
 );
 
@@ -51,7 +51,7 @@ final signOutUseCaseProvider = Provider<SignOutUseCase>(
 /// instance that can be used throughout the application.
 final isAuthenticatedUseCaseProvider = Provider<IsAuthenticatedUseCase>(
   (ref) => IsAuthenticatedUseCase(
-    authRepository: ref.watch(authRepositoryProvider),
+    authRepository: ref.watch(authRepositoryDomainProvider),
   ),
 );
 
@@ -61,6 +61,6 @@ final isAuthenticatedUseCaseProvider = Provider<IsAuthenticatedUseCase>(
 /// instance that can be used throughout the application.
 final getAuthStateChangesUseCaseProvider = Provider<GetAuthStateChangesUseCase>(
   (ref) => GetAuthStateChangesUseCase(
-    authRepository: ref.watch(authRepositoryProvider),
+    authRepository: ref.watch(authRepositoryDomainProvider),
   ),
 );

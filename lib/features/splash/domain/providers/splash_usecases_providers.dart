@@ -6,9 +6,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// This is a placeholder that should be overridden in the composition root.
 /// This approach maintains clean architecture by ensuring the domain layer
 /// doesn't depend on the data layer.
-final splashRepositoryProvider = Provider<SplashRepository>(
+final splashRepositoryDomainProvider = Provider<SplashRepository>(
   (ref) => throw UnimplementedError(
-    'splashRepositoryProvider has not been overridden. '
+    'splashRepositoryDomainProvider has not been overridden. '
     'Make sure to override this provider in the composition root.',
   ),
 );
@@ -16,6 +16,6 @@ final splashRepositoryProvider = Provider<SplashRepository>(
 /// Provider for the some splash operation use case
 final someSplashOperationUseCaseProvider = Provider<SomeSplashOperationUseCase>(
   (ref) => SomeSplashOperationUseCase(
-    splashRepository: ref.watch(splashRepositoryProvider),
+    splashRepository: ref.watch(splashRepositoryDomainProvider),
   ),
 );

@@ -38,7 +38,7 @@ final firebaseAuthProvider = Provider<FirebaseAuth>(
 ///
 /// The implementation uses Firebase Authentication for user management
 /// and includes error handling through the error handler provider.
-final authRepositoryImplProvider = Provider<AuthRepository>(
+final authRepositoryProvider = Provider<AuthRepository>(
   (ref) => FirebaseAuthRepository(
     firebaseAuth: ref.watch(firebaseAuthProvider),
     errorHandler: ref.watch(errorHandlerProvider),

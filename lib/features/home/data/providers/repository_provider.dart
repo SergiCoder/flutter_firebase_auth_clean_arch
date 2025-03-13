@@ -10,6 +10,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 /// In a real application, this would be replaced with an actual implementation
 /// that connects to a data source. Currently, it's a placeholder implementation
 /// for demonstration purposes.
-final homeRepositoryImplProvider = Provider<HomeRepository>(
+final homeRepositoryProvider = Provider<HomeRepository>(
   (ref) => const InMemoryHomeRepository(),
 );
