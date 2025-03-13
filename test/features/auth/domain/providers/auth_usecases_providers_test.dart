@@ -15,7 +15,7 @@ void main() {
     mockAuthRepository = MockAuthRepository();
     container = ProviderContainer(
       overrides: [
-        authRepositoryProvider.overrideWithValue(mockAuthRepository),
+        authRepositoryDomainProvider.overrideWithValue(mockAuthRepository),
       ],
     );
   });

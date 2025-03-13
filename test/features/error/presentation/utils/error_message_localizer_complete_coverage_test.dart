@@ -1,8 +1,11 @@
+// ignore_for_file: cast_nullable_to_non_nullable, cast_from_null_always_fails,
+// ignore_for_file: document_ignores
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// A special exception that throws during toString() to test error handling
 class ThrowingException extends AppException {

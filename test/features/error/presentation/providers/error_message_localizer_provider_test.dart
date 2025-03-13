@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/providers/error_message_localizer_provider.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() {
   group('ErrorMessageLocalizerProvider', () {

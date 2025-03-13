@@ -49,10 +49,10 @@ void main() {
     });
 
     test(
-        'authRepositoryImplProvider should create a FirebaseAuthRepository '
+        'authRepositoryProvider should create a FirebaseAuthRepository '
         'with the correct dependencies', () {
       // Act
-      final repository = container.read(authRepositoryImplProvider);
+      final repository = container.read(authRepositoryProvider);
 
       // Assert
       expect(repository, isA<FirebaseAuthRepository>());

@@ -53,21 +53,21 @@ void main() {
         // Auth repository
         expect(
           () => containerWithoutOverrides
-              .read(auth_domain.authRepositoryProvider),
+              .read(auth_domain.authRepositoryDomainProvider),
           throwsA(isA<UnimplementedError>()),
         );
 
         // Home repository
         expect(
           () => containerWithoutOverrides
-              .read(home_domain.homeRepositoryProvider),
+              .read(home_domain.homeRepositoryDomainProvider),
           throwsA(isA<UnimplementedError>()),
         );
 
         // Splash repository
         expect(
           () => containerWithoutOverrides
-              .read(splash_domain.splashRepositoryProvider),
+              .read(splash_domain.splashRepositoryDomainProvider),
           throwsA(isA<UnimplementedError>()),
         );
       } finally {
@@ -83,13 +83,13 @@ void main() {
         overrides: [
           // Override the implementation providers with fake values
           // We're not testing the implementations themselves, just the wiring
-          auth_data.authRepositoryImplProvider.overrideWithValue(
+          auth_data.authRepositoryProvider.overrideWithValue(
             FakeAuthRepository(),
           ),
-          home_data.homeRepositoryImplProvider.overrideWithValue(
+          home_data.homeRepositoryProvider.overrideWithValue(
             FakeHomeRepository(),
           ),
-          splash_data.splashRepositoryImplProvider.overrideWithValue(
+          splash_data.splashRepositoryProvider.overrideWithValue(
             FakeSplashRepository(),
           ),
           // Add the core DI overrides
@@ -102,16 +102,18 @@ void main() {
         // from the data layer
 
         // Auth repository
-        final authRepo = container.read(auth_domain.authRepositoryProvider);
+        final authRepo =
+            container.read(auth_domain.authRepositoryDomainProvider);
         expect(authRepo, isA<FakeAuthRepository>());
 
         // Home repository
-        final homeRepo = container.read(home_domain.homeRepositoryProvider);
+        final homeRepo =
+            container.read(home_domain.homeRepositoryDomainProvider);
         expect(homeRepo, isA<FakeHomeRepository>());
 
         // Splash repository
         final splashRepo =
-            container.read(splash_domain.splashRepositoryProvider);
+            container.read(splash_domain.splashRepositoryDomainProvider);
         expect(splashRepo, isA<FakeSplashRepository>());
       } finally {
         // Clean up

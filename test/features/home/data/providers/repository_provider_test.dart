@@ -15,10 +15,9 @@ void main() {
       container.dispose();
     });
 
-    test('homeRepositoryImplProvider should create an InMemoryHomeRepository',
-        () {
+    test('homeRepositoryProvider should create an InMemoryHomeRepository', () {
       // Act
-      final repository = container.read(homeRepositoryImplProvider);
+      final repository = container.read(homeRepositoryProvider);
 
       // Assert
       expect(repository, isA<InMemoryHomeRepository>());

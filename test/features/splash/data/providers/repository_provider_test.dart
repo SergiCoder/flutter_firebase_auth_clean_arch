@@ -15,18 +15,18 @@ void main() {
       container.dispose();
     });
 
-    test('splashRepositoryImplProvider provides InMemorySplashRepository', () {
+    test('splashRepositoryProvider provides InMemorySplashRepository', () {
       // Act
-      final repository = container.read(splashRepositoryImplProvider);
+      final repository = container.read(splashRepositoryProvider);
 
       // Assert
       expect(repository, isA<InMemorySplashRepository>());
     });
 
-    test('splashRepositoryImplProvider provides a constant instance', () {
+    test('splashRepositoryProvider provides a constant instance', () {
       // Act
-      final repository1 = container.read(splashRepositoryImplProvider);
-      final repository2 = container.read(splashRepositoryImplProvider);
+      final repository1 = container.read(splashRepositoryProvider);
+      final repository2 = container.read(splashRepositoryProvider);
 
       // Assert
       // Verify that the provider returns the same instance each time

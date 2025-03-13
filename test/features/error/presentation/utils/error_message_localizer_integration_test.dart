@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
-import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations_en.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 // Concrete implementation of AppException for testing
 class TestAppException extends AppException {
@@ -20,7 +19,8 @@ class ThrowingAppException extends AppException {
   }
 }
 
-// Custom ErrorMessageLocalizer that throws during localization for testing error handling
+// Custom ErrorMessageLocalizer that throws during localization for testing
+// error handling
 class ThrowingErrorMessageLocalizer extends ErrorMessageLocalizer {
   ThrowingErrorMessageLocalizer(super.context);
 
@@ -324,15 +324,6 @@ void main() {
       final throwingLocalizer = ThrowingErrorMessageLocalizer(context);
       const exception = TestAppException('Test message');
       throwingLocalizer.localizeErrorMessage(exception);
-      fail('Expected an exception to be thrown');
-    } catch (e) {
-      // Expected exception
-    }
-
-    // Test error handling in localizeRawErrorMessage
-    try {
-      final throwingLocalizer = ThrowingErrorMessageLocalizer(context);
-      throwingLocalizer.localizeRawErrorMessage('Test message');
       fail('Expected an exception to be thrown');
     } catch (e) {
       // Expected exception

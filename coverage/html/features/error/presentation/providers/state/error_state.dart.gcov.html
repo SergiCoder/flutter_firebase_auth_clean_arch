@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-13 13:32:53</td>
+            <td class="headerValue">2025-03-13 15:04:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -65,7 +65,7 @@
 <span id="L3"><span class="lineNum">       3</span>              : /// Base class for all error states</span>
 <span id="L4"><span class="lineNum">       4</span>              : abstract class ErrorState extends Equatable {</span>
 <span id="L5"><span class="lineNum">       5</span>              :   /// Creates a new [ErrorState]</span>
-<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          65 :   const ErrorState();</span></span>
+<span id="L6"><span class="lineNum">       6</span> <span class="tlaGNC">          64 :   const ErrorState();</span></span>
 <span id="L7"><span class="lineNum">       7</span>              : </span>
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">           1 :   @override</span></span>
 <span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">           1 :   List&lt;Object?&gt; get props =&gt; [];</span></span>
@@ -74,19 +74,19 @@
 <span id="L12"><span class="lineNum">      12</span>              : /// Initial state for error handling</span>
 <span id="L13"><span class="lineNum">      13</span>              : class ErrorInitial extends ErrorState {</span>
 <span id="L14"><span class="lineNum">      14</span>              :   /// Creates a new [ErrorInitial] state</span>
-<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          60 :   const ErrorInitial();</span></span>
+<span id="L15"><span class="lineNum">      15</span> <span class="tlaGNC">          59 :   const ErrorInitial();</span></span>
 <span id="L16"><span class="lineNum">      16</span>              : }</span>
 <span id="L17"><span class="lineNum">      17</span>              : </span>
 <span id="L18"><span class="lineNum">      18</span>              : /// State when an error is being processed</span>
 <span id="L19"><span class="lineNum">      19</span>              : class ErrorProcessing extends ErrorState {</span>
 <span id="L20"><span class="lineNum">      20</span>              :   /// Creates a new [ErrorProcessing] state</span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          62 :   const ErrorProcessing();</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          61 :   const ErrorProcessing();</span></span>
 <span id="L22"><span class="lineNum">      22</span>              : }</span>
 <span id="L23"><span class="lineNum">      23</span>              : </span>
 <span id="L24"><span class="lineNum">      24</span>              : /// State when an error has been handled successfully</span>
 <span id="L25"><span class="lineNum">      25</span>              : class ErrorHandled extends ErrorState {</span>
 <span id="L26"><span class="lineNum">      26</span>              :   /// Creates a new [ErrorHandled] state</span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          61 :   const ErrorHandled();</span></span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          60 :   const ErrorHandled();</span></span>
 <span id="L28"><span class="lineNum">      28</span>              : }</span>
 <span id="L29"><span class="lineNum">      29</span>              : </span>
 <span id="L30"><span class="lineNum">      30</span>              : /// State when an error has occurred during error handling</span>

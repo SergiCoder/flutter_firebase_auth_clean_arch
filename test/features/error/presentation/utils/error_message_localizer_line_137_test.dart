@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// A test implementation of AppLocalizations
 class TestAppLocalizations implements AppLocalizations {
@@ -17,7 +17,6 @@ class TestAppLocalizations implements AppLocalizations {
 class Line137TestLocalizer extends ErrorMessageLocalizer {
   Line137TestLocalizer(super.context);
 
-  @override
   AppLocalizations get _localizations => TestAppLocalizations();
 
   /// Directly test line 137

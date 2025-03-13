@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// A special exception that throws during toString() to test error handling
 class ThrowingException implements AppException {
@@ -42,7 +42,6 @@ class MessageThrowingException implements AppException {
 class TestErrorMessageLocalizer extends ErrorMessageLocalizer {
   TestErrorMessageLocalizer(super.context);
 
-  @override
   AppLocalizations get _localizations => TestAppLocalizations();
 
   /// Override to expose the protected method for testing
@@ -50,8 +49,9 @@ class TestErrorMessageLocalizer extends ErrorMessageLocalizer {
   String localizeRawErrorMessage(String errorMessage) {
     // Special case for testing the capitalization branch
     if (errorMessage == 'Uppercase first letter with no pattern match') {
-      // Skip all the pattern matching and go straight to the capitalization check
-      // Since this message already starts with uppercase, it will return unexpectedError
+      // Skip all the pattern matching and go straight to the capitalization
+      // check. Since this message already starts with uppercase, it will return
+      // unexpectedError
       return _localizations.unexpectedError;
     }
 
@@ -63,14 +63,14 @@ class TestErrorMessageLocalizer extends ErrorMessageLocalizer {
 class EmptyStringTestErrorMessageLocalizer extends ErrorMessageLocalizer {
   EmptyStringTestErrorMessageLocalizer(super.context);
 
-  @override
   AppLocalizations get _localizations => TestAppLocalizations();
 
   /// Override to test the empty string case in the capitalization branch
   @override
   String localizeRawErrorMessage(String errorMessage) {
-    // For testing purposes, we'll simulate the code path where we have an empty string
-    // but we've passed all the pattern checks and reached the capitalization check
+    // For testing purposes, we'll simulate the code path where we have an empty
+    // string but we've passed all the pattern checks and reached the
+    //capitalization check
     if (errorMessage == 'empty_string_test') {
       // This will trigger the empty string check in the capitalization branch
       // and return the unexpected error
@@ -182,8 +182,8 @@ void main() {
     });
 
     test('localizeRawErrorMessage handles exceptions in catch block', () {
-      final localizer = ThrowingTestErrorMessageLocalizer(mockContext);
-      localizer.throwInUnexpectedError = true;
+      final localizer = ThrowingTestErrorMessageLocalizer(mockContext)
+        ..throwInUnexpectedError = true;
 
       // Test with a normal message
       const testMessage = 'Test message';
@@ -203,8 +203,9 @@ void main() {
           localizer.localizeRawErrorMessage('lowercase first letter');
       expect(result1, 'Lowercase first letter');
 
-      // Test with a message that has an uppercase first letter and no pattern match
-      // This should skip the capitalization branch and return the unexpected error
+      // Test with a message that has an uppercase first letter and no pattern
+      // match. This should skip the capitalization branch and return the
+      // unexpected error
       final result2 = localizer.localizeRawErrorMessage(
         'Uppercase first letter with no pattern match',
       );

@@ -24,7 +24,7 @@ void main() {
 
       // Act & Assert
       expect(
-        () => container.read(homeRepositoryProvider),
+        () => container.read(homeRepositoryDomainProvider),
         throwsA(isA<UnimplementedError>()),
       );
     });
@@ -33,12 +33,12 @@ void main() {
       // Arrange
       container = ProviderContainer(
         overrides: [
-          homeRepositoryProvider.overrideWithValue(mockHomeRepository),
+          homeRepositoryDomainProvider.overrideWithValue(mockHomeRepository),
         ],
       );
 
       // Act
-      final result = container.read(homeRepositoryProvider);
+      final result = container.read(homeRepositoryDomainProvider);
 
       // Assert
       expect(result, equals(mockHomeRepository));
@@ -51,7 +51,7 @@ void main() {
       // Arrange
       container = ProviderContainer(
         overrides: [
-          homeRepositoryProvider.overrideWithValue(mockHomeRepository),
+          homeRepositoryDomainProvider.overrideWithValue(mockHomeRepository),
         ],
       );
 

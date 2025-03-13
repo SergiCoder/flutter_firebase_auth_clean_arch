@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-13 13:32:53</td>
+            <td class="headerValue">2025-03-13 15:04:35</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -100,7 +100,7 @@
 <span id="L38"><span class="lineNum">      38</span>              : ///</span>
 <span id="L39"><span class="lineNum">      39</span>              : /// The implementation uses Firebase Authentication for user management</span>
 <span id="L40"><span class="lineNum">      40</span>              : /// and includes error handling through the error handler provider.</span>
-<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">           9 : final authRepositoryImplProvider = Provider&lt;AuthRepository&gt;(</span></span>
+<span id="L41"><span class="lineNum">      41</span> <span class="tlaGNC">          15 : final authRepositoryProvider = Provider&lt;AuthRepository&gt;(</span></span>
 <span id="L42"><span class="lineNum">      42</span> <span class="tlaGNC">           4 :   (ref) =&gt; FirebaseAuthRepository(</span></span>
 <span id="L43"><span class="lineNum">      43</span> <span class="tlaGNC">           4 :     firebaseAuth: ref.watch(firebaseAuthProvider),</span></span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           4 :     errorHandler: ref.watch(errorHandlerProvider),</span></span>

@@ -25,7 +25,8 @@ void main() {
       mockSplashRepository = MockSplashRepository();
       container = ProviderContainer(
         overrides: [
-          splashRepositoryProvider.overrideWithValue(mockSplashRepository),
+          splashRepositoryDomainProvider
+              .overrideWithValue(mockSplashRepository),
         ],
       );
     });
@@ -35,14 +36,14 @@ void main() {
     });
 
     test(
-        '''splashRepositoryProvider throws UnimplementedError when not overridden''',
+        '''splashRepositoryDomainProvider throws UnimplementedError when not overridden''',
         () {
       // Create a container without overrides
       final emptyContainer = ProviderContainer();
 
       // Assert
       expect(
-        () => emptyContainer.read(splashRepositoryProvider),
+        () => emptyContainer.read(splashRepositoryDomainProvider),
         throwsA(isA<UnimplementedError>()),
       );
 

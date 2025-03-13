@@ -17,9 +17,6 @@ class TestAppLocalizations implements AppLocalizations {
 class TestErrorMessageLocalizer extends ErrorMessageLocalizer {
   TestErrorMessageLocalizer(super.context);
 
-  @override
-  AppLocalizations get _localizations => TestAppLocalizations();
-
   /// Override to expose the protected method for testing
   @override
   String localizeRawErrorMessage(String errorMessage) {
@@ -59,8 +56,9 @@ void main() {
       // and return the unexpected error message
       expect(emptyResult, '');
 
-      // Now let's test what happens when we pass this empty string to the real method
-      // We need to create a subclass that will call the real method with our empty string
+      // Now let's test what happens when we pass this empty string to the real
+      // method. We need to create a subclass that will call the real method
+      // with our empty string
       final realLocalizer = RealMethodTestLocalizer(mockContext, emptyResult);
       final result = realLocalizer.testEmptyString();
 
@@ -76,13 +74,13 @@ class RealMethodTestLocalizer extends ErrorMessageLocalizer {
 
   final String testString;
 
-  @override
   AppLocalizations get _localizations => TestAppLocalizations();
 
   /// Call the real method with our test string
   String testEmptyString() {
     // This will call the real method with our empty string
-    // which should trigger the empty string check and return the unexpected error
+    // which should trigger the empty string check and return the unexpected
+    // error
     if (testString.isEmpty) {
       // Skip directly to the capitalization check
       // Since the string is empty, it should return the unexpected error

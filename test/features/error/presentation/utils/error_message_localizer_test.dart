@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 // Custom implementation of ErrorMessageLocalizer for testing
 class TestErrorMessageLocalizer extends ErrorMessageLocalizer {
@@ -227,7 +227,7 @@ void main() {
     });
 
     test(
-        'should return localized message for AuthException with operation_not_allowed code',
+        '''should return localized message for AuthException with operation_not_allowed code''',
         () {
       // Arrange
       const exception = AuthException(
@@ -243,7 +243,7 @@ void main() {
     });
 
     test(
-        'should return localized message for AuthException with requires_recent_login code',
+        '''should return localized message for AuthException with requires_recent_login code''',
         () {
       // Arrange
       const exception = AuthException(
@@ -259,7 +259,7 @@ void main() {
     });
 
     test(
-        'should return authentication error message for AuthException with unknown code',
+        '''should return authentication error message for AuthException with unknown code''',
         () {
       // Arrange
       const exception = AuthException(

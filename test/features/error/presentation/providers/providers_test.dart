@@ -12,7 +12,8 @@ void main() {
     });
 
     test('ErrorState classes are exported correctly', () {
-      // Verify that ErrorState classes are accessible from the providers.dart export
+      // Verify that ErrorState classes are accessible from the providers.dart
+      // export
       expect(ErrorInitial, isNotNull);
       expect(ErrorProcessing, isNotNull);
       expect(ErrorHandled, isNotNull);

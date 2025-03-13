@@ -183,7 +183,7 @@ void main() {
       // Create a provider container with mocked dependencies
       container = ProviderContainer(
         overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
+          authRepositoryDomainProvider.overrideWithValue(mockAuthRepository),
         ],
       );
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/utils/error_message_localizer.dart';
 import 'package:flutter_firebase_auth_clean_arch/generated/app_localizations.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 /// A test implementation of AppLocalizations
 class TestAppLocalizations implements AppLocalizations {
@@ -17,15 +17,15 @@ class TestAppLocalizations implements AppLocalizations {
 class ModifiedErrorMessageLocalizer extends ErrorMessageLocalizer {
   ModifiedErrorMessageLocalizer(super.context);
 
-  @override
   AppLocalizations get _localizations => TestAppLocalizations();
 
-  /// Modified version of localizeRawErrorMessage that makes line 137 more testable
+  /// Modified version of localizeRawErrorMessage that makes line 137 more
+  /// testable
   @override
   String localizeRawErrorMessage(String errorMessage) {
     try {
-      // Skip all the pattern matching and go straight to the capitalization check
-      // with an empty string to test line 137
+      // Skip all the pattern matching and go straight to the capitalization
+      // check with an empty string to test line 137
       if (errorMessage == 'test_empty_string') {
         const cleanedMessage = '';
 
