@@ -75,10 +75,19 @@ class MockAppLocalizations extends Mock implements AppLocalizations {
   String get loginButton => 'Login';
 
   @override
+  String get logoutButton => 'Logout';
+
+  @override
   String get invalidCredentials => 'Invalid email or password';
 
   @override
   String get changeLanguage => 'Change Language';
+
+  @override
+  String get homeTitle => 'Home';
+
+  @override
+  String welcome(String email) => 'Welcome, $email!';
 }
 
 // Mock localization delegate
