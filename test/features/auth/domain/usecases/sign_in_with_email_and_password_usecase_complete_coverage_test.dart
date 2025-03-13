@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
@@ -10,7 +11,11 @@ class TestAuthRepository implements AuthRepository {
   Exception? exceptionToThrow;
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(
+    String email,
+    String password, {
+    BuildContext? context,
+  }) async {
     signInCalled = true;
     emailPassed = email;
     passwordPassed = password;
@@ -21,7 +26,11 @@ class TestAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> createUserWithEmailAndPassword(String email, String password) {
+  Future<void> createUserWithEmailAndPassword(
+    String email,
+    String password, {
+    BuildContext? context,
+  }) {
     throw UnimplementedError();
   }
 
@@ -31,7 +40,7 @@ class TestAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
+  Future<void> signOut({BuildContext? context}) {
     throw UnimplementedError();
   }
 
@@ -55,7 +64,7 @@ void main() {
       // Arrange
       const email = 'test@example.com';
       const password = 'password123';
-      final exception = InvalidCredentialsException(
+      const exception = InvalidCredentialsException(
         message: 'Invalid credentials',
       );
 
@@ -77,7 +86,8 @@ void main() {
       try {
         await useCase.execute(email, password);
       } catch (_) {
-        // We don't care about exceptions here, just want to trigger the _maskEmail method
+        // We don't care about exceptions here, just want to trigger the
+        // _maskEmail method
       }
 
       // Assert
@@ -96,7 +106,8 @@ void main() {
       try {
         await useCase.execute(email, password);
       } catch (_) {
-        // We don't care about exceptions here, just want to trigger the _maskEmail method
+        // We don't care about exceptions here, just want to trigger the
+        // _maskEmail method
       }
 
       // Assert

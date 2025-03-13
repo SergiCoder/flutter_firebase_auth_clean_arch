@@ -6,7 +6,7 @@ void main() {
     group('HomeInitial', () {
       test('props are empty', () {
         const state = HomeInitial();
-        expect(state.props, []);
+        expect(state.props, <Object>{});
       });
 
       test('two instances are equal', () {
@@ -19,7 +19,7 @@ void main() {
     group('HomeLoading', () {
       test('props are empty', () {
         const state = HomeLoading();
-        expect(state.props, []);
+        expect(state.props, <Object>[]);
       });
 
       test('two instances are equal', () {
@@ -53,7 +53,7 @@ void main() {
     group('HomeUnauthenticated', () {
       test('props are empty', () {
         const state = HomeUnauthenticated();
-        expect(state.props, []);
+        expect(state.props, <Object>[]);
       });
 
       test('two instances are equal', () {

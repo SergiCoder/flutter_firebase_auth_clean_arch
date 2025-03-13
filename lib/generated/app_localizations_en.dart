@@ -12,6 +12,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appTitle => 'Authentication App';
 
   @override
+  String get changeLanguage => 'Change language';
+
+  @override
   String get loginTitle => 'Login';
 
   @override
@@ -27,37 +30,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmPassword => 'Confirm Password';
 
   @override
-  String get forgotPassword => 'Forgot Password?';
-
-  @override
-  String get resetPassword => 'Reset Password';
-
-  @override
   String get loginButton => 'Login';
 
   @override
   String get registerButton => 'Register';
 
   @override
-  String get logoutButton => 'Logout';
-
-  @override
-  String get retryButton => 'Retry';
-
-  @override
   String get dontHaveAccount => 'Don\'t have an account?';
 
   @override
   String get alreadyHaveAccount => 'Already have an account?';
-
-  @override
-  String get resetPasswordInstructions => 'Enter your email and we\'ll send you instructions to reset your password.';
-
-  @override
-  String get sendResetLink => 'Send Reset Link';
-
-  @override
-  String get resetLinkSent => 'Password reset link sent to your email';
 
   @override
   String get invalidEmail => 'Please enter a valid email address';
@@ -72,47 +54,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get passwordsDontMatch => 'Passwords don\'t match';
 
   @override
-  String get loginFailed => 'Login failed. Please check your credentials.';
-
-  @override
-  String get registrationFailed => 'Registration failed. Please try again.';
-
-  @override
-  String get resetPasswordFailed => 'Failed to send reset link. Please try again.';
-
-  @override
-  String welcomeMessage(String email) {
-    return 'Welcome, $email!';
-  }
-
-  @override
-  String get profileTitle => 'Profile';
-
-  @override
-  String get homeTitle => 'Home';
-
-  @override
-  String get settingsTitle => 'Settings';
-
-  @override
-  String get darkMode => 'Dark Mode';
-
-  @override
-  String get language => 'Language';
-
-  @override
-  String get signInWithGoogle => 'Sign in with Google';
-
-  @override
-  String get signInWithApple => 'Sign in with Apple';
-
-  @override
-  String get or => 'OR';
-
-  @override
-  String get continueAsGuest => 'Continue as Guest';
-
-  @override
   String get errorPageTitle => 'Page Not Found';
 
   @override
@@ -120,4 +61,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goBack => 'Go Back';
+
+  @override
+  String get invalidCredentials => 'Invalid email or password';
+
+  @override
+  String get emailAlreadyInUse => 'This email is already in use';
+
+  @override
+  String get weakPassword => 'The password provided is too weak';
+
+  @override
+  String get operationNotAllowed => 'This operation is not allowed';
+
+  @override
+  String get requiresRecentLogin => 'Please log in again to continue';
+
+  @override
+  String get authenticationError => 'An authentication error occurred';
+
+  @override
+  String get permissionDenied => 'Permission denied';
+
+  @override
+  String get notFound => 'The requested data was not found';
+
+  @override
+  String get databaseError => 'A database error occurred';
+
+  @override
+  String get unexpectedError => 'An unexpected error occurred';
 }

@@ -33,8 +33,10 @@ class MockSignOutUseCase extends Mock implements SignOutUseCase {
 }
 
 class MockHomeNotifier extends HomeNotifier {
-  MockHomeNotifier(
-      {required super.firebaseAuth, required super.signOutUseCase});
+  MockHomeNotifier({
+    required super.firebaseAuth,
+    required super.signOutUseCase,
+  });
 
   @override
   Future<void> initialize() async {
@@ -70,27 +72,20 @@ class TrackingHomeNotifier extends HomeNotifier {
 // Mock AppLocalizations manually
 class MockAppLocalizations extends Mock implements AppLocalizations {
   @override
-  String get homeTitle => 'Home';
-
-  @override
-  String get loginFailed => 'Login failed. Please check your credentials.';
-
-  @override
   String get loginButton => 'Login';
 
   @override
-  String get logoutButton => 'Logout';
+  String get invalidCredentials => 'Invalid email or password';
 
   @override
-  String welcomeMessage(String name) => 'Welcome, $name!';
+  String get changeLanguage => 'Change Language';
 }
 
 // Mock localization delegate
 class MockAppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
-  final MockAppLocalizations mockLocalizations;
-
   MockAppLocalizationsDelegate(this.mockLocalizations);
+  final MockAppLocalizations mockLocalizations;
 
   @override
   bool isSupported(Locale locale) => true;
@@ -132,10 +127,12 @@ void main() {
           // Override the firebase auth provider
           firebaseAuthProvider.overrideWithValue(mockFirebaseAuth),
           // Override the home provider to use our mock
-          homeProvider.overrideWith((ref) => MockHomeNotifier(
-                firebaseAuth: mockFirebaseAuth,
-                signOutUseCase: mockSignOutUseCase,
-              )),
+          homeProvider.overrideWith(
+            (ref) => MockHomeNotifier(
+              firebaseAuth: mockFirebaseAuth,
+              signOutUseCase: mockSignOutUseCase,
+            ),
+          ),
           signOutUseCaseProvider.overrideWithValue(mockSignOutUseCase),
         ],
       );
@@ -152,11 +149,14 @@ void main() {
           ...AppLocalization.localizationDelegates,
         ],
         supportedLocales: AppLocalization.supportedLocales,
-        home: UncontrolledProviderScope(
-          container: container,
-          child: MockGoRouterProvider(
-            router: mockGoRouter,
-            child: const HomeScreen(),
+        home: SizedBox(
+          width: 800, // Set a reasonable width for testing
+          child: UncontrolledProviderScope(
+            container: container,
+            child: MockGoRouterProvider(
+              router: mockGoRouter,
+              child: const HomeScreen(),
+            ),
           ),
         ),
       );
@@ -233,8 +233,10 @@ void main() {
           await tester.pump();
 
           // Assert
-          expect(find.text('Login failed. Please check your credentials.'),
-              findsOneWidget);
+          expect(
+            find.text('Invalid email or password'),
+            findsOneWidget,
+          );
           expect(find.byType(ElevatedButton), findsOneWidget);
           expect(find.text('Login'), findsOneWidget);
         },
@@ -288,7 +290,7 @@ void main() {
       await runZoned(
         () async {
           // Arrange
-          when(mockSignOutUseCase.execute()).thenAnswer((_) async => null);
+          when(mockSignOutUseCase.execute()).thenAnswer((_) async {});
           mockHomeNotifier.state = const HomeLoaded(email: 'test@example.com');
 
           // Act
@@ -313,7 +315,7 @@ void main() {
       await runZoned(
         () async {
           // Arrange
-          when(mockSignOutUseCase.execute()).thenAnswer((_) async => null);
+          when(mockSignOutUseCase.execute()).thenAnswer((_) async {});
           mockHomeNotifier.state = const HomeError('Test error');
 
           // Act
@@ -332,7 +334,7 @@ void main() {
     });
 
     testWidgets(
-        'navigates to login when login button is pressed in unauthenticated state',
+        '''navigates to login when login button is pressed in unauthenticated state''',
         (tester) async {
       // Run in a test zone to skip initialization
       await runZoned(
@@ -358,7 +360,7 @@ void main() {
     testWidgets('initializes home screen in post-frame callback',
         (tester) async {
       // Create a tracking variable
-      bool initializeCalled = false;
+      var initializeCalled = false;
 
       // Create the notifier instance
       final specialMockNotifier = TrackingHomeNotifier(

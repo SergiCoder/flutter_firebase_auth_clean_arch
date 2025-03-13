@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'mock_error_message_localizer.dart';
 
 void main() {
   group('ErrorDisplayWidget', () {
@@ -11,21 +14,26 @@ void main() {
 
       // Act
       await tester.pumpWidget(
-        MaterialApp(
-          theme: ThemeData(
-            colorScheme: const ColorScheme.light(
-              error: Colors.red,
-            ),
-            textTheme: const TextTheme(
-              titleMedium: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+        ProviderScope(
+          overrides: [
+            errorMessageLocalizerProviderOverride,
+          ],
+          child: MaterialApp(
+            theme: ThemeData(
+              colorScheme: const ColorScheme.light(
+                error: Colors.red,
+              ),
+              textTheme: const TextTheme(
+                titleMedium: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
-          ),
-          home: const Scaffold(
-            body: ErrorDisplayWidget(
-              errorMessage: errorMessage,
+            home: const Scaffold(
+              body: ErrorDisplayWidget(
+                errorMessage: errorMessage,
+              ),
             ),
           ),
         ),
@@ -34,6 +42,7 @@ void main() {
       // Assert - we don't need to check for the formatted message since that's
       // handled by the hook which has its own tests
       expect(find.byType(Text), findsOneWidget);
+      expect(find.text(errorMessage), findsOneWidget);
 
       // Verify text styling
       final textWidget = tester.widget<Text>(find.byType(Text));
@@ -47,10 +56,15 @@ void main() {
 
       // Act
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: ErrorDisplayWidget(
-              errorMessage: errorMessage,
+        ProviderScope(
+          overrides: [
+            errorMessageLocalizerProviderOverride,
+          ],
+          child: const MaterialApp(
+            home: Scaffold(
+              body: ErrorDisplayWidget(
+                errorMessage: errorMessage,
+              ),
             ),
           ),
         ),
@@ -68,19 +82,23 @@ void main() {
 
       // Act
       await tester.pumpWidget(
-        const MaterialApp(
-          home: Scaffold(
-            body: ErrorDisplayWidget(
-              errorMessage: rawErrorMessage,
+        ProviderScope(
+          overrides: [
+            errorMessageLocalizerProviderOverride,
+          ],
+          child: const MaterialApp(
+            home: Scaffold(
+              body: ErrorDisplayWidget(
+                errorMessage: rawErrorMessage,
+              ),
             ),
           ),
         ),
       );
 
-      // Assert - The hook should have removed the prefix
-      // We can't directly test the hook's behavior here since it's mocked in
-      // the widget, but we can verify that a Text widget is rendered
+      // Assert - The mock localizer should return the original message
       expect(find.byType(Text), findsOneWidget);
+      expect(find.text(rawErrorMessage), findsOneWidget);
 
       // The actual formatting is tested in the hook's own tests
     });

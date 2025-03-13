@@ -6,6 +6,11 @@
     "description": "The title of the application"
   },
   
+  "changeLanguage": "Change language",
+  "@changeLanguage": {
+    "description": "Label for the language selector button"
+  },
+  
   "loginTitle": "Login",
   "@loginTitle": {
     "description": "Title for the login screen"
@@ -31,16 +36,6 @@
     "description": "Label for confirm password field"
   },
   
-  "forgotPassword": "Forgot Password?",
-  "@forgotPassword": {
-    "description": "Text for forgot password button"
-  },
-  
-  "resetPassword": "Reset Password",
-  "@resetPassword": {
-    "description": "Title for reset password screen"
-  },
-  
   "loginButton": "Login",
   "@loginButton": {
     "description": "Text for login button"
@@ -51,16 +46,6 @@
     "description": "Text for register button"
   },
   
-  "logoutButton": "Logout",
-  "@logoutButton": {
-    "description": "Text for logout button"
-  },
-  
-  "retryButton": "Retry",
-  "@retryButton": {
-    "description": "Text for retry button"
-  },
-  
   "dontHaveAccount": "Don't have an account?",
   "@dontHaveAccount": {
     "description": "Text for users who don't have an account"
@@ -69,21 +54,6 @@
   "alreadyHaveAccount": "Already have an account?",
   "@alreadyHaveAccount": {
     "description": "Text for users who already have an account"
-  },
-  
-  "resetPasswordInstructions": "Enter your email and we'll send you instructions to reset your password.",
-  "@resetPasswordInstructions": {
-    "description": "Instructions for password reset"
-  },
-  
-  "sendResetLink": "Send Reset Link",
-  "@sendResetLink": {
-    "description": "Button text to send password reset link"
-  },
-  
-  "resetLinkSent": "Password reset link sent to your email",
-  "@resetLinkSent": {
-    "description": "Message shown after reset link is sent"
   },
   
   "invalidEmail": "Please enter a valid email address",
@@ -106,77 +76,6 @@
     "description": "Error message when passwords don't match"
   },
   
-  "loginFailed": "Login failed. Please check your credentials.",
-  "@loginFailed": {
-    "description": "Error message for failed login"
-  },
-  
-  "registrationFailed": "Registration failed. Please try again.",
-  "@registrationFailed": {
-    "description": "Error message for failed registration"
-  },
-  
-  "resetPasswordFailed": "Failed to send reset link. Please try again.",
-  "@resetPasswordFailed": {
-    "description": "Error message for failed password reset"
-  },
-  
-  "welcomeMessage": "Welcome, {email}!",
-  "@welcomeMessage": {
-    "description": "Welcome message with user's email",
-    "placeholders": {
-      "email": {
-        "type": "String",
-        "example": "user@example.com"
-      }
-    }
-  },
-  
-  "profileTitle": "Profile",
-  "@profileTitle": {
-    "description": "Title for profile screen"
-  },
-  
-  "homeTitle": "Home",
-  "@homeTitle": {
-    "description": "Title for home screen"
-  },
-  
-  "settingsTitle": "Settings",
-  "@settingsTitle": {
-    "description": "Title for settings screen"
-  },
-  
-  "darkMode": "Dark Mode",
-  "@darkMode": {
-    "description": "Label for dark mode setting"
-  },
-  
-  "language": "Language",
-  "@language": {
-    "description": "Label for language setting"
-  },
-  
-  "signInWithGoogle": "Sign in with Google",
-  "@signInWithGoogle": {
-    "description": "Button text for Google sign-in"
-  },
-  
-  "signInWithApple": "Sign in with Apple",
-  "@signInWithApple": {
-    "description": "Button text for Apple sign-in"
-  },
-  
-  "or": "OR",
-  "@or": {
-    "description": "Text for divider between options"
-  },
-  
-  "continueAsGuest": "Continue as Guest",
-  "@continueAsGuest": {
-    "description": "Button text for guest mode"
-  },
-  
   "errorPageTitle": "Page Not Found",
   "@errorPageTitle": {
     "description": "Title for the error page when a route is not found"
@@ -190,5 +89,55 @@
   "goBack": "Go Back",
   "@goBack": {
     "description": "Text for button to navigate back"
+  },
+
+  "invalidCredentials": "Invalid email or password",
+  "@invalidCredentials": {
+    "description": "Error message for invalid credentials"
+  },
+  
+  "emailAlreadyInUse": "This email is already in use",
+  "@emailAlreadyInUse": {
+    "description": "Error message for email already in use"
+  },
+  
+  "weakPassword": "The password provided is too weak",
+  "@weakPassword": {
+    "description": "Error message for weak password"
+  },
+  
+  "operationNotAllowed": "This operation is not allowed",
+  "@operationNotAllowed": {
+    "description": "Error message for operation not allowed"
+  },
+  
+  "requiresRecentLogin": "Please log in again to continue",
+  "@requiresRecentLogin": {
+    "description": "Error message for requiring recent login"
+  },
+  
+  "authenticationError": "An authentication error occurred",
+  "@authenticationError": {
+    "description": "Error message for generic authentication error"
+  },
+  
+  "permissionDenied": "Permission denied",
+  "@permissionDenied": {
+    "description": "Error message for permission denied"
+  },
+  
+  "notFound": "The requested data was not found",
+  "@notFound": {
+    "description": "Error message for not found"
+  },
+  
+  "databaseError": "A database error occurred",
+  "@databaseError": {
+    "description": "Error message for database error"
+  },
+  
+  "unexpectedError": "An unexpected error occurred",
+  "@unexpectedError": {
+    "description": "Error message for unexpected error"
   }
 } 

@@ -19,7 +19,8 @@ void main() {
       expect(exception.code, equals('user_not_authenticated'));
       expect(exception.originalError, equals(originalError));
 
-      // This test specifically targets the super constructor call in UserNotAuthenticatedException
+      // This test specifically targets the super constructor call in
+      // UserNotAuthenticatedException
     });
 
     test('NoInternetException constructor with originalError', () {
@@ -38,7 +39,8 @@ void main() {
       expect(exception.code, equals('no_internet'));
       expect(exception.originalError, equals(originalError));
 
-      // This test specifically targets the super constructor call in NoInternetException
+      // This test specifically targets the super constructor call in
+      // NoInternetException
     });
 
     test('TimeoutException constructor with originalError', () {
@@ -57,7 +59,8 @@ void main() {
       expect(exception.code, equals('timeout'));
       expect(exception.originalError, equals(originalError));
 
-      // This test specifically targets the super constructor call in TimeoutException
+      // This test specifically targets the super constructor call in
+      // TimeoutException
     });
 
     test('AppException toString method', () {

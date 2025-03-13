@@ -101,6 +101,12 @@ abstract class AppLocalizations {
   /// **'Authentication App'**
   String get appTitle;
 
+  /// Label for the language selector button
+  ///
+  /// In en, this message translates to:
+  /// **'Change language'**
+  String get changeLanguage;
+
   /// Title for the login screen
   ///
   /// In en, this message translates to:
@@ -131,18 +137,6 @@ abstract class AppLocalizations {
   /// **'Confirm Password'**
   String get confirmPassword;
 
-  /// Text for forgot password button
-  ///
-  /// In en, this message translates to:
-  /// **'Forgot Password?'**
-  String get forgotPassword;
-
-  /// Title for reset password screen
-  ///
-  /// In en, this message translates to:
-  /// **'Reset Password'**
-  String get resetPassword;
-
   /// Text for login button
   ///
   /// In en, this message translates to:
@@ -155,18 +149,6 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get registerButton;
 
-  /// Text for logout button
-  ///
-  /// In en, this message translates to:
-  /// **'Logout'**
-  String get logoutButton;
-
-  /// Text for retry button
-  ///
-  /// In en, this message translates to:
-  /// **'Retry'**
-  String get retryButton;
-
   /// Text for users who don't have an account
   ///
   /// In en, this message translates to:
@@ -178,24 +160,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Already have an account?'**
   String get alreadyHaveAccount;
-
-  /// Instructions for password reset
-  ///
-  /// In en, this message translates to:
-  /// **'Enter your email and we\'ll send you instructions to reset your password.'**
-  String get resetPasswordInstructions;
-
-  /// Button text to send password reset link
-  ///
-  /// In en, this message translates to:
-  /// **'Send Reset Link'**
-  String get sendResetLink;
-
-  /// Message shown after reset link is sent
-  ///
-  /// In en, this message translates to:
-  /// **'Password reset link sent to your email'**
-  String get resetLinkSent;
 
   /// Error message for invalid email
   ///
@@ -221,84 +185,6 @@ abstract class AppLocalizations {
   /// **'Passwords don\'t match'**
   String get passwordsDontMatch;
 
-  /// Error message for failed login
-  ///
-  /// In en, this message translates to:
-  /// **'Login failed. Please check your credentials.'**
-  String get loginFailed;
-
-  /// Error message for failed registration
-  ///
-  /// In en, this message translates to:
-  /// **'Registration failed. Please try again.'**
-  String get registrationFailed;
-
-  /// Error message for failed password reset
-  ///
-  /// In en, this message translates to:
-  /// **'Failed to send reset link. Please try again.'**
-  String get resetPasswordFailed;
-
-  /// Welcome message with user's email
-  ///
-  /// In en, this message translates to:
-  /// **'Welcome, {email}!'**
-  String welcomeMessage(String email);
-
-  /// Title for profile screen
-  ///
-  /// In en, this message translates to:
-  /// **'Profile'**
-  String get profileTitle;
-
-  /// Title for home screen
-  ///
-  /// In en, this message translates to:
-  /// **'Home'**
-  String get homeTitle;
-
-  /// Title for settings screen
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settingsTitle;
-
-  /// Label for dark mode setting
-  ///
-  /// In en, this message translates to:
-  /// **'Dark Mode'**
-  String get darkMode;
-
-  /// Label for language setting
-  ///
-  /// In en, this message translates to:
-  /// **'Language'**
-  String get language;
-
-  /// Button text for Google sign-in
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in with Google'**
-  String get signInWithGoogle;
-
-  /// Button text for Apple sign-in
-  ///
-  /// In en, this message translates to:
-  /// **'Sign in with Apple'**
-  String get signInWithApple;
-
-  /// Text for divider between options
-  ///
-  /// In en, this message translates to:
-  /// **'OR'**
-  String get or;
-
-  /// Button text for guest mode
-  ///
-  /// In en, this message translates to:
-  /// **'Continue as Guest'**
-  String get continueAsGuest;
-
   /// Title for the error page when a route is not found
   ///
   /// In en, this message translates to:
@@ -316,6 +202,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Go Back'**
   String get goBack;
+
+  /// Error message for invalid credentials
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid email or password'**
+  String get invalidCredentials;
+
+  /// Error message for email already in use
+  ///
+  /// In en, this message translates to:
+  /// **'This email is already in use'**
+  String get emailAlreadyInUse;
+
+  /// Error message for weak password
+  ///
+  /// In en, this message translates to:
+  /// **'The password provided is too weak'**
+  String get weakPassword;
+
+  /// Error message for operation not allowed
+  ///
+  /// In en, this message translates to:
+  /// **'This operation is not allowed'**
+  String get operationNotAllowed;
+
+  /// Error message for requiring recent login
+  ///
+  /// In en, this message translates to:
+  /// **'Please log in again to continue'**
+  String get requiresRecentLogin;
+
+  /// Error message for generic authentication error
+  ///
+  /// In en, this message translates to:
+  /// **'An authentication error occurred'**
+  String get authenticationError;
+
+  /// Error message for permission denied
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied'**
+  String get permissionDenied;
+
+  /// Error message for not found
+  ///
+  /// In en, this message translates to:
+  /// **'The requested data was not found'**
+  String get notFound;
+
+  /// Error message for database error
+  ///
+  /// In en, this message translates to:
+  /// **'A database error occurred'**
+  String get databaseError;
+
+  /// Error message for unexpected error
+  ///
+  /// In en, this message translates to:
+  /// **'An unexpected error occurred'**
+  String get unexpectedError;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

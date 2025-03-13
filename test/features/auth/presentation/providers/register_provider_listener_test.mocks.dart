@@ -5,6 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i3;
 
+import 'package:flutter/material.dart' as _i4;
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart'
     as _i2;
 import 'package:mockito/mockito.dart' as _i1;
@@ -50,10 +51,15 @@ class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
   @override
   _i3.Future<void> signInWithEmailAndPassword(
     String? email,
-    String? password,
-  ) =>
+    String? password, {
+    _i4.BuildContext? context,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#signInWithEmailAndPassword, [email, password]),
+            Invocation.method(
+              #signInWithEmailAndPassword,
+              [email, password],
+              {#context: context},
+            ),
             returnValue: _i3.Future<void>.value(),
             returnValueForMissingStub: _i3.Future<void>.value(),
           )
@@ -62,22 +68,24 @@ class MockAuthRepository extends _i1.Mock implements _i2.AuthRepository {
   @override
   _i3.Future<void> createUserWithEmailAndPassword(
     String? email,
-    String? password,
-  ) =>
+    String? password, {
+    _i4.BuildContext? context,
+  }) =>
       (super.noSuchMethod(
-            Invocation.method(#createUserWithEmailAndPassword, [
-              email,
-              password,
-            ]),
+            Invocation.method(
+              #createUserWithEmailAndPassword,
+              [email, password],
+              {#context: context},
+            ),
             returnValue: _i3.Future<void>.value(),
             returnValueForMissingStub: _i3.Future<void>.value(),
           )
           as _i3.Future<void>);
 
   @override
-  _i3.Future<void> signOut() =>
+  _i3.Future<void> signOut({_i4.BuildContext? context}) =>
       (super.noSuchMethod(
-            Invocation.method(#signOut, []),
+            Invocation.method(#signOut, [], {#context: context}),
             returnValue: _i3.Future<void>.value(),
             returnValueForMissingStub: _i3.Future<void>.value(),
           )

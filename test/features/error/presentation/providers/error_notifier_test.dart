@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:developer' as developer;
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/providers/error_notifier.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/providers/state/error_state.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 /// A test error notifier that throws an exception during processing
 class TestErrorNotifier extends ErrorNotifier {
@@ -25,7 +23,8 @@ class FailingErrorNotifier extends ErrorNotifier {
   }
 }
 
-/// A real implementation of ErrorNotifier that uses a completer to control the Future
+/// A real implementation of ErrorNotifier that uses a completer to control the
+///  Future
 class RealErrorNotifier extends ErrorNotifier {
   final Completer<void> delayCompleter = Completer<void>();
 
@@ -71,7 +70,8 @@ class DirectCatchBlockErrorNotifier extends ErrorNotifier {
     state = ErrorFailed(exception.toString());
 
     // The developer.log call is what we're trying to test
-    // This is a workaround since we can't mock the developer.log function directly
+    // This is a workaround since we can't mock the developer.log function
+    // directly
     await Future<void>.delayed(const Duration(milliseconds: 10));
   }
 }
@@ -99,7 +99,8 @@ class ThrowingDelayErrorNotifier extends ErrorNotifier {
   }
 }
 
-/// A custom error notifier that uses the original implementation but forces the Future.delayed to throw
+/// A custom error notifier that uses the original implementation but forces the
+/// Future.delayed to throw
 class ForcedExceptionErrorNotifier extends ErrorNotifier {
   @override
   Future<void> processError(String errorMessage) async {

@@ -60,6 +60,9 @@ class RegisterScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).registerTitle),
+        actions: const [
+          LanguageSelectorWidget(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

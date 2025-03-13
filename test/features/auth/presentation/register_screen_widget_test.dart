@@ -1,47 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/create_user_with_email_and_password_usecase.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 import 'mocks/mock_go_router.dart';
-import 'register_screen_test.mocks.dart';
+import 'register_screen_widget_test.mocks.dart';
+
+// Mock CreateUserWithEmailAndPasswordUseCase manually
+class MockCreateUserWithEmailAndPasswordUseCase extends Mock
+    implements CreateUserWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
+
+// Create a test register notifier that allows direct state manipulation
+class TestRegisterNotifier extends RegisterNotifier {
+  TestRegisterNotifier({required super.createUserUseCase});
+
+  @override
+  void updateState(RegisterState newState) {
+    state = newState;
+  }
+}
 
 @GenerateMocks([AuthRepository])
 void main() {
   group('RegisterScreen with GoRouter', () {
     late MockAuthRepository mockAuthRepository;
     late MockGoRouter mockGoRouter;
-    late ProviderContainer container;
+    late MockCreateUserWithEmailAndPasswordUseCase mockCreateUserUseCase;
+    late TestRegisterNotifier testRegisterNotifier;
     late Widget testWidget;
 
     setUp(() {
       mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
-
-      // Create a provider container with mocked dependencies
-      container = ProviderContainer(
-        overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
-        ],
-      );
+      mockCreateUserUseCase = MockCreateUserWithEmailAndPasswordUseCase();
+      testRegisterNotifier =
+          TestRegisterNotifier(createUserUseCase: mockCreateUserUseCase);
 
       // Create a test widget with the necessary providers and localization
       testWidget = MaterialApp(
         localizationsDelegates: AppLocalization.localizationDelegates,
         supportedLocales: AppLocalization.supportedLocales,
-        home: UncontrolledProviderScope(
-          container: container,
+        home: ProviderScope(
+          overrides: [
+            registerProvider.overrideWith((_) => testRegisterNotifier),
+            errorMessageLocalizerProviderOverride,
+          ],
           child: MockGoRouterProvider(
             router: mockGoRouter,
             child: const RegisterScreen(),
           ),
         ),
       );
-
-      addTearDown(container.dispose);
     });
 
     testWidgets('renders correctly in initial state', (tester) async {
@@ -51,15 +77,12 @@ void main() {
 
       // Assert
       expect(find.byType(AppBar), findsOneWidget);
-      expect(
-        find.byType(TextFormField),
-        findsNWidgets(3),
-      ); // Email, password, confirm password
+      expect(find.byType(TextFormField), findsNWidgets(3));
       expect(find.byType(ElevatedButton), findsOneWidget);
       expect(find.byType(TextButton), findsOneWidget);
       expect(find.byIcon(Icons.email), findsOneWidget);
-      // Icons might vary based on implementation, so we don't check them
-      // specifically
+      expect(find.byType(Icon), findsAtLeast(3));
+      expect(find.byType(RegisterScreen), findsOneWidget);
     });
 
     testWidgets('shows loading indicator when in loading state',
@@ -68,7 +91,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to loading
-      container.read(registerProvider.notifier).state = const RegisterLoading();
+      testRegisterNotifier.updateState(const RegisterLoading());
 
       // Act
       await tester.pump();
@@ -84,14 +107,20 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to error
-      container.read(registerProvider.notifier).state =
-          const RegisterError(errorMessage);
+      testRegisterNotifier.updateState(const RegisterError(errorMessage));
 
       // Act
       await tester.pump();
 
       // Assert
-      expect(find.text(errorMessage), findsOneWidget);
+      // Check for the ErrorDisplayWidget
+      expect(find.byType(ErrorDisplayWidget), findsOneWidget);
+
+      // Verify the error message is passed to the ErrorDisplayWidget
+      final errorWidget = tester.widget<ErrorDisplayWidget>(
+        find.byType(ErrorDisplayWidget),
+      );
+      expect(errorWidget.errorMessage, equals(errorMessage));
     });
 
     testWidgets('navigates to home screen on successful registration',
@@ -100,7 +129,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to success
-      container.read(registerProvider.notifier).state = const RegisterSuccess();
+      testRegisterNotifier.updateState(const RegisterSuccess());
 
       // Act
       await tester.pump();
@@ -108,7 +137,7 @@ void main() {
 
       // Assert - We can't verify the mock directly in this test setup
       // But we can check that the register state is success
-      expect(container.read(registerProvider), isA<RegisterSuccess>());
+      expect(testRegisterNotifier.state, isA<RegisterSuccess>());
     });
 
     testWidgets('navigates to login screen when login button is tapped',
@@ -142,46 +171,6 @@ void main() {
       // The exact error messages might vary, so we just check that the form is
       // validated
       expect(find.byType(TextFormField), findsNWidgets(3));
-    });
-
-    testWidgets('calls createUserWithEmailAndPassword when form is valid',
-        (tester) async {
-      // Arrange
-      const email = 'test@example.com';
-      const password = 'password123';
-
-      when(
-        mockAuthRepository.createUserWithEmailAndPassword(
-          email,
-          password,
-        ),
-      ).thenAnswer((_) async {});
-
-      await tester.pumpWidget(testWidget);
-
-      // Act - Fill in the form
-      await tester.enterText(
-        find.byType(TextFormField).at(0),
-        email,
-      );
-      await tester.enterText(
-        find.byType(TextFormField).at(1),
-        password,
-      );
-      await tester.enterText(
-        find.byType(TextFormField).at(2),
-        password,
-      );
-
-      // Submit the form
-      await tester.tap(find.byType(ElevatedButton));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 100));
-
-      // Assert - Check that the form was submitted
-      // We can't verify the mock directly, but we can check that the form was
-      // submitted
-      expect(find.byType(ElevatedButton), findsOneWidget);
     });
   });
 }

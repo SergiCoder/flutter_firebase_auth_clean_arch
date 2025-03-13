@@ -4,9 +4,11 @@ import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error
 import 'package:flutter_firebase_auth_clean_arch/core/routing/app_route.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/screens/error_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../core/routing/mock_go_router.dart';
 import '../../../core/routing/mock_go_router_provider.dart';
+import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 
 void main() {
   late MockGoRouter mockRouter;
@@ -20,14 +22,19 @@ void main() {
     required String uri,
     required MockGoRouter router,
   }) {
-    return MaterialApp(
-      // Add localization support
-      localizationsDelegates: AppLocalization.localizationDelegates,
-      supportedLocales: AppLocalization.supportedLocales,
-      home: MockGoRouterProvider(
-        router: router,
-        child: ErrorScreen(
-          uri: uri,
+    return ProviderScope(
+      overrides: [
+        errorMessageLocalizerProviderOverride,
+      ],
+      child: MaterialApp(
+        // Add localization support
+        localizationsDelegates: AppLocalization.localizationDelegates,
+        supportedLocales: AppLocalization.supportedLocales,
+        home: MockGoRouterProvider(
+          router: router,
+          child: ErrorScreen(
+            uri: uri,
+          ),
         ),
       ),
     );
@@ -128,8 +135,10 @@ void main() {
       final column = tester.widget(columnFinder) as Column;
       expect(column.mainAxisAlignment, MainAxisAlignment.spaceEvenly);
 
-      // Verify the content is centered
-      expect(find.byType(Center), findsOneWidget);
+      // Verify the error message and back button are present
+      expect(find.byType(ErrorDisplayWidget), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsOneWidget);
+      expect(find.text('Go Back'), findsOneWidget);
     });
   });
 }

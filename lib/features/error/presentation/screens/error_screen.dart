@@ -23,6 +23,9 @@ class ErrorScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(localizations.errorPageTitle),
+        actions: const [
+          LanguageSelectorWidget(),
+        ],
       ),
       body: Center(
         child: Column(

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_out_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5,9 +6,9 @@ import 'package:mockito/mockito.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {
   @override
-  Future<void> signOut() async {
+  Future<void> signOut({BuildContext? context}) async {
     return super.noSuchMethod(
-      Invocation.method(#signOut, []),
+      Invocation.method(#signOut, [], {#context: context}),
       returnValue: Future<void>.value(),
       returnValueForMissingStub: Future<void>.value(),
     );

@@ -16,7 +16,8 @@ void main() {
 
     test('someHomeOperation completes successfully', () async {
       // Act & Assert
-      // Since this is a placeholder implementation, we just verify it doesn't throw
+      // Since this is a placeholder implementation, we just verify it doesn't
+      // throw
       await expectLater(repository.someHomeOperation(), completes);
     });
   });

@@ -45,6 +45,6 @@ class LocaleProvider extends ChangeNotifier {
 }
 
 /// Provider for the locale provider
-final localeProviderProvider = Provider<LocaleProvider>(
+final localeProviderProvider = ChangeNotifierProvider<LocaleProvider>(
   (ref) => LocaleProvider(),
 );

@@ -37,13 +37,13 @@ class ErrorHandler {
         );
       case 'operation-not-allowed':
         return AuthException(
-          'This operation is not allowed',
+          error.message ?? 'This operation is not allowed',
           code: 'operation_not_allowed',
           originalError: error,
         );
       case 'requires-recent-login':
         return AuthException(
-          'Please log in again to continue',
+          error.message ?? 'Please log in again to continue',
           code: 'requires_recent_login',
           originalError: error,
         );

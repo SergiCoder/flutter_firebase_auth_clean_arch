@@ -1,6 +1,9 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, document_ignores
+// This file ignores the must_be_immutable warning because we need to modify
+// the mock objects during tests to simulate different behaviors.
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/error_handler.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/data/repositories/firebase_auth_repository.dart';
@@ -26,12 +29,18 @@ class TestErrorHandler implements ErrorHandler {
   const TestErrorHandler();
 
   @override
-  AppException handleError(dynamic error) {
+  AppException handleError(
+    dynamic error, {
+    BuildContext? context,
+  }) {
     return const UnexpectedException(message: 'Test general error');
   }
 
   @override
-  AppException handleFirebaseAuthError(FirebaseAuthException error) {
+  AppException handleFirebaseAuthError(
+    FirebaseAuthException error, {
+    BuildContext? context,
+  }) {
     return InvalidCredentialsException(
       message: 'Test auth error',
       originalError: error,
@@ -39,8 +48,15 @@ class TestErrorHandler implements ErrorHandler {
   }
 
   @override
-  AppException handleFirebaseError(FirebaseException error) {
+  AppException handleFirebaseError(
+    FirebaseException error, {
+    BuildContext? context,
+  }) {
     return const DataException('Test firebase error');
+  }
+
+  String getLocalizedErrorMessage(String errorMessage, BuildContext context) {
+    return 'Test localized error message';
   }
 }
 
@@ -126,7 +142,7 @@ void main() {
       });
 
       test(
-          'throws InvalidCredentialsException when FirebaseAuthException occurs',
+          '''throws InvalidCredentialsException when FirebaseAuthException occurs''',
           () async {
         // Arrange
         final authException = MockFirebaseAuthException(
@@ -197,7 +213,7 @@ void main() {
       });
 
       test(
-          'throws InvalidCredentialsException when FirebaseAuthException occurs',
+          '''throws InvalidCredentialsException when FirebaseAuthException occurs''',
           () async {
         // Arrange
         final authException = MockFirebaseAuthException(

@@ -161,7 +161,7 @@ void main() {
 
         // Assert
         expect(result, isA<AuthException>());
-        expect(result.message, equals('This operation is not allowed'));
+        expect(result.message, equals('This operation is not allowed.'));
         expect(result.code, equals('operation_not_allowed'));
         expect(result.originalError, equals(exception));
       });
@@ -178,7 +178,8 @@ void main() {
 
         // Assert
         expect(result, isA<AuthException>());
-        expect(result.message, equals('Please log in again to continue'));
+        expect(result.message,
+            equals('This operation requires recent authentication.'));
         expect(result.code, equals('requires_recent_login'));
         expect(result.originalError, equals(exception));
       });

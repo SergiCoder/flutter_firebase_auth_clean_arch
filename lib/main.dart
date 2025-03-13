@@ -55,7 +55,7 @@ class MyApp extends HookConsumerWidget {
     // Get the auth router notifier from the provider
     final authNotifier = ref.watch(authRouterNotifierProvider);
 
-    // Get the locale provider from the provider
+    // Get the locale provider from the provider and watch for changes
     final localeProvider = ref.watch(localeProviderProvider);
 
     // Create the router with the auth notifier
@@ -64,6 +64,8 @@ class MyApp extends HookConsumerWidget {
     );
 
     return MaterialApp.router(
+      // The mode banner displays above the translation widget
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
       // Localization setup
       localizationsDelegates: AppLocalization.localizationDelegates,

@@ -1,46 +1,71 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
+import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 import 'login_screen_test.mocks.dart';
 import 'mocks/mock_go_router.dart';
+
+// Mock SignInWithEmailAndPasswordUseCase manually
+class MockSignInWithEmailAndPasswordUseCase extends Mock
+    implements SignInWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
+
+// Create a test login notifier that allows direct state manipulation
+class TestLoginNotifier extends LoginNotifier {
+  TestLoginNotifier({required super.signInUseCase});
+
+  @override
+  void updateState(LoginState newState) {
+    state = newState;
+  }
+}
 
 @GenerateMocks([AuthRepository])
 void main() {
   group('Auth Navigation Tests', () {
     late MockAuthRepository mockAuthRepository;
     late MockGoRouter mockGoRouter;
-    late ProviderContainer container;
+    late MockSignInWithEmailAndPasswordUseCase mockSignInUseCase;
+    late TestLoginNotifier testLoginNotifier;
     late Widget testWidget;
 
     setUp(() {
       mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
-
-      // Create a provider container with mocked dependencies
-      container = ProviderContainer(
-        overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
-        ],
-      );
+      mockSignInUseCase = MockSignInWithEmailAndPasswordUseCase();
+      testLoginNotifier = TestLoginNotifier(signInUseCase: mockSignInUseCase);
 
       // Create a test widget with the necessary providers and localization
       testWidget = MaterialApp(
         localizationsDelegates: AppLocalization.localizationDelegates,
         supportedLocales: AppLocalization.supportedLocales,
-        home: UncontrolledProviderScope(
-          container: container,
+        home: ProviderScope(
+          overrides: [
+            loginProvider.overrideWith((_) => testLoginNotifier),
+            errorMessageLocalizerProviderOverride,
+          ],
           child: MockGoRouterProvider(
             router: mockGoRouter,
             child: const LoginScreen(),
           ),
         ),
       );
-
-      addTearDown(container.dispose);
     });
 
     testWidgets('shows login screen initially', (tester) async {
@@ -62,7 +87,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to loading
-      container.read(loginProvider.notifier).state = const LoginLoading();
+      testLoginNotifier.updateState(const LoginLoading());
 
       // Act
       await tester.pump();
@@ -78,14 +103,19 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to error
-      container.read(loginProvider.notifier).state =
-          const LoginError(errorMessage);
+      testLoginNotifier.updateState(const LoginError(errorMessage));
 
       // Act
       await tester.pump();
 
       // Assert - Should show error message
-      expect(find.text(errorMessage), findsOneWidget);
+      expect(find.byType(ErrorDisplayWidget), findsOneWidget);
+
+      // Verify the error message is passed to the ErrorDisplayWidget
+      final errorWidget = tester.widget<ErrorDisplayWidget>(
+        find.byType(ErrorDisplayWidget),
+      );
+      expect(errorWidget.errorMessage, equals(errorMessage));
     });
 
     testWidgets('can tap register button', (tester) async {

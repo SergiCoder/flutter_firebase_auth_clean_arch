@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -9,7 +10,11 @@ class TestAuthRepository implements AuthRepository {
   Exception? exceptionToThrow;
 
   @override
-  Future<void> signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(
+    String email,
+    String password, {
+    BuildContext? context,
+  }) async {
     signInCalled = true;
     emailPassed = email;
     passwordPassed = password;
@@ -20,7 +25,11 @@ class TestAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> createUserWithEmailAndPassword(String email, String password) {
+  Future<void> createUserWithEmailAndPassword(
+    String email,
+    String password, {
+    BuildContext? context,
+  }) {
     throw UnimplementedError();
   }
 
@@ -30,7 +39,7 @@ class TestAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<void> signOut() {
+  Future<void> signOut({BuildContext? context}) {
     throw UnimplementedError();
   }
 

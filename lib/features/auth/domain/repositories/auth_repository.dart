@@ -4,10 +4,16 @@ abstract class AuthRepository {
   Future<bool> isAuthenticated();
 
   /// Signs in a user with email and password
-  Future<void> signInWithEmailAndPassword(String email, String password);
+  Future<void> signInWithEmailAndPassword(
+    String email,
+    String password,
+  );
 
   /// Creates a new user with email and password
-  Future<void> createUserWithEmailAndPassword(String email, String password);
+  Future<void> createUserWithEmailAndPassword(
+    String email,
+    String password,
+  );
 
   /// Signs out the current user
   Future<void> signOut();

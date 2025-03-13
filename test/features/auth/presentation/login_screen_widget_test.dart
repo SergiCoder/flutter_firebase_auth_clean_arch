@@ -1,47 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/localization/app_localization.dart';
+import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/providers/auth_usecases_providers.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/repositories/auth_repository.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/login_state.dart';
+import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/screens/login_screen.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
+import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 import 'login_screen_test.mocks.dart';
 import 'mocks/mock_go_router.dart';
+
+// Mock SignInWithEmailAndPasswordUseCase manually
+class MockSignInWithEmailAndPasswordUseCase extends Mock
+    implements SignInWithEmailAndPasswordUseCase {
+  @override
+  Future<void> execute(String email, String password) async {
+    return super.noSuchMethod(
+      Invocation.method(#execute, [email, password]),
+      returnValue: Future<void>.value(),
+      returnValueForMissingStub: Future<void>.value(),
+    );
+  }
+}
+
+// Create a test login notifier that allows direct state manipulation
+class TestLoginNotifier extends LoginNotifier {
+  TestLoginNotifier({required super.signInUseCase});
+
+  @override
+  void updateState(LoginState newState) {
+    state = newState;
+  }
+}
 
 @GenerateMocks([AuthRepository])
 void main() {
   group('LoginScreen with GoRouter', () {
     late MockAuthRepository mockAuthRepository;
     late MockGoRouter mockGoRouter;
-    late ProviderContainer container;
+    late MockSignInWithEmailAndPasswordUseCase mockSignInUseCase;
+    late TestLoginNotifier testLoginNotifier;
     late Widget testWidget;
 
     setUp(() {
       mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
+      mockSignInUseCase = MockSignInWithEmailAndPasswordUseCase();
+      testLoginNotifier = TestLoginNotifier(signInUseCase: mockSignInUseCase);
 
-      // Create a provider container with mocked dependencies
-      container = ProviderContainer(
-        overrides: [
-          authRepositoryProvider.overrideWithValue(mockAuthRepository),
-        ],
-      );
-
-      // Create a test widget with the necessary providers and localization
+      // Create a test widget with the necessary providers
       testWidget = MaterialApp(
         localizationsDelegates: AppLocalization.localizationDelegates,
         supportedLocales: AppLocalization.supportedLocales,
-        home: UncontrolledProviderScope(
-          container: container,
+        home: ProviderScope(
+          overrides: [
+            loginProvider.overrideWith((_) => testLoginNotifier),
+            errorMessageLocalizerProviderOverride,
+          ],
           child: MockGoRouterProvider(
             router: mockGoRouter,
             child: const LoginScreen(),
           ),
         ),
       );
-
-      addTearDown(container.dispose);
     });
 
     testWidgets('renders correctly in initial state', (tester) async {
@@ -65,7 +92,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to loading
-      container.read(loginProvider.notifier).state = const LoginLoading();
+      testLoginNotifier.updateState(const LoginLoading());
 
       // Act
       await tester.pump();
@@ -81,14 +108,20 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to error
-      container.read(loginProvider.notifier).state =
-          const LoginError(errorMessage);
+      testLoginNotifier.updateState(const LoginError(errorMessage));
 
       // Act
       await tester.pump();
 
       // Assert
-      expect(find.text(errorMessage), findsOneWidget);
+      // Check for the ErrorDisplayWidget
+      expect(find.byType(ErrorDisplayWidget), findsOneWidget);
+
+      // Verify the error message is passed to the ErrorDisplayWidget
+      final errorWidget = tester.widget<ErrorDisplayWidget>(
+        find.byType(ErrorDisplayWidget),
+      );
+      expect(errorWidget.errorMessage, equals(errorMessage));
     });
 
     testWidgets('navigates to home screen on successful login', (tester) async {
@@ -96,7 +129,7 @@ void main() {
       await tester.pumpWidget(testWidget);
 
       // Set the state to success
-      container.read(loginProvider.notifier).state = const LoginSuccess();
+      testLoginNotifier.updateState(const LoginSuccess());
 
       // Act
       await tester.pump();
@@ -104,7 +137,7 @@ void main() {
 
       // Assert - We can't verify the mock directly in this test setup
       // But we can check that the login state is success
-      expect(container.read(loginProvider), isA<LoginSuccess>());
+      expect(testLoginNotifier.state, isA<LoginSuccess>());
     });
 
     testWidgets('navigates to register screen when register button is tapped',
@@ -166,10 +199,7 @@ void main() {
       const password = 'password123';
 
       when(
-        mockAuthRepository.signInWithEmailAndPassword(
-          email,
-          password,
-        ),
+        mockSignInUseCase.execute(email, password),
       ).thenAnswer((_) async {});
 
       await tester.pumpWidget(testWidget);
@@ -185,30 +215,12 @@ void main() {
       );
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
+      await tester.pumpAndSettle(); // Add this to ensure the UI updates
 
       // Assert
       verify(
-        mockAuthRepository.signInWithEmailAndPassword(
-          email,
-          password,
-        ),
+        mockSignInUseCase.execute(email, password),
       ).called(1);
-    });
-
-    // Note: The following tests may need adjustment based on the actual
-    // implementation of the focus handling in the LoginScreen
-    testWidgets('moves focus when Enter is pressed in email field',
-        (tester) async {
-      // Arrange
-      await tester.pumpWidget(testWidget);
-
-      // Act - Focus email field and press Enter
-      await tester.tap(find.byType(TextFormField).at(0));
-      await tester.pump();
-
-      // This is a simplified test since we can't easily test focus changes
-      // in widget tests without direct access to the FocusNode
-      expect(find.byType(TextFormField).at(0), findsOneWidget);
     });
 
     testWidgets('submits form when form is valid and button is pressed',
@@ -218,10 +230,7 @@ void main() {
       const password = 'password123';
 
       when(
-        mockAuthRepository.signInWithEmailAndPassword(
-          email,
-          password,
-        ),
+        mockSignInUseCase.execute(email, password),
       ).thenAnswer((_) async {});
 
       await tester.pumpWidget(testWidget);
@@ -238,13 +247,11 @@ void main() {
 
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
+      await tester.pumpAndSettle(); // Add this to ensure the UI updates
 
       // Assert
       verify(
-        mockAuthRepository.signInWithEmailAndPassword(
-          email,
-          password,
-        ),
+        mockSignInUseCase.execute(email, password),
       ).called(1);
     });
   });

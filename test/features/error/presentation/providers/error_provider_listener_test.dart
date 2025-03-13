@@ -138,7 +138,7 @@ void main() {
                             ? 'Processing'
                             : errorState is ErrorHandled
                                 ? 'Handled'
-                                : 'Failed: ${(errorState as ErrorFailed).message}',
+                                : '''Failed: ${(errorState as ErrorFailed).message}''',
                   ),
                 ),
                 floatingActionButton: FloatingActionButton(

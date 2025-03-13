@@ -34,7 +34,10 @@ class HomeScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalization.of(context).homeTitle),
+        title: const Text('Home'),
+        actions: const [
+          LanguageSelectorWidget(),
+        ],
       ),
       body: _buildBody(context, ref, homeState),
     );
@@ -65,7 +68,7 @@ class HomeScreen extends HookConsumerWidget {
                   context.goRoute(AppRoute.login);
                 }
               },
-              child: Text(AppLocalization.of(context).logoutButton),
+              child: const Text('Logout'),
             ),
           ],
         ),
@@ -77,7 +80,7 @@ class HomeScreen extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text(AppLocalization.of(context).loginFailed),
+            Text(AppLocalization.of(context).invalidCredentials),
             ElevatedButton(
               onPressed: () {
                 if (context.mounted) {
@@ -99,7 +102,7 @@ class HomeScreen extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                AppLocalization.of(context).welcomeMessage(state.email),
+                'Welcome, ${state.email}!',
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
@@ -110,7 +113,7 @@ class HomeScreen extends HookConsumerWidget {
                     context.goRoute(AppRoute.login);
                   }
                 },
-                child: Text(AppLocalization.of(context).logoutButton),
+                child: const Text('Logout'),
               ),
             ],
           ),

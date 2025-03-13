@@ -55,6 +55,9 @@ class LoginScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).loginTitle),
+        actions: const [
+          LanguageSelectorWidget(),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
@@ -156,6 +159,7 @@ class LoginScreen extends HookConsumerWidget {
             const Spacer(flex: 4),
           TextFormField(
             controller: emailController,
+            focusNode: emailFocusNode,
             decoration: InputDecoration(
               labelText: AppLocalization.of(context).email,
               border: const OutlineInputBorder(),

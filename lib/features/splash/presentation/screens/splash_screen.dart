@@ -54,6 +54,9 @@ class SplashScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalization.of(context).appTitle),
+        actions: const [
+          LanguageSelectorWidget(),
+        ],
       ),
       body: Center(
         child: _buildBody(context, splashState, ref),

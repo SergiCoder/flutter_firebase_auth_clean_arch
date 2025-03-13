@@ -35,7 +35,7 @@ void main() {
     });
 
     test(
-        'splashRepositoryProvider throws UnimplementedError when not overridden',
+        '''splashRepositoryProvider throws UnimplementedError when not overridden''',
         () {
       // Create a container without overrides
       final emptyContainer = ProviderContainer();
@@ -61,7 +61,7 @@ void main() {
     });
 
     test(
-        'someSplashOperationUseCaseProvider uses the repository from splashRepositoryProvider',
+        '''someSplashOperationUseCaseProvider uses the repository from splashRepositoryProvider''',
         () async {
       // Arrange
       when(mockSplashRepository.someSplashOperation()).thenAnswer((_) async {});

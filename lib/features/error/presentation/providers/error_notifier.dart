@@ -1,5 +1,6 @@
 import 'dart:developer' as developer;
 
+import 'package:flutter_firebase_auth_clean_arch/core/error/exceptions.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/providers/state/error_state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -7,14 +8,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class ErrorNotifier extends StateNotifier<ErrorState> {
   /// Creates a new [ErrorNotifier]
   ///
-  /// [forceException] can be set to true to force an exception during processing
-  /// This is primarily used for testing the catch block
+  /// [forceException] can be set to true to force an exception during
+  /// processing. This is primarily used for testing the catch block
   ErrorNotifier({this.forceException = false}) : super(const ErrorInitial());
 
   /// Flag to force an exception during processing (for testing)
   final bool forceException;
 
-  /// Processes an error
+  /// Processes an error message
   Future<void> processError(String errorMessage) async {
     state = const ErrorProcessing();
 
@@ -40,6 +41,38 @@ class ErrorNotifier extends StateNotifier<ErrorState> {
       // Log the error handling failure
       developer.log(
         'Error processing failed: $errorMessage',
+        name: 'ErrorNotifier',
+        error: e,
+      );
+    }
+  }
+
+  /// Processes an [AppException]
+  Future<void> processException(AppException exception) async {
+    state = const ErrorProcessing();
+
+    try {
+      // Simulate error processing
+      if (forceException) {
+        throw Exception('Forced exception for testing');
+      }
+      await Future<void>.delayed(const Duration(seconds: 1));
+
+      // Successfully handled the error
+      state = const ErrorHandled();
+
+      // Log successful error handling
+      developer.log(
+        'Exception successfully processed: ${exception.message}',
+        name: 'ErrorNotifier',
+      );
+    } catch (e) {
+      // Failed to handle the error
+      state = ErrorFailed(e.toString());
+
+      // Log the error handling failure
+      developer.log(
+        'Exception processing failed: ${exception.message}',
         name: 'ErrorNotifier',
         error: e,
       );

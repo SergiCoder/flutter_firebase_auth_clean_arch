@@ -1,7 +1,15 @@
 {
   "@@locale": "es",
   
-  "appTitle": "App de Autenticación",
+  "appTitle": "Aplicación de Autenticación",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  
+  "changeLanguage": "Cambiar idioma",
+  "@changeLanguage": {
+    "description": "Label for the language selector button"
+  },
   
   "loginTitle": "Iniciar Sesión",
   
@@ -13,27 +21,13 @@
   
   "confirmPassword": "Confirmar Contraseña",
   
-  "forgotPassword": "¿Olvidaste tu contraseña?",
-  
-  "resetPassword": "Restablecer Contraseña",
-  
   "loginButton": "Iniciar Sesión",
   
   "registerButton": "Registrarse",
   
-  "logoutButton": "Cerrar Sesión",
-  
-  "retryButton": "Reintentar",
-  
   "dontHaveAccount": "¿No tienes una cuenta?",
   
   "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-  
-  "resetPasswordInstructions": "Ingresa tu correo electrónico y te enviaremos instrucciones para restablecer tu contraseña.",
-  
-  "sendResetLink": "Enviar Enlace de Restablecimiento",
-  
-  "resetLinkSent": "Enlace de restablecimiento enviado a tu correo",
   
   "invalidEmail": "Por favor ingresa un correo electrónico válido",
   
@@ -43,35 +37,29 @@
   
   "passwordsDontMatch": "Las contraseñas no coinciden",
   
-  "loginFailed": "Error al iniciar sesión. Por favor verifica tus credenciales.",
-  
-  "registrationFailed": "Error al registrarse. Por favor intenta de nuevo.",
-  
-  "resetPasswordFailed": "Error al enviar el enlace de restablecimiento. Por favor intenta de nuevo.",
-  
-  "welcomeMessage": "Bienvenido, {email}!",
-  
-  "profileTitle": "Perfil",
-  
-  "homeTitle": "Inicio",
-  
-  "settingsTitle": "Configuración",
-  
-  "darkMode": "Modo Oscuro",
-  
-  "language": "Idioma",
-  
-  "signInWithGoogle": "Iniciar sesión con Google",
-  
-  "signInWithApple": "Iniciar sesión con Apple",
-  
-  "or": "O",
-  
-  "continueAsGuest": "Continuar como Invitado",
-  
   "errorPageTitle": "Página No Encontrada",
   
   "pageNotFoundMessage": "La página que buscas no existe",
   
-  "goBack": "Volver"
+  "goBack": "Volver",
+
+  "invalidCredentials": "Correo electrónico o contraseña inválidos",
+  
+  "emailAlreadyInUse": "Este correo electrónico ya está en uso",
+  
+  "weakPassword": "La contraseña proporcionada es demasiado débil",
+  
+  "operationNotAllowed": "Esta operación no está permitida",
+  
+  "requiresRecentLogin": "Por favor inicia sesión de nuevo para continuar",
+  
+  "authenticationError": "Ocurrió un error de autenticación",
+  
+  "permissionDenied": "Permiso denegado",
+  
+  "notFound": "Los datos solicitados no fueron encontrados",
+  
+  "databaseError": "Ocurrió un error en la base de datos",
+  
+  "unexpectedError": "Ocurrió un error inesperado"
 } 
