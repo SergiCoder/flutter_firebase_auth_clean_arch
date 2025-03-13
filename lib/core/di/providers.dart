@@ -31,19 +31,19 @@ import 'package:flutter_firebase_auth_clean_arch/'
 final overrides = [
   // Override the domain layer's authRepositoryProvider with the data layer's
   // implementation
-  auth_domain.authRepositoryProvider.overrideWith(
-    (ref) => ref.watch(auth_data.authRepositoryImplProvider),
+  auth_domain.authRepositoryDomainProvider.overrideWith(
+    (ref) => ref.watch(auth_data.authRepositoryProvider),
   ),
 
   // Override the domain layer's homeRepositoryProvider with the data layer's
   // implementation
-  home_domain.homeRepositoryProvider.overrideWith(
-    (ref) => ref.watch(home_data.homeRepositoryImplProvider),
+  home_domain.homeRepositoryDomainProvider.overrideWith(
+    (ref) => ref.watch(home_data.homeRepositoryProvider),
   ),
 
   // Override the domain layer's splashRepositoryProvider with the data layer's
   // implementation
-  splash_domain.splashRepositoryProvider.overrideWith(
-    (ref) => ref.watch(splash_data.splashRepositoryImplProvider),
+  splash_domain.splashRepositoryDomainProvider.overrideWith(
+    (ref) => ref.watch(splash_data.splashRepositoryProvider),
   ),
 ];

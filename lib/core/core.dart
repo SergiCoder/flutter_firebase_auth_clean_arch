@@ -1,10 +1,9 @@
-export 'di/providers.dart';
+export 'di/di.dart';
 export 'error/error.dart';
-export 'firebase/firebase_options.dart';
+export 'firebase/firebase.dart';
 export 'localization/localization.dart';
 export 'presentation/presentation.dart';
 export 'routing/routing.dart';
-export 'theme/app_theme.dart';
+export 'theme/theme.dart';
 // Use conditional export to avoid web-specific code in non-web environments
-export 'url_strategy/default_url_strategy.dart'
-    if (dart.library.html) 'url_strategy/web_url_strategy.dart';
+export 'url_strategy/url_strategy.dart';
