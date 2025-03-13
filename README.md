@@ -48,6 +48,8 @@ The project leverages Riverpod for state management and dependency injection:
 - **StateNotifier**: Used for complex state management with immutable state objects
 - **Provider Scopes**: Properly scoped providers to prevent unnecessary rebuilds
 - **Dependency Injection**: Clean hierarchical provider dependencies
+- **Provider Organization**: Consistent naming conventions (`xxxProvider`) and organization through barrel files
+- **AutoDispose**: Strategic use of `autoDispose` based on actual lifecycle needs
 
 Example of provider usage:
 ```dart
@@ -137,6 +139,39 @@ lib/
 └── main.dart                 # Application entry point
 ```
 
+## Barrel Files and Export Patterns
+
+The project uses a consistent barrel file pattern to organize and export code:
+
+- **Feature-Level Barrels**: Each feature has a main barrel file (e.g., `auth.dart`) that exports all its layers
+- **Layer-Level Barrels**: Each layer within a feature has its own barrel file (e.g., `data.dart`, `domain.dart`)
+- **Component-Level Barrels**: Groups of related components have dedicated barrel files (e.g., `providers.dart`, `repositories.dart`)
+
+This pattern provides several benefits:
+- **Clean Imports**: Allows importing multiple related components with a single import statement
+- **Encapsulation**: Hides internal implementation details while exposing only what's needed
+- **Maintainability**: Makes it easier to refactor and reorganize code without breaking imports
+- **Discoverability**: Provides a clear entry point for each feature and layer
+
+Example of the barrel file hierarchy:
+```dart
+// Feature-level barrel (auth.dart)
+export 'data/data.dart';
+export 'domain/domain.dart';
+export 'presentation/presentation.dart';
+
+// Layer-level barrel (domain.dart)
+export 'providers/providers.dart';
+export 'repositories/repositories.dart';
+export 'usecases/usecases.dart';
+
+// Component-level barrel (usecases.dart)
+export 'create_user_with_email_and_password_usecase.dart';
+export 'is_authenticated_usecase.dart';
+export 'sign_in_with_email_and_password_usecase.dart';
+export 'sign_out_usecase.dart';
+```
+
 ## Authentication Flow
 
 The application implements a complete authentication flow:
@@ -212,6 +247,8 @@ For test coverage:
 - **Testability**: Dependencies are injected for easy mocking
 - **Code Documentation**: Comprehensive documentation for public APIs
 - **Error Handling**: Robust error handling with user-friendly messages
+- **Organized Exports**: Consistent barrel file pattern for clean imports and better code organization
+- **Resource Management**: Proper lifecycle management with strategic use of `autoDispose`
 
 ## License
 
