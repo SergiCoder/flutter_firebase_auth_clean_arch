@@ -15,6 +15,12 @@
   
   "registerTitle": "Registrarse",
   
+  "homeTitle": "Inicio",
+  
+  "welcome": "¡Bienvenido, {email}!",
+  
+  "logoutButton": "Cerrar Sesión",
+  
   "email": "Correo Electrónico",
   
   "password": "Contraseña",

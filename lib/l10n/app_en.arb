@@ -21,6 +21,27 @@
     "description": "Title for the register screen"
   },
   
+  "homeTitle": "Home",
+  "@homeTitle": {
+    "description": "Title for the home screen"
+  },
+  
+  "welcome": "Welcome, {email}!",
+  "@welcome": {
+    "description": "Welcome message with user's email",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "user@example.com"
+      }
+    }
+  },
+  
+  "logoutButton": "Logout",
+  "@logoutButton": {
+    "description": "Text for logout button"
+  },
+  
   "email": "Email",
   "@email": {
     "description": "Label for email field"

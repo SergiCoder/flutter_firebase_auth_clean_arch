@@ -21,6 +21,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get registerTitle => 'Registrarse';
 
   @override
+  String get homeTitle => 'Inicio';
+
+  @override
+  String welcome(String email) {
+    return '¡Bienvenido, $email!';
+  }
+
+  @override
+  String get logoutButton => 'Cerrar Sesión';
+
+  @override
   String get email => 'Correo Electrónico';
 
   @override

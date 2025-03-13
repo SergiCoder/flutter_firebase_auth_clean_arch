@@ -119,6 +119,24 @@ abstract class AppLocalizations {
   /// **'Register'**
   String get registerTitle;
 
+  /// Title for the home screen
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTitle;
+
+  /// Welcome message with user's email
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome, {email}!'**
+  String welcome(String email);
+
+  /// Text for logout button
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logoutButton;
+
   /// Label for email field
   ///
   /// In en, this message translates to:
