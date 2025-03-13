@@ -31,5 +31,5 @@ final mockErrorMessageLocalizerProvider =
 /// Override the real provider with the mock for testing
 final errorMessageLocalizerProviderOverride =
     errorMessageLocalizerProvider.overrideWithProvider(
-  mockErrorMessageLocalizerProvider,
+  mockErrorMessageLocalizerProvider.call,
 );

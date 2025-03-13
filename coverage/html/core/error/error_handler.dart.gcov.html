@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">47</td>
-            <td class="headerCovTableEntry">47</td>
+            <td class="headerCovTableEntry">49</td>
+            <td class="headerCovTableEntry">49</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 21:17:05</td>
+            <td class="headerValue">2025-03-13 13:32:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -68,7 +68,7 @@
 <span id="L6"><span class="lineNum">       6</span>              : /// A centralized error handler for the application</span>
 <span id="L7"><span class="lineNum">       7</span>              : class ErrorHandler {</span>
 <span id="L8"><span class="lineNum">       8</span>              :   /// Creates a new [ErrorHandler]</span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          60 :   const ErrorHandler();</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          82 :   const ErrorHandler();</span></span>
 <span id="L10"><span class="lineNum">      10</span>              : </span>
 <span id="L11"><span class="lineNum">      11</span>              :   /// Maps Firebase Auth errors to domain exceptions</span>
 <span id="L12"><span class="lineNum">      12</span> <span class="tlaGNC">           1 :   AppException handleFirebaseAuthError(FirebaseAuthException error) {</span></span>
@@ -99,13 +99,13 @@
 <span id="L37"><span class="lineNum">      37</span>              :         );</span>
 <span id="L38"><span class="lineNum">      38</span> <span class="tlaGNC">           1 :       case 'operation-not-allowed':</span></span>
 <span id="L39"><span class="lineNum">      39</span> <span class="tlaGNC">           1 :         return AuthException(</span></span>
-<span id="L40"><span class="lineNum">      40</span>              :           'This operation is not allowed',</span>
+<span id="L40"><span class="lineNum">      40</span> <span class="tlaGNC">           1 :           error.message ?? 'This operation is not allowed',</span></span>
 <span id="L41"><span class="lineNum">      41</span>              :           code: 'operation_not_allowed',</span>
 <span id="L42"><span class="lineNum">      42</span>              :           originalError: error,</span>
 <span id="L43"><span class="lineNum">      43</span>              :         );</span>
 <span id="L44"><span class="lineNum">      44</span> <span class="tlaGNC">           1 :       case 'requires-recent-login':</span></span>
 <span id="L45"><span class="lineNum">      45</span> <span class="tlaGNC">           1 :         return AuthException(</span></span>
-<span id="L46"><span class="lineNum">      46</span>              :           'Please log in again to continue',</span>
+<span id="L46"><span class="lineNum">      46</span> <span class="tlaGNC">           1 :           error.message ?? 'Please log in again to continue',</span></span>
 <span id="L47"><span class="lineNum">      47</span>              :           code: 'requires_recent_login',</span>
 <span id="L48"><span class="lineNum">      48</span>              :           originalError: error,</span>
 <span id="L49"><span class="lineNum">      49</span>              :         );</span>

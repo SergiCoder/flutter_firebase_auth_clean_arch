@@ -1,12 +1,10 @@
+// ignore_for_file: use_setters_to_change_properties, document_ignores
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -33,7 +31,6 @@ class MockSignInWithEmailAndPasswordUseCase extends Mock
 class TestLoginNotifier extends LoginNotifier {
   TestLoginNotifier({required super.signInUseCase});
 
-  @override
   void updateState(LoginState newState) {
     state = newState;
   }
@@ -98,7 +95,8 @@ void main() {
           await tester.pump();
 
           // Verify that the password field is focused
-          // This is hard to test directly, so we'll just verify the test completes
+          // This is hard to test directly, so we'll just verify the test
+          // completes
           expect(true, isTrue);
         },
         zoneValues: testZoneValues,

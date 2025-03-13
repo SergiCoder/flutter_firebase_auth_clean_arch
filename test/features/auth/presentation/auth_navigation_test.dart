@@ -1,16 +1,14 @@
+// ignore_for_file: use_setters_to_change_properties, document_ignores
+
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/sign_in_with_email_and_password_usecase.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/login_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/login_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
-import 'login_screen_test.mocks.dart';
 import 'mocks/mock_go_router.dart';
 
 // Mock SignInWithEmailAndPasswordUseCase manually
@@ -30,7 +28,6 @@ class MockSignInWithEmailAndPasswordUseCase extends Mock
 class TestLoginNotifier extends LoginNotifier {
   TestLoginNotifier({required super.signInUseCase});
 
-  @override
   void updateState(LoginState newState) {
     state = newState;
   }
@@ -39,14 +36,12 @@ class TestLoginNotifier extends LoginNotifier {
 @GenerateMocks([AuthRepository])
 void main() {
   group('Auth Navigation Tests', () {
-    late MockAuthRepository mockAuthRepository;
     late MockGoRouter mockGoRouter;
     late MockSignInWithEmailAndPasswordUseCase mockSignInUseCase;
     late TestLoginNotifier testLoginNotifier;
     late Widget testWidget;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
       mockSignInUseCase = MockSignInWithEmailAndPasswordUseCase();
       testLoginNotifier = TestLoginNotifier(signInUseCase: mockSignInUseCase);

@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntryHi">100.0&nbsp;%</td>
-            <td class="headerCovTableEntry">7</td>
-            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntry">9</td>
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 21:17:05</td>
+            <td class="headerValue">2025-03-13 13:32:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -61,11 +61,11 @@
 <pre class="sourceHeading">            Line data    Source code</pre>
 <pre class="source">
 <span id="L1"><span class="lineNum">       1</span>              : import 'package:flutter/material.dart';</span>
-<span id="L2"><span class="lineNum">       2</span>              : import 'package:flutter_firebase_auth_clean_arch/core/presentation/hooks/use_format_error_message.dart';</span>
-<span id="L3"><span class="lineNum">       3</span>              : import 'package:flutter_hooks/flutter_hooks.dart';</span>
+<span id="L2"><span class="lineNum">       2</span>              : import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/presentation.dart';</span>
+<span id="L3"><span class="lineNum">       3</span>              : import 'package:hooks_riverpod/hooks_riverpod.dart';</span>
 <span id="L4"><span class="lineNum">       4</span>              : </span>
 <span id="L5"><span class="lineNum">       5</span>              : /// A widget for displaying error messages with a consistent UI.</span>
-<span id="L6"><span class="lineNum">       6</span>              : class ErrorDisplayWidget extends HookWidget {</span>
+<span id="L6"><span class="lineNum">       6</span>              : class ErrorDisplayWidget extends ConsumerWidget {</span>
 <span id="L7"><span class="lineNum">       7</span>              :   /// Creates a new [ErrorDisplayWidget].</span>
 <span id="L8"><span class="lineNum">       8</span> <span class="tlaGNC">          11 :   const ErrorDisplayWidget({</span></span>
 <span id="L9"><span class="lineNum">       9</span>              :     required this.errorMessage,</span>
@@ -76,22 +76,28 @@
 <span id="L14"><span class="lineNum">      14</span>              :   final String errorMessage;</span>
 <span id="L15"><span class="lineNum">      15</span>              : </span>
 <span id="L16"><span class="lineNum">      16</span> <span class="tlaGNC">          11 :   @override</span></span>
-<span id="L17"><span class="lineNum">      17</span>              :   Widget build(BuildContext context) {</span>
-<span id="L18"><span class="lineNum">      18</span>              :     // Format the error message to be more user-friendly</span>
-<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          22 :     final formattedMessage = useFormatErrorMessage(errorMessage);</span></span>
-<span id="L20"><span class="lineNum">      20</span>              : </span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          11 :     return Padding(</span></span>
-<span id="L22"><span class="lineNum">      22</span>              :       padding: const EdgeInsets.all(24),</span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          11 :       child: Text(</span></span>
-<span id="L24"><span class="lineNum">      24</span>              :         formattedMessage,</span>
-<span id="L25"><span class="lineNum">      25</span>              :         textAlign: TextAlign.center,</span>
-<span id="L26"><span class="lineNum">      26</span> <span class="tlaGNC">          44 :         style: Theme.of(context).textTheme.titleMedium?.copyWith(</span></span>
-<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          33 :               color: Theme.of(context).colorScheme.error,</span></span>
-<span id="L28"><span class="lineNum">      28</span>              :             ),</span>
-<span id="L29"><span class="lineNum">      29</span>              :       ),</span>
-<span id="L30"><span class="lineNum">      30</span>              :     );</span>
-<span id="L31"><span class="lineNum">      31</span>              :   }</span>
-<span id="L32"><span class="lineNum">      32</span>              : }</span>
+<span id="L17"><span class="lineNum">      17</span>              :   Widget build(BuildContext context, WidgetRef ref) {</span>
+<span id="L18"><span class="lineNum">      18</span>              :     // Get the error message localizer from the provider</span>
+<span id="L19"><span class="lineNum">      19</span> <span class="tlaGNC">          33 :     final localizer = ref.watch(errorMessageLocalizerProvider(context));</span></span>
+<span id="L20"><span class="lineNum">      20</span>              :     // Get the localized error message</span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">          22 :     final localizedMessage = localizer.localizeRawErrorMessage(errorMessage);</span></span>
+<span id="L22"><span class="lineNum">      22</span>              : </span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          11 :     return Padding(</span></span>
+<span id="L24"><span class="lineNum">      24</span>              :       padding: const EdgeInsets.all(24),</span>
+<span id="L25"><span class="lineNum">      25</span>              :       // Use IgnorePointer to ensure this widget doesn't capture any input</span>
+<span id="L26"><span class="lineNum">      26</span>              :       // events</span>
+<span id="L27"><span class="lineNum">      27</span> <span class="tlaGNC">          11 :       child: IgnorePointer(</span></span>
+<span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">          11 :         child: Text(</span></span>
+<span id="L29"><span class="lineNum">      29</span>              :           localizedMessage,</span>
+<span id="L30"><span class="lineNum">      30</span>              :           textAlign: TextAlign.center,</span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          44 :           style: Theme.of(context).textTheme.titleMedium?.copyWith(</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">          33 :                 color: Theme.of(context).colorScheme.error,</span></span>
+<span id="L33"><span class="lineNum">      33</span>              :               ),</span>
+<span id="L34"><span class="lineNum">      34</span>              :         ),</span>
+<span id="L35"><span class="lineNum">      35</span>              :       ),</span>
+<span id="L36"><span class="lineNum">      36</span>              :     );</span>
+<span id="L37"><span class="lineNum">      37</span>              :   }</span>
+<span id="L38"><span class="lineNum">      38</span>              : }</span>
         </pre>
               </td>
             </tr>

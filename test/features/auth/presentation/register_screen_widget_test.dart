@@ -1,10 +1,8 @@
+// ignore_for_file: use_setters_to_change_properties, document_ignores
+
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/create_user_with_email_and_password_usecase.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -12,7 +10,6 @@ import 'package:mockito/mockito.dart';
 
 import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 import 'mocks/mock_go_router.dart';
-import 'register_screen_widget_test.mocks.dart';
 
 // Mock CreateUserWithEmailAndPasswordUseCase manually
 class MockCreateUserWithEmailAndPasswordUseCase extends Mock
@@ -31,7 +28,6 @@ class MockCreateUserWithEmailAndPasswordUseCase extends Mock
 class TestRegisterNotifier extends RegisterNotifier {
   TestRegisterNotifier({required super.createUserUseCase});
 
-  @override
   void updateState(RegisterState newState) {
     state = newState;
   }
@@ -40,14 +36,12 @@ class TestRegisterNotifier extends RegisterNotifier {
 @GenerateMocks([AuthRepository])
 void main() {
   group('RegisterScreen with GoRouter', () {
-    late MockAuthRepository mockAuthRepository;
     late MockGoRouter mockGoRouter;
     late MockCreateUserWithEmailAndPasswordUseCase mockCreateUserUseCase;
     late TestRegisterNotifier testRegisterNotifier;
     late Widget testWidget;
 
     setUp(() {
-      mockAuthRepository = MockAuthRepository();
       mockGoRouter = MockGoRouter();
       mockCreateUserUseCase = MockCreateUserWithEmailAndPasswordUseCase();
       testRegisterNotifier =

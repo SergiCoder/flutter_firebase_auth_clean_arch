@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 21:17:05</td>
+            <td class="headerValue">2025-03-13 13:32:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -89,12 +89,12 @@
 <span id="L27"><span class="lineNum">      27</span>              : }) {</span>
 <span id="L28"><span class="lineNum">      28</span> <span class="tlaGNC">           7 :   return useMemoized(</span></span>
 <span id="L29"><span class="lineNum">      29</span> <span class="tlaGNC">           7 :     () {</span></span>
-<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           5 :       return (String? value) {</span></span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           5 :         if (value == null || value.isEmpty) {</span></span>
+<span id="L30"><span class="lineNum">      30</span> <span class="tlaGNC">           4 :       return (String? value) {</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           4 :         if (value == null || value.isEmpty) {</span></span>
 <span id="L32"><span class="lineNum">      32</span>              :           return requiredFieldMessage;</span>
 <span id="L33"><span class="lineNum">      33</span>              :         }</span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           5 :         final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');</span></span>
-<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           5 :         if (!emailRegex.hasMatch(value)) {</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           3 :         final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');</span></span>
+<span id="L35"><span class="lineNum">      35</span> <span class="tlaGNC">           3 :         if (!emailRegex.hasMatch(value)) {</span></span>
 <span id="L36"><span class="lineNum">      36</span>              :           return invalidEmailMessage;</span>
 <span id="L37"><span class="lineNum">      37</span>              :         }</span>
 <span id="L38"><span class="lineNum">      38</span>              :         return null;</span>

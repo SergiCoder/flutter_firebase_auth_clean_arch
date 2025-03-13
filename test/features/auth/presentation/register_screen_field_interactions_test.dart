@@ -1,12 +1,10 @@
+// ignore_for_file: use_setters_to_change_properties, document_ignores
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_auth_clean_arch/core/core.dart';
-import 'package:flutter_firebase_auth_clean_arch/core/presentation/widgets/error_widget.dart';
 import 'package:flutter_firebase_auth_clean_arch/features/auth/auth.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/domain/usecases/create_user_with_email_and_password_usecase.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/register_notifier.dart';
-import 'package:flutter_firebase_auth_clean_arch/features/auth/presentation/providers/state/register_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:mockito/annotations.dart';
@@ -33,7 +31,6 @@ class MockCreateUserWithEmailAndPasswordUseCase extends Mock
 class TestRegisterNotifier extends RegisterNotifier {
   TestRegisterNotifier({required super.createUserUseCase});
 
-  @override
   void updateState(RegisterState newState) {
     state = newState;
   }
@@ -134,8 +131,10 @@ void main() {
           await tester.pump();
 
           // Verify that validation errors are shown
-          expect(find.text('Password must be at least 6 characters'),
-              findsWidgets);
+          expect(
+            find.text('Password must be at least 6 characters'),
+            findsWidgets,
+          );
         },
         zoneValues: testZoneValues,
       );

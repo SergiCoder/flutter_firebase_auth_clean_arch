@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 21:17:05</td>
+            <td class="headerValue">2025-03-13 13:32:53</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -68,7 +68,7 @@
 <span id="L6"><span class="lineNum">       6</span>              : /// This is a placeholder that should be overridden in the composition root.</span>
 <span id="L7"><span class="lineNum">       7</span>              : /// This approach maintains clean architecture by ensuring the domain layer</span>
 <span id="L8"><span class="lineNum">       8</span>              : /// doesn't depend on the data layer.</span>
-<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          36 : final authRepositoryProvider = Provider&lt;AuthRepository&gt;(</span></span>
+<span id="L9"><span class="lineNum">       9</span> <span class="tlaGNC">          27 : final authRepositoryProvider = Provider&lt;AuthRepository&gt;(</span></span>
 <span id="L10"><span class="lineNum">      10</span> <span class="tlaGNC">           2 :   (ref) =&gt; throw UnimplementedError(</span></span>
 <span id="L11"><span class="lineNum">      11</span>              :     'authRepositoryProvider has not been overridden. '</span>
 <span id="L12"><span class="lineNum">      12</span>              :     'Make sure to override this provider in the composition root.',</span>
@@ -79,10 +79,10 @@
 <span id="L17"><span class="lineNum">      17</span>              : ///</span>
 <span id="L18"><span class="lineNum">      18</span>              : /// This provider creates and exposes a [SignInWithEmailAndPasswordUseCase]</span>
 <span id="L19"><span class="lineNum">      19</span>              : /// instance that can be used throughout the application.</span>
-<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          16 : final signInWithEmailAndPasswordUseCaseProvider =</span></span>
-<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           8 :     Provider&lt;SignInWithEmailAndPasswordUseCase&gt;(</span></span>
-<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">          12 :   (ref) =&gt; SignInWithEmailAndPasswordUseCase(</span></span>
-<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">          12 :     authRepository: ref.watch(authRepositoryProvider),</span></span>
+<span id="L20"><span class="lineNum">      20</span> <span class="tlaGNC">          10 : final signInWithEmailAndPasswordUseCaseProvider =</span></span>
+<span id="L21"><span class="lineNum">      21</span> <span class="tlaGNC">           5 :     Provider&lt;SignInWithEmailAndPasswordUseCase&gt;(</span></span>
+<span id="L22"><span class="lineNum">      22</span> <span class="tlaGNC">           6 :   (ref) =&gt; SignInWithEmailAndPasswordUseCase(</span></span>
+<span id="L23"><span class="lineNum">      23</span> <span class="tlaGNC">           6 :     authRepository: ref.watch(authRepositoryProvider),</span></span>
 <span id="L24"><span class="lineNum">      24</span>              :   ),</span>
 <span id="L25"><span class="lineNum">      25</span>              : );</span>
 <span id="L26"><span class="lineNum">      26</span>              : </span>
@@ -90,10 +90,10 @@
 <span id="L28"><span class="lineNum">      28</span>              : ///</span>
 <span id="L29"><span class="lineNum">      29</span>              : /// This provider creates and exposes a [CreateUserWithEmailAndPasswordUseCase]</span>
 <span id="L30"><span class="lineNum">      30</span>              : /// instance that can be used throughout the application.</span>
-<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">          12 : final createUserWithEmailAndPasswordUseCaseProvider =</span></span>
-<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           6 :     Provider&lt;CreateUserWithEmailAndPasswordUseCase&gt;(</span></span>
-<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">          12 :   (ref) =&gt; CreateUserWithEmailAndPasswordUseCase(</span></span>
-<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">          12 :     authRepository: ref.watch(authRepositoryProvider),</span></span>
+<span id="L31"><span class="lineNum">      31</span> <span class="tlaGNC">           8 : final createUserWithEmailAndPasswordUseCaseProvider =</span></span>
+<span id="L32"><span class="lineNum">      32</span> <span class="tlaGNC">           4 :     Provider&lt;CreateUserWithEmailAndPasswordUseCase&gt;(</span></span>
+<span id="L33"><span class="lineNum">      33</span> <span class="tlaGNC">           8 :   (ref) =&gt; CreateUserWithEmailAndPasswordUseCase(</span></span>
+<span id="L34"><span class="lineNum">      34</span> <span class="tlaGNC">           8 :     authRepository: ref.watch(authRepositoryProvider),</span></span>
 <span id="L35"><span class="lineNum">      35</span>              :   ),</span>
 <span id="L36"><span class="lineNum">      36</span>              : );</span>
 <span id="L37"><span class="lineNum">      37</span>              : </span>

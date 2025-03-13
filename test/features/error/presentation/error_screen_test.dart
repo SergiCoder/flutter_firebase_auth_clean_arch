@@ -6,9 +6,9 @@ import 'package:flutter_firebase_auth_clean_arch/features/error/presentation/scr
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 import '../../../core/routing/mock_go_router.dart';
 import '../../../core/routing/mock_go_router_provider.dart';
-import '../../../core/presentation/widgets/mock_error_message_localizer.dart';
 
 void main() {
   late MockGoRouter mockRouter;

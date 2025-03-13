@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Test Date:</td>
-            <td class="headerValue">2025-03-12 21:14:53</td>
+            <td class="headerValue">2025-03-13 13:24:05</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntryHi">-</td>
@@ -124,12 +124,12 @@
 <span id="L62"><span class="lineNum">      62</span>              : /// be consistent with the languages listed in the AppLocalizations.supportedLocales</span>
 <span id="L63"><span class="lineNum">      63</span>              : /// property.</span>
 <span id="L64"><span class="lineNum">      64</span>              : abstract class AppLocalizations {</span>
-<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          42 :   AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());</span></span>
+<span id="L65"><span class="lineNum">      65</span> <span class="tlaGNC">          36 :   AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());</span></span>
 <span id="L66"><span class="lineNum">      66</span>              : </span>
 <span id="L67"><span class="lineNum">      67</span>              :   final String localeName;</span>
 <span id="L68"><span class="lineNum">      68</span>              : </span>
-<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          13 :   static AppLocalizations of(BuildContext context) {</span></span>
-<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          13 :     return Localizations.of&lt;AppLocalizations&gt;(context, AppLocalizations)!;</span></span>
+<span id="L69"><span class="lineNum">      69</span> <span class="tlaGNC">          14 :   static AppLocalizations of(BuildContext context) {</span></span>
+<span id="L70"><span class="lineNum">      70</span> <span class="tlaGNC">          14 :     return Localizations.of&lt;AppLocalizations&gt;(context, AppLocalizations)!;</span></span>
 <span id="L71"><span class="lineNum">      71</span>              :   }</span>
 <span id="L72"><span class="lineNum">      72</span>              : </span>
 <span id="L73"><span class="lineNum">      73</span>              :   static const LocalizationsDelegate&lt;AppLocalizations&gt; delegate = _AppLocalizationsDelegate();</span>
@@ -163,254 +163,200 @@
 <span id="L101"><span class="lineNum">     101</span>              :   /// **'Authentication App'**</span>
 <span id="L102"><span class="lineNum">     102</span>              :   String get appTitle;</span>
 <span id="L103"><span class="lineNum">     103</span>              : </span>
-<span id="L104"><span class="lineNum">     104</span>              :   /// Title for the login screen</span>
+<span id="L104"><span class="lineNum">     104</span>              :   /// Label for the language selector button</span>
 <span id="L105"><span class="lineNum">     105</span>              :   ///</span>
 <span id="L106"><span class="lineNum">     106</span>              :   /// In en, this message translates to:</span>
-<span id="L107"><span class="lineNum">     107</span>              :   /// **'Login'**</span>
-<span id="L108"><span class="lineNum">     108</span>              :   String get loginTitle;</span>
+<span id="L107"><span class="lineNum">     107</span>              :   /// **'Change language'**</span>
+<span id="L108"><span class="lineNum">     108</span>              :   String get changeLanguage;</span>
 <span id="L109"><span class="lineNum">     109</span>              : </span>
-<span id="L110"><span class="lineNum">     110</span>              :   /// Title for the register screen</span>
+<span id="L110"><span class="lineNum">     110</span>              :   /// Title for the login screen</span>
 <span id="L111"><span class="lineNum">     111</span>              :   ///</span>
 <span id="L112"><span class="lineNum">     112</span>              :   /// In en, this message translates to:</span>
-<span id="L113"><span class="lineNum">     113</span>              :   /// **'Register'**</span>
-<span id="L114"><span class="lineNum">     114</span>              :   String get registerTitle;</span>
+<span id="L113"><span class="lineNum">     113</span>              :   /// **'Login'**</span>
+<span id="L114"><span class="lineNum">     114</span>              :   String get loginTitle;</span>
 <span id="L115"><span class="lineNum">     115</span>              : </span>
-<span id="L116"><span class="lineNum">     116</span>              :   /// Label for email field</span>
+<span id="L116"><span class="lineNum">     116</span>              :   /// Title for the register screen</span>
 <span id="L117"><span class="lineNum">     117</span>              :   ///</span>
 <span id="L118"><span class="lineNum">     118</span>              :   /// In en, this message translates to:</span>
-<span id="L119"><span class="lineNum">     119</span>              :   /// **'Email'**</span>
-<span id="L120"><span class="lineNum">     120</span>              :   String get email;</span>
+<span id="L119"><span class="lineNum">     119</span>              :   /// **'Register'**</span>
+<span id="L120"><span class="lineNum">     120</span>              :   String get registerTitle;</span>
 <span id="L121"><span class="lineNum">     121</span>              : </span>
-<span id="L122"><span class="lineNum">     122</span>              :   /// Label for password field</span>
+<span id="L122"><span class="lineNum">     122</span>              :   /// Label for email field</span>
 <span id="L123"><span class="lineNum">     123</span>              :   ///</span>
 <span id="L124"><span class="lineNum">     124</span>              :   /// In en, this message translates to:</span>
-<span id="L125"><span class="lineNum">     125</span>              :   /// **'Password'**</span>
-<span id="L126"><span class="lineNum">     126</span>              :   String get password;</span>
+<span id="L125"><span class="lineNum">     125</span>              :   /// **'Email'**</span>
+<span id="L126"><span class="lineNum">     126</span>              :   String get email;</span>
 <span id="L127"><span class="lineNum">     127</span>              : </span>
-<span id="L128"><span class="lineNum">     128</span>              :   /// Label for confirm password field</span>
+<span id="L128"><span class="lineNum">     128</span>              :   /// Label for password field</span>
 <span id="L129"><span class="lineNum">     129</span>              :   ///</span>
 <span id="L130"><span class="lineNum">     130</span>              :   /// In en, this message translates to:</span>
-<span id="L131"><span class="lineNum">     131</span>              :   /// **'Confirm Password'**</span>
-<span id="L132"><span class="lineNum">     132</span>              :   String get confirmPassword;</span>
+<span id="L131"><span class="lineNum">     131</span>              :   /// **'Password'**</span>
+<span id="L132"><span class="lineNum">     132</span>              :   String get password;</span>
 <span id="L133"><span class="lineNum">     133</span>              : </span>
-<span id="L134"><span class="lineNum">     134</span>              :   /// Text for forgot password button</span>
+<span id="L134"><span class="lineNum">     134</span>              :   /// Label for confirm password field</span>
 <span id="L135"><span class="lineNum">     135</span>              :   ///</span>
 <span id="L136"><span class="lineNum">     136</span>              :   /// In en, this message translates to:</span>
-<span id="L137"><span class="lineNum">     137</span>              :   /// **'Forgot Password?'**</span>
-<span id="L138"><span class="lineNum">     138</span>              :   String get forgotPassword;</span>
+<span id="L137"><span class="lineNum">     137</span>              :   /// **'Confirm Password'**</span>
+<span id="L138"><span class="lineNum">     138</span>              :   String get confirmPassword;</span>
 <span id="L139"><span class="lineNum">     139</span>              : </span>
-<span id="L140"><span class="lineNum">     140</span>              :   /// Title for reset password screen</span>
+<span id="L140"><span class="lineNum">     140</span>              :   /// Text for login button</span>
 <span id="L141"><span class="lineNum">     141</span>              :   ///</span>
 <span id="L142"><span class="lineNum">     142</span>              :   /// In en, this message translates to:</span>
-<span id="L143"><span class="lineNum">     143</span>              :   /// **'Reset Password'**</span>
-<span id="L144"><span class="lineNum">     144</span>              :   String get resetPassword;</span>
+<span id="L143"><span class="lineNum">     143</span>              :   /// **'Login'**</span>
+<span id="L144"><span class="lineNum">     144</span>              :   String get loginButton;</span>
 <span id="L145"><span class="lineNum">     145</span>              : </span>
-<span id="L146"><span class="lineNum">     146</span>              :   /// Text for login button</span>
+<span id="L146"><span class="lineNum">     146</span>              :   /// Text for register button</span>
 <span id="L147"><span class="lineNum">     147</span>              :   ///</span>
 <span id="L148"><span class="lineNum">     148</span>              :   /// In en, this message translates to:</span>
-<span id="L149"><span class="lineNum">     149</span>              :   /// **'Login'**</span>
-<span id="L150"><span class="lineNum">     150</span>              :   String get loginButton;</span>
+<span id="L149"><span class="lineNum">     149</span>              :   /// **'Register'**</span>
+<span id="L150"><span class="lineNum">     150</span>              :   String get registerButton;</span>
 <span id="L151"><span class="lineNum">     151</span>              : </span>
-<span id="L152"><span class="lineNum">     152</span>              :   /// Text for register button</span>
+<span id="L152"><span class="lineNum">     152</span>              :   /// Text for users who don't have an account</span>
 <span id="L153"><span class="lineNum">     153</span>              :   ///</span>
 <span id="L154"><span class="lineNum">     154</span>              :   /// In en, this message translates to:</span>
-<span id="L155"><span class="lineNum">     155</span>              :   /// **'Register'**</span>
-<span id="L156"><span class="lineNum">     156</span>              :   String get registerButton;</span>
+<span id="L155"><span class="lineNum">     155</span>              :   /// **'Don\'t have an account?'**</span>
+<span id="L156"><span class="lineNum">     156</span>              :   String get dontHaveAccount;</span>
 <span id="L157"><span class="lineNum">     157</span>              : </span>
-<span id="L158"><span class="lineNum">     158</span>              :   /// Text for logout button</span>
+<span id="L158"><span class="lineNum">     158</span>              :   /// Text for users who already have an account</span>
 <span id="L159"><span class="lineNum">     159</span>              :   ///</span>
 <span id="L160"><span class="lineNum">     160</span>              :   /// In en, this message translates to:</span>
-<span id="L161"><span class="lineNum">     161</span>              :   /// **'Logout'**</span>
-<span id="L162"><span class="lineNum">     162</span>              :   String get logoutButton;</span>
+<span id="L161"><span class="lineNum">     161</span>              :   /// **'Already have an account?'**</span>
+<span id="L162"><span class="lineNum">     162</span>              :   String get alreadyHaveAccount;</span>
 <span id="L163"><span class="lineNum">     163</span>              : </span>
-<span id="L164"><span class="lineNum">     164</span>              :   /// Text for retry button</span>
+<span id="L164"><span class="lineNum">     164</span>              :   /// Error message for invalid email</span>
 <span id="L165"><span class="lineNum">     165</span>              :   ///</span>
 <span id="L166"><span class="lineNum">     166</span>              :   /// In en, this message translates to:</span>
-<span id="L167"><span class="lineNum">     167</span>              :   /// **'Retry'**</span>
-<span id="L168"><span class="lineNum">     168</span>              :   String get retryButton;</span>
+<span id="L167"><span class="lineNum">     167</span>              :   /// **'Please enter a valid email address'**</span>
+<span id="L168"><span class="lineNum">     168</span>              :   String get invalidEmail;</span>
 <span id="L169"><span class="lineNum">     169</span>              : </span>
-<span id="L170"><span class="lineNum">     170</span>              :   /// Text for users who don't have an account</span>
+<span id="L170"><span class="lineNum">     170</span>              :   /// Error message for empty email field</span>
 <span id="L171"><span class="lineNum">     171</span>              :   ///</span>
 <span id="L172"><span class="lineNum">     172</span>              :   /// In en, this message translates to:</span>
-<span id="L173"><span class="lineNum">     173</span>              :   /// **'Don\'t have an account?'**</span>
-<span id="L174"><span class="lineNum">     174</span>              :   String get dontHaveAccount;</span>
+<span id="L173"><span class="lineNum">     173</span>              :   /// **'Please enter your email address'**</span>
+<span id="L174"><span class="lineNum">     174</span>              :   String get emptyEmail;</span>
 <span id="L175"><span class="lineNum">     175</span>              : </span>
-<span id="L176"><span class="lineNum">     176</span>              :   /// Text for users who already have an account</span>
+<span id="L176"><span class="lineNum">     176</span>              :   /// Error message for short password</span>
 <span id="L177"><span class="lineNum">     177</span>              :   ///</span>
 <span id="L178"><span class="lineNum">     178</span>              :   /// In en, this message translates to:</span>
-<span id="L179"><span class="lineNum">     179</span>              :   /// **'Already have an account?'**</span>
-<span id="L180"><span class="lineNum">     180</span>              :   String get alreadyHaveAccount;</span>
+<span id="L179"><span class="lineNum">     179</span>              :   /// **'Password must be at least 6 characters'**</span>
+<span id="L180"><span class="lineNum">     180</span>              :   String get passwordTooShort;</span>
 <span id="L181"><span class="lineNum">     181</span>              : </span>
-<span id="L182"><span class="lineNum">     182</span>              :   /// Instructions for password reset</span>
+<span id="L182"><span class="lineNum">     182</span>              :   /// Error message when passwords don't match</span>
 <span id="L183"><span class="lineNum">     183</span>              :   ///</span>
 <span id="L184"><span class="lineNum">     184</span>              :   /// In en, this message translates to:</span>
-<span id="L185"><span class="lineNum">     185</span>              :   /// **'Enter your email and we\'ll send you instructions to reset your password.'**</span>
-<span id="L186"><span class="lineNum">     186</span>              :   String get resetPasswordInstructions;</span>
+<span id="L185"><span class="lineNum">     185</span>              :   /// **'Passwords don\'t match'**</span>
+<span id="L186"><span class="lineNum">     186</span>              :   String get passwordsDontMatch;</span>
 <span id="L187"><span class="lineNum">     187</span>              : </span>
-<span id="L188"><span class="lineNum">     188</span>              :   /// Button text to send password reset link</span>
+<span id="L188"><span class="lineNum">     188</span>              :   /// Title for the error page when a route is not found</span>
 <span id="L189"><span class="lineNum">     189</span>              :   ///</span>
 <span id="L190"><span class="lineNum">     190</span>              :   /// In en, this message translates to:</span>
-<span id="L191"><span class="lineNum">     191</span>              :   /// **'Send Reset Link'**</span>
-<span id="L192"><span class="lineNum">     192</span>              :   String get sendResetLink;</span>
+<span id="L191"><span class="lineNum">     191</span>              :   /// **'Page Not Found'**</span>
+<span id="L192"><span class="lineNum">     192</span>              :   String get errorPageTitle;</span>
 <span id="L193"><span class="lineNum">     193</span>              : </span>
-<span id="L194"><span class="lineNum">     194</span>              :   /// Message shown after reset link is sent</span>
+<span id="L194"><span class="lineNum">     194</span>              :   /// Message shown when a route is not found</span>
 <span id="L195"><span class="lineNum">     195</span>              :   ///</span>
 <span id="L196"><span class="lineNum">     196</span>              :   /// In en, this message translates to:</span>
-<span id="L197"><span class="lineNum">     197</span>              :   /// **'Password reset link sent to your email'**</span>
-<span id="L198"><span class="lineNum">     198</span>              :   String get resetLinkSent;</span>
+<span id="L197"><span class="lineNum">     197</span>              :   /// **'The page you\'re looking for doesn\'t exist'**</span>
+<span id="L198"><span class="lineNum">     198</span>              :   String get pageNotFoundMessage;</span>
 <span id="L199"><span class="lineNum">     199</span>              : </span>
-<span id="L200"><span class="lineNum">     200</span>              :   /// Error message for invalid email</span>
+<span id="L200"><span class="lineNum">     200</span>              :   /// Text for button to navigate back</span>
 <span id="L201"><span class="lineNum">     201</span>              :   ///</span>
 <span id="L202"><span class="lineNum">     202</span>              :   /// In en, this message translates to:</span>
-<span id="L203"><span class="lineNum">     203</span>              :   /// **'Please enter a valid email address'**</span>
-<span id="L204"><span class="lineNum">     204</span>              :   String get invalidEmail;</span>
+<span id="L203"><span class="lineNum">     203</span>              :   /// **'Go Back'**</span>
+<span id="L204"><span class="lineNum">     204</span>              :   String get goBack;</span>
 <span id="L205"><span class="lineNum">     205</span>              : </span>
-<span id="L206"><span class="lineNum">     206</span>              :   /// Error message for empty email field</span>
+<span id="L206"><span class="lineNum">     206</span>              :   /// Error message for invalid credentials</span>
 <span id="L207"><span class="lineNum">     207</span>              :   ///</span>
 <span id="L208"><span class="lineNum">     208</span>              :   /// In en, this message translates to:</span>
-<span id="L209"><span class="lineNum">     209</span>              :   /// **'Please enter your email address'**</span>
-<span id="L210"><span class="lineNum">     210</span>              :   String get emptyEmail;</span>
+<span id="L209"><span class="lineNum">     209</span>              :   /// **'Invalid email or password'**</span>
+<span id="L210"><span class="lineNum">     210</span>              :   String get invalidCredentials;</span>
 <span id="L211"><span class="lineNum">     211</span>              : </span>
-<span id="L212"><span class="lineNum">     212</span>              :   /// Error message for short password</span>
+<span id="L212"><span class="lineNum">     212</span>              :   /// Error message for email already in use</span>
 <span id="L213"><span class="lineNum">     213</span>              :   ///</span>
 <span id="L214"><span class="lineNum">     214</span>              :   /// In en, this message translates to:</span>
-<span id="L215"><span class="lineNum">     215</span>              :   /// **'Password must be at least 6 characters'**</span>
-<span id="L216"><span class="lineNum">     216</span>              :   String get passwordTooShort;</span>
+<span id="L215"><span class="lineNum">     215</span>              :   /// **'This email is already in use'**</span>
+<span id="L216"><span class="lineNum">     216</span>              :   String get emailAlreadyInUse;</span>
 <span id="L217"><span class="lineNum">     217</span>              : </span>
-<span id="L218"><span class="lineNum">     218</span>              :   /// Error message when passwords don't match</span>
+<span id="L218"><span class="lineNum">     218</span>              :   /// Error message for weak password</span>
 <span id="L219"><span class="lineNum">     219</span>              :   ///</span>
 <span id="L220"><span class="lineNum">     220</span>              :   /// In en, this message translates to:</span>
-<span id="L221"><span class="lineNum">     221</span>              :   /// **'Passwords don\'t match'**</span>
-<span id="L222"><span class="lineNum">     222</span>              :   String get passwordsDontMatch;</span>
+<span id="L221"><span class="lineNum">     221</span>              :   /// **'The password provided is too weak'**</span>
+<span id="L222"><span class="lineNum">     222</span>              :   String get weakPassword;</span>
 <span id="L223"><span class="lineNum">     223</span>              : </span>
-<span id="L224"><span class="lineNum">     224</span>              :   /// Error message for failed login</span>
+<span id="L224"><span class="lineNum">     224</span>              :   /// Error message for operation not allowed</span>
 <span id="L225"><span class="lineNum">     225</span>              :   ///</span>
 <span id="L226"><span class="lineNum">     226</span>              :   /// In en, this message translates to:</span>
-<span id="L227"><span class="lineNum">     227</span>              :   /// **'Login failed. Please check your credentials.'**</span>
-<span id="L228"><span class="lineNum">     228</span>              :   String get loginFailed;</span>
+<span id="L227"><span class="lineNum">     227</span>              :   /// **'This operation is not allowed'**</span>
+<span id="L228"><span class="lineNum">     228</span>              :   String get operationNotAllowed;</span>
 <span id="L229"><span class="lineNum">     229</span>              : </span>
-<span id="L230"><span class="lineNum">     230</span>              :   /// Error message for failed registration</span>
+<span id="L230"><span class="lineNum">     230</span>              :   /// Error message for requiring recent login</span>
 <span id="L231"><span class="lineNum">     231</span>              :   ///</span>
 <span id="L232"><span class="lineNum">     232</span>              :   /// In en, this message translates to:</span>
-<span id="L233"><span class="lineNum">     233</span>              :   /// **'Registration failed. Please try again.'**</span>
-<span id="L234"><span class="lineNum">     234</span>              :   String get registrationFailed;</span>
+<span id="L233"><span class="lineNum">     233</span>              :   /// **'Please log in again to continue'**</span>
+<span id="L234"><span class="lineNum">     234</span>              :   String get requiresRecentLogin;</span>
 <span id="L235"><span class="lineNum">     235</span>              : </span>
-<span id="L236"><span class="lineNum">     236</span>              :   /// Error message for failed password reset</span>
+<span id="L236"><span class="lineNum">     236</span>              :   /// Error message for generic authentication error</span>
 <span id="L237"><span class="lineNum">     237</span>              :   ///</span>
 <span id="L238"><span class="lineNum">     238</span>              :   /// In en, this message translates to:</span>
-<span id="L239"><span class="lineNum">     239</span>              :   /// **'Failed to send reset link. Please try again.'**</span>
-<span id="L240"><span class="lineNum">     240</span>              :   String get resetPasswordFailed;</span>
+<span id="L239"><span class="lineNum">     239</span>              :   /// **'An authentication error occurred'**</span>
+<span id="L240"><span class="lineNum">     240</span>              :   String get authenticationError;</span>
 <span id="L241"><span class="lineNum">     241</span>              : </span>
-<span id="L242"><span class="lineNum">     242</span>              :   /// Welcome message with user's email</span>
+<span id="L242"><span class="lineNum">     242</span>              :   /// Error message for permission denied</span>
 <span id="L243"><span class="lineNum">     243</span>              :   ///</span>
 <span id="L244"><span class="lineNum">     244</span>              :   /// In en, this message translates to:</span>
-<span id="L245"><span class="lineNum">     245</span>              :   /// **'Welcome, {email}!'**</span>
-<span id="L246"><span class="lineNum">     246</span>              :   String welcomeMessage(String email);</span>
+<span id="L245"><span class="lineNum">     245</span>              :   /// **'Permission denied'**</span>
+<span id="L246"><span class="lineNum">     246</span>              :   String get permissionDenied;</span>
 <span id="L247"><span class="lineNum">     247</span>              : </span>
-<span id="L248"><span class="lineNum">     248</span>              :   /// Title for profile screen</span>
+<span id="L248"><span class="lineNum">     248</span>              :   /// Error message for not found</span>
 <span id="L249"><span class="lineNum">     249</span>              :   ///</span>
 <span id="L250"><span class="lineNum">     250</span>              :   /// In en, this message translates to:</span>
-<span id="L251"><span class="lineNum">     251</span>              :   /// **'Profile'**</span>
-<span id="L252"><span class="lineNum">     252</span>              :   String get profileTitle;</span>
+<span id="L251"><span class="lineNum">     251</span>              :   /// **'The requested data was not found'**</span>
+<span id="L252"><span class="lineNum">     252</span>              :   String get notFound;</span>
 <span id="L253"><span class="lineNum">     253</span>              : </span>
-<span id="L254"><span class="lineNum">     254</span>              :   /// Title for home screen</span>
+<span id="L254"><span class="lineNum">     254</span>              :   /// Error message for database error</span>
 <span id="L255"><span class="lineNum">     255</span>              :   ///</span>
 <span id="L256"><span class="lineNum">     256</span>              :   /// In en, this message translates to:</span>
-<span id="L257"><span class="lineNum">     257</span>              :   /// **'Home'**</span>
-<span id="L258"><span class="lineNum">     258</span>              :   String get homeTitle;</span>
+<span id="L257"><span class="lineNum">     257</span>              :   /// **'A database error occurred'**</span>
+<span id="L258"><span class="lineNum">     258</span>              :   String get databaseError;</span>
 <span id="L259"><span class="lineNum">     259</span>              : </span>
-<span id="L260"><span class="lineNum">     260</span>              :   /// Title for settings screen</span>
+<span id="L260"><span class="lineNum">     260</span>              :   /// Error message for unexpected error</span>
 <span id="L261"><span class="lineNum">     261</span>              :   ///</span>
 <span id="L262"><span class="lineNum">     262</span>              :   /// In en, this message translates to:</span>
-<span id="L263"><span class="lineNum">     263</span>              :   /// **'Settings'**</span>
-<span id="L264"><span class="lineNum">     264</span>              :   String get settingsTitle;</span>
-<span id="L265"><span class="lineNum">     265</span>              : </span>
-<span id="L266"><span class="lineNum">     266</span>              :   /// Label for dark mode setting</span>
-<span id="L267"><span class="lineNum">     267</span>              :   ///</span>
-<span id="L268"><span class="lineNum">     268</span>              :   /// In en, this message translates to:</span>
-<span id="L269"><span class="lineNum">     269</span>              :   /// **'Dark Mode'**</span>
-<span id="L270"><span class="lineNum">     270</span>              :   String get darkMode;</span>
-<span id="L271"><span class="lineNum">     271</span>              : </span>
-<span id="L272"><span class="lineNum">     272</span>              :   /// Label for language setting</span>
-<span id="L273"><span class="lineNum">     273</span>              :   ///</span>
-<span id="L274"><span class="lineNum">     274</span>              :   /// In en, this message translates to:</span>
-<span id="L275"><span class="lineNum">     275</span>              :   /// **'Language'**</span>
-<span id="L276"><span class="lineNum">     276</span>              :   String get language;</span>
+<span id="L263"><span class="lineNum">     263</span>              :   /// **'An unexpected error occurred'**</span>
+<span id="L264"><span class="lineNum">     264</span>              :   String get unexpectedError;</span>
+<span id="L265"><span class="lineNum">     265</span>              : }</span>
+<span id="L266"><span class="lineNum">     266</span>              : </span>
+<span id="L267"><span class="lineNum">     267</span>              : class _AppLocalizationsDelegate extends LocalizationsDelegate&lt;AppLocalizations&gt; {</span>
+<span id="L268"><span class="lineNum">     268</span> <span class="tlaGNC">          65 :   const _AppLocalizationsDelegate();</span></span>
+<span id="L269"><span class="lineNum">     269</span>              : </span>
+<span id="L270"><span class="lineNum">     270</span> <span class="tlaGNC">          12 :   @override</span></span>
+<span id="L271"><span class="lineNum">     271</span>              :   Future&lt;AppLocalizations&gt; load(Locale locale) {</span>
+<span id="L272"><span class="lineNum">     272</span> <span class="tlaGNC">          24 :     return SynchronousFuture&lt;AppLocalizations&gt;(lookupAppLocalizations(locale));</span></span>
+<span id="L273"><span class="lineNum">     273</span>              :   }</span>
+<span id="L274"><span class="lineNum">     274</span>              : </span>
+<span id="L275"><span class="lineNum">     275</span> <span class="tlaGNC">          12 :   @override</span></span>
+<span id="L276"><span class="lineNum">     276</span> <span class="tlaGNC">          36 :   bool isSupported(Locale locale) =&gt; &lt;String&gt;['en', 'es'].contains(locale.languageCode);</span></span>
 <span id="L277"><span class="lineNum">     277</span>              : </span>
-<span id="L278"><span class="lineNum">     278</span>              :   /// Button text for Google sign-in</span>
-<span id="L279"><span class="lineNum">     279</span>              :   ///</span>
-<span id="L280"><span class="lineNum">     280</span>              :   /// In en, this message translates to:</span>
-<span id="L281"><span class="lineNum">     281</span>              :   /// **'Sign in with Google'**</span>
-<span id="L282"><span class="lineNum">     282</span>              :   String get signInWithGoogle;</span>
+<span id="L278"><span class="lineNum">     278</span> <span class="tlaUNC">           0 :   @override</span></span>
+<span id="L279"><span class="lineNum">     279</span>              :   bool shouldReload(_AppLocalizationsDelegate old) =&gt; false;</span>
+<span id="L280"><span class="lineNum">     280</span>              : }</span>
+<span id="L281"><span class="lineNum">     281</span>              : </span>
+<span id="L282"><span class="lineNum">     282</span> <span class="tlaGNC">          12 : AppLocalizations lookupAppLocalizations(Locale locale) {</span></span>
 <span id="L283"><span class="lineNum">     283</span>              : </span>
-<span id="L284"><span class="lineNum">     284</span>              :   /// Button text for Apple sign-in</span>
-<span id="L285"><span class="lineNum">     285</span>              :   ///</span>
-<span id="L286"><span class="lineNum">     286</span>              :   /// In en, this message translates to:</span>
-<span id="L287"><span class="lineNum">     287</span>              :   /// **'Sign in with Apple'**</span>
-<span id="L288"><span class="lineNum">     288</span>              :   String get signInWithApple;</span>
-<span id="L289"><span class="lineNum">     289</span>              : </span>
-<span id="L290"><span class="lineNum">     290</span>              :   /// Text for divider between options</span>
-<span id="L291"><span class="lineNum">     291</span>              :   ///</span>
-<span id="L292"><span class="lineNum">     292</span>              :   /// In en, this message translates to:</span>
-<span id="L293"><span class="lineNum">     293</span>              :   /// **'OR'**</span>
-<span id="L294"><span class="lineNum">     294</span>              :   String get or;</span>
-<span id="L295"><span class="lineNum">     295</span>              : </span>
-<span id="L296"><span class="lineNum">     296</span>              :   /// Button text for guest mode</span>
-<span id="L297"><span class="lineNum">     297</span>              :   ///</span>
-<span id="L298"><span class="lineNum">     298</span>              :   /// In en, this message translates to:</span>
-<span id="L299"><span class="lineNum">     299</span>              :   /// **'Continue as Guest'**</span>
-<span id="L300"><span class="lineNum">     300</span>              :   String get continueAsGuest;</span>
-<span id="L301"><span class="lineNum">     301</span>              : </span>
-<span id="L302"><span class="lineNum">     302</span>              :   /// Title for the error page when a route is not found</span>
-<span id="L303"><span class="lineNum">     303</span>              :   ///</span>
-<span id="L304"><span class="lineNum">     304</span>              :   /// In en, this message translates to:</span>
-<span id="L305"><span class="lineNum">     305</span>              :   /// **'Page Not Found'**</span>
-<span id="L306"><span class="lineNum">     306</span>              :   String get errorPageTitle;</span>
-<span id="L307"><span class="lineNum">     307</span>              : </span>
-<span id="L308"><span class="lineNum">     308</span>              :   /// Message shown when a route is not found</span>
-<span id="L309"><span class="lineNum">     309</span>              :   ///</span>
-<span id="L310"><span class="lineNum">     310</span>              :   /// In en, this message translates to:</span>
-<span id="L311"><span class="lineNum">     311</span>              :   /// **'The page you\'re looking for doesn\'t exist'**</span>
-<span id="L312"><span class="lineNum">     312</span>              :   String get pageNotFoundMessage;</span>
-<span id="L313"><span class="lineNum">     313</span>              : </span>
-<span id="L314"><span class="lineNum">     314</span>              :   /// Text for button to navigate back</span>
-<span id="L315"><span class="lineNum">     315</span>              :   ///</span>
-<span id="L316"><span class="lineNum">     316</span>              :   /// In en, this message translates to:</span>
-<span id="L317"><span class="lineNum">     317</span>              :   /// **'Go Back'**</span>
-<span id="L318"><span class="lineNum">     318</span>              :   String get goBack;</span>
-<span id="L319"><span class="lineNum">     319</span>              : }</span>
-<span id="L320"><span class="lineNum">     320</span>              : </span>
-<span id="L321"><span class="lineNum">     321</span>              : class _AppLocalizationsDelegate extends LocalizationsDelegate&lt;AppLocalizations&gt; {</span>
-<span id="L322"><span class="lineNum">     322</span> <span class="tlaGNC">          45 :   const _AppLocalizationsDelegate();</span></span>
-<span id="L323"><span class="lineNum">     323</span>              : </span>
-<span id="L324"><span class="lineNum">     324</span> <span class="tlaGNC">          14 :   @override</span></span>
-<span id="L325"><span class="lineNum">     325</span>              :   Future&lt;AppLocalizations&gt; load(Locale locale) {</span>
-<span id="L326"><span class="lineNum">     326</span> <span class="tlaGNC">          28 :     return SynchronousFuture&lt;AppLocalizations&gt;(lookupAppLocalizations(locale));</span></span>
-<span id="L327"><span class="lineNum">     327</span>              :   }</span>
-<span id="L328"><span class="lineNum">     328</span>              : </span>
-<span id="L329"><span class="lineNum">     329</span> <span class="tlaGNC">          14 :   @override</span></span>
-<span id="L330"><span class="lineNum">     330</span> <span class="tlaGNC">          42 :   bool isSupported(Locale locale) =&gt; &lt;String&gt;['en', 'es'].contains(locale.languageCode);</span></span>
-<span id="L331"><span class="lineNum">     331</span>              : </span>
-<span id="L332"><span class="lineNum">     332</span> <span class="tlaUNC">           0 :   @override</span></span>
-<span id="L333"><span class="lineNum">     333</span>              :   bool shouldReload(_AppLocalizationsDelegate old) =&gt; false;</span>
-<span id="L334"><span class="lineNum">     334</span>              : }</span>
-<span id="L335"><span class="lineNum">     335</span>              : </span>
-<span id="L336"><span class="lineNum">     336</span> <span class="tlaGNC">          14 : AppLocalizations lookupAppLocalizations(Locale locale) {</span></span>
-<span id="L337"><span class="lineNum">     337</span>              : </span>
-<span id="L338"><span class="lineNum">     338</span>              : </span>
-<span id="L339"><span class="lineNum">     339</span>              :   // Lookup logic when only language code is specified.</span>
-<span id="L340"><span class="lineNum">     340</span> <span class="tlaGNC">          14 :   switch (locale.languageCode) {</span></span>
-<span id="L341"><span class="lineNum">     341</span> <span class="tlaGNC">          28 :     case 'en': return AppLocalizationsEn();</span></span>
-<span id="L342"><span class="lineNum">     342</span> <span class="tlaUNC">           0 :     case 'es': return AppLocalizationsEs();</span></span>
-<span id="L343"><span class="lineNum">     343</span>              :   }</span>
-<span id="L344"><span class="lineNum">     344</span>              : </span>
-<span id="L345"><span class="lineNum">     345</span> <span class="tlaUNC">           0 :   throw FlutterError(</span></span>
-<span id="L346"><span class="lineNum">     346</span>              :     'AppLocalizations.delegate failed to load unsupported locale &quot;$locale&quot;. This is likely '</span>
-<span id="L347"><span class="lineNum">     347</span>              :     'an issue with the localizations generation tool. Please file an issue '</span>
-<span id="L348"><span class="lineNum">     348</span>              :     'on GitHub with a reproducible sample app and the gen-l10n configuration '</span>
-<span id="L349"><span class="lineNum">     349</span>              :     'that was used.'</span>
-<span id="L350"><span class="lineNum">     350</span>              :   );</span>
-<span id="L351"><span class="lineNum">     351</span>              : }</span>
+<span id="L284"><span class="lineNum">     284</span>              : </span>
+<span id="L285"><span class="lineNum">     285</span>              :   // Lookup logic when only language code is specified.</span>
+<span id="L286"><span class="lineNum">     286</span> <span class="tlaGNC">          12 :   switch (locale.languageCode) {</span></span>
+<span id="L287"><span class="lineNum">     287</span> <span class="tlaGNC">          24 :     case 'en': return AppLocalizationsEn();</span></span>
+<span id="L288"><span class="lineNum">     288</span> <span class="tlaUNC">           0 :     case 'es': return AppLocalizationsEs();</span></span>
+<span id="L289"><span class="lineNum">     289</span>              :   }</span>
+<span id="L290"><span class="lineNum">     290</span>              : </span>
+<span id="L291"><span class="lineNum">     291</span> <span class="tlaUNC">           0 :   throw FlutterError(</span></span>
+<span id="L292"><span class="lineNum">     292</span>              :     'AppLocalizations.delegate failed to load unsupported locale &quot;$locale&quot;. This is likely '</span>
+<span id="L293"><span class="lineNum">     293</span>              :     'an issue with the localizations generation tool. Please file an issue '</span>
+<span id="L294"><span class="lineNum">     294</span>              :     'on GitHub with a reproducible sample app and the gen-l10n configuration '</span>
+<span id="L295"><span class="lineNum">     295</span>              :     'that was used.'</span>
+<span id="L296"><span class="lineNum">     296</span>              :   );</span>
+<span id="L297"><span class="lineNum">     297</span>              : }</span>
         </pre>
               </td>
             </tr>
